@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DetectiveApplication">
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".RegistrationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

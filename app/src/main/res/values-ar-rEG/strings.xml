@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DetectiveApplication</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">قم بتسجيل الدخول</string>
+    <string name="username">الإيميل الخاص بك</string>
+    <string name="password">الرقم السري</string>
+    <string name="forget_password">نسيت كلمة السر ؟</string>
+    <string name="sign_in_button">سجل دخول</string>
+    <string name="Dont_have_an_account">ليس لديك حساب ؟ قم بإنشاء حساب</string>
+    <string name="or_sign_in_with">او سجل بواسطة</string>
+    <string name="sign_in_with_google">تسجيل دخول بواسطة جوجل</string>
+    <string name="sign_in_with_facebook">تسجيل دخول بواسطة فيسبوك</string>
+</resources>
