@@ -114,7 +114,7 @@
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/forget_password"
             android:textColor="@color/purple_200"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/et_password"
             app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
@@ -129,21 +129,21 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/sign_in_button"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_Dont_have_an_account"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:gravity="center"
             android:text="@string/Dont_have_an_account"
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_button" />
@@ -182,10 +182,10 @@
             android:fontFamily="@font/din_next_arabic_regular"
             android:text="@string/or_sign_in_with"
             android:textColor="@color/light_grey"
-            android:textSize="17dp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_Dont_have_an_account" />
 
 
         <Button
@@ -201,7 +201,7 @@
             android:fontFamily="@font/din_next_arabic_regular"
             android:text="@string/sign_in_with_google"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -219,7 +219,7 @@
             android:drawableRight="@drawable/ic_facebook"
             android:fontFamily="@font/din_next_arabic_regular"
             android:text="@string/sign_in_with_facebook"
-            android:textSize="18dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_sign_in_with_google" />
