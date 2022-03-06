@@ -1,4 +1,4 @@
-package com.example.detectiveapplication
+package com.example.detectiveapplication.ui.auth
 
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,6 @@ import okhttp3.internal.Util
 import java.util.*
 
 class RegistrationActivity : AppCompatActivity() {
-    lateinit var navHostFragment: NavHostFragment
     private lateinit var binding : ActivityRegistrationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,6 @@ class RegistrationActivity : AppCompatActivity() {
         setLocate("ar")
         supportActionBar?.hide()
 
-//        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
 
 
     }

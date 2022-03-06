@@ -11,4 +11,11 @@
     <string name="or_sign_in_with">او سجل بواسطة</string>
     <string name="sign_in_with_google">تسجيل دخول بواسطة جوجل</string>
     <string name="sign_in_with_facebook">تسجيل دخول بواسطة فيسبوك</string>
+    <string name="sign_up_now">إنشاء حساب</string>
+    <string name="first_name">الاسم الاول</string>
+    <string name="second_name">اسم العائلة</string>
+    <string name="email">الإيميل الخاص بك</string>
+    <string name="rewrite_password">اعد كتابة الرقم السري</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="by_clicking_create_new_account">بالنقر فوق إنشاء حساب جديد ، فإنك توافق على الشروط والأحكام التالية دون تحفظ</string>
 </resources>
