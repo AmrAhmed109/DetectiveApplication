@@ -13,10 +13,36 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.detectiveapplication.ui.auth.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.detectiveapplication.ui.auth.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_emailCheckFragment"
+            app:destination="@id/emailCheckFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailCheckFragment"
+        android:name="com.example.detectiveapplication.ui.auth.EmailCheckFragment"
+        android:label="fragment_email_check"
+        tools:layout="@layout/fragment_email_check" >
+        <action
+            android:id="@+id/action_emailCheckFragment_to_createNewPasswordFragment"
+            app:destination="@id/createNewPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewPasswordFragment"
+        android:name="com.example.detectiveapplication.ui.auth.CreateNewPasswordFragment"
+        android:label="fragment_create_new_password"
+        tools:layout="@layout/fragment_create_new_password" />
 </navigation>

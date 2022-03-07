@@ -6,31 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.detectiveapplication.R
-import com.example.detectiveapplication.databinding.FragmentLoginBinding
+import com.example.detectiveapplication.databinding.FragmentCreateNewPasswordBinding
+import com.example.detectiveapplication.databinding.FragmentRegistrationBinding
 
 
-class LoginFragment : Fragment() {
+class CreateNewPasswordFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+
+    private var _binding: FragmentCreateNewPasswordBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentCreateNewPasswordBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDontHaveAnAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
-        }
-
-        binding.tvForgetPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
         }
 
     }
@@ -39,5 +36,6 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

@@ -18,4 +18,11 @@
     <string name="rewrite_password">Rewrite Password</string>
     <string name="sign_up">sign up</string>
     <string name="by_clicking_create_new_account">By clicking Create new account, you agree to the following terms and conditions without reservation</string>
+    <string name="forgot_the_password">forgot the password</string>
+    <string name="lorem">lorem</string>
+    <string name="check_email">check email</string>
+    <string name="check_code">check code</string>
+    <string name="add_check_code">add check code</string>
+    <string name="create_new_password">create new Password</string>
+    <string name="change_password">change password</string>
 </resources>

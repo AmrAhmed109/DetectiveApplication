@@ -18,4 +18,11 @@
     <string name="rewrite_password">اعد كتابة الرقم السري</string>
     <string name="sign_up">إنشاء حساب</string>
     <string name="by_clicking_create_new_account">بالنقر فوق إنشاء حساب جديد ، فإنك توافق على الشروط والأحكام التالية دون تحفظ</string>
+    <string name="forgot_the_password">نسيت كلمة المرور</string>
+    <string name="lorem">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. </string>
+    <string name="check_email">تحقق من الايميل</string>
+    <string name="check_code">تحقق من الرمز</string>
+    <string name="add_check_code">ادخل رمز التحقق</string>
+    <string name="create_new_password">إنشاء كلمة سر جديدة</string>
+    <string name="change_password">تغيير كلمة السر</string>
 </resources>

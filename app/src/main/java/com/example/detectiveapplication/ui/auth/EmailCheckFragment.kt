@@ -7,30 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
-import com.example.detectiveapplication.databinding.FragmentLoginBinding
+import com.example.detectiveapplication.databinding.FragmentEmailCheckBinding
+import com.example.detectiveapplication.databinding.FragmentForgetPasswordBinding
 
+class EmailCheckFragment : Fragment() {
 
-class LoginFragment : Fragment() {
-
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentEmailCheckBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentEmailCheckBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDontHaveAnAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        binding.tvForgetPassword.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+        binding.btnEmailCheckCode.setOnClickListener {
+            findNavController().navigate(R.id.action_emailCheckFragment_to_createNewPasswordFragment)
         }
 
     }
@@ -39,5 +39,6 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }
