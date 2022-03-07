@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/back" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etRewriteEmailInputLayout"
+        android:id="@+id/etCheckCodeInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         tools:targetApi="o">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRewriteEmail"
+            android:id="@+id/etCheckCode"
             android:layout_width="match_parent"
             android:layout_height="63dp"
             android:layout_weight="1"
@@ -100,6 +100,6 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRewriteEmailInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/etCheckCodeInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
