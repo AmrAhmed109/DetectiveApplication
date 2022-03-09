@@ -25,4 +25,9 @@
     <string name="add_check_code">add check code</string>
     <string name="create_new_password">create new Password</string>
     <string name="change_password">change password</string>
+    <string name="home">home</string>
+    <string name="following">following</string>
+    <string name="search">search</string>
+    <string name="cases">cases</string>
+    <string name="setting">setting</string>
 </resources>

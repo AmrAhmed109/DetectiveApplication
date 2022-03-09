@@ -19,8 +19,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etSecondNameInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:autofillHints="name"
             android:focusedByDefault="true"
@@ -34,6 +35,7 @@
             app:boxStrokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/etFirstNameInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etFirstNameInputLayout"
             app:layout_constraintTop_toTopOf="@+id/etFirstNameInputLayout"
             tools:targetApi="o">
 
@@ -43,9 +45,9 @@
                 android:layout_height="63dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/din_next_arabic_medium"
-                android:textAlignment="textEnd"
                 android:inputType="textPersonName"
                 android:maxLines="1"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -55,10 +57,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etFirstNameInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:autofillHints="emailAddress"
             android:focusedByDefault="true"
             android:hint="@string/first_name"
@@ -69,6 +72,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeWidth="0dp"
+            app:layout_constraintEnd_toStartOf="@id/etSecondNameInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:targetApi="o">
@@ -79,9 +83,9 @@
                 android:layout_height="63dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/din_next_arabic_medium"
-                android:textAlignment="textEnd"
                 android:inputType="textPersonName"
                 android:maxLines="1"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 

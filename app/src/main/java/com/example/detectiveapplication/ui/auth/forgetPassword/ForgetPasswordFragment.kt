@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.auth
+package com.example.detectiveapplication.ui.auth.forgetPassword
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,20 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.detectiveapplication.databinding.FragmentCreateNewPasswordBinding
+import com.example.detectiveapplication.R
+import com.example.detectiveapplication.databinding.FragmentForgetPasswordBinding
 import com.example.detectiveapplication.databinding.FragmentRegistrationBinding
 
 
-class CreateNewPasswordFragment : Fragment() {
+class ForgetPasswordFragment : Fragment() {
 
-
-    private var _binding: FragmentCreateNewPasswordBinding? = null
+    private var _binding: FragmentForgetPasswordBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCreateNewPasswordBinding.inflate(inflater,container,false)
+        _binding = FragmentForgetPasswordBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -30,12 +30,16 @@ class CreateNewPasswordFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.btnEmailCheck.setOnClickListener {
+            findNavController().navigate(R.id.action_forgetPasswordFragment_to_emailCheckFragment)
+        }
+
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

@@ -25,4 +25,9 @@
     <string name="add_check_code">ادخل رمز التحقق</string>
     <string name="create_new_password">إنشاء كلمة سر جديدة</string>
     <string name="change_password">تغيير كلمة السر</string>
+    <string name="home">رئيسية</string>
+    <string name="following">متابعون</string>
+    <string name="search">بحث</string>
+    <string name="cases">قضايا</string>
+    <string name="setting">إعدادات</string>
 </resources>
