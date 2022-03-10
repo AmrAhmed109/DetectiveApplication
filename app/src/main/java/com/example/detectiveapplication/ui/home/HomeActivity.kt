@@ -8,7 +8,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.ActivityMainBinding
-import com.example.detectiveapplication.databinding.ActivityRegistrationBinding
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,9 +25,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-//        appBarConfiguration = AppBarConfiguration(listOf(
-//
-//        ))
+        appBarConfiguration = AppBarConfiguration(setOf(
+        R.id.homeFragment
+        )
+        )
         setupActionBarWithNavController(navController,appBarConfiguration)
 
 

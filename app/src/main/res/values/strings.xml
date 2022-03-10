@@ -30,4 +30,5 @@
     <string name="search">search</string>
     <string name="cases">cases</string>
     <string name="setting">setting</string>
+    <string name="search_for_someone">search for someone</string>
 </resources>

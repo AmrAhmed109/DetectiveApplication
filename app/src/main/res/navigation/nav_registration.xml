@@ -19,9 +19,7 @@
         <action
             android:id="@+id/action_loginFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
-        <action
-            android:id="@+id/action_loginFragment_to_homeActivity2"
-            app:destination="@id/homeActivity" />
+
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -31,9 +29,7 @@
         <action
             android:id="@+id/action_registrationFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
-        <action
-            android:id="@+id/action_registrationFragment_to_homeActivity2"
-            app:destination="@id/homeActivity" />
+
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"

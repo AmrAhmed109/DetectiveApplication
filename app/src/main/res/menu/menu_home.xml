@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/sffsd"
+        android:id="@+id/homeFragment"
         android:title="@string/home"
         android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/sffssfdfd"
         android:title="@string/following"
-        android:icon="@drawable/ic_cases"
+        android:icon="@drawable/ic_follower"
         />
 
     <item
         android:id="@+id/sffsdsfd"
         android:title="@string/search"
-        android:icon="@drawable/ic_search"/>
+        android:icon="@drawable/ic_face_id"/>
 
 
     <item

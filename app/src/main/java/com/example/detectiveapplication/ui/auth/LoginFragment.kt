@@ -33,6 +33,10 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
         }
 
+        binding.btnSignInButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+        }
+
     }
 
     override fun onDestroy() {

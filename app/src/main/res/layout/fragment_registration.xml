@@ -47,7 +47,7 @@
                 android:fontFamily="@font/din_next_arabic_medium"
                 android:inputType="textPersonName"
                 android:maxLines="1"
-                android:textAlignment="textEnd"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -85,7 +85,7 @@
                 android:fontFamily="@font/din_next_arabic_medium"
                 android:inputType="textPersonName"
                 android:maxLines="1"
-                android:textAlignment="textEnd"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -122,7 +122,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/din_next_arabic_medium"
                 android:inputType="textEmailAddress"
-                android:textAlignment="textEnd"
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -161,7 +161,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/din_next_arabic_medium"
                 android:inputType="textPassword"
-
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -201,7 +201,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/din_next_arabic_medium"
                 android:inputType="textPassword"
-                android:textAlignment="textEnd"
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
