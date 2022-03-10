@@ -10,4 +10,9 @@
         android:name="com.example.detectiveapplication.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/followingFragment"
+        android:name="com.example.detectiveapplication.ui.home.FollowingFragment"
+        android:label="fragment_following"
+        tools:layout="@layout/fragment_following" />
 </navigation>

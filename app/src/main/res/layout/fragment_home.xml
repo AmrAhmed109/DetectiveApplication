@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
@@ -187,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="1dp"
             android:fontFamily="@font/din_next_arabic_regular"
             android:text="@string/search_for_someone"
             android:textColor="@color/dark_grey"

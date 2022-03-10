@@ -26,7 +26,8 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-        R.id.homeFragment
+        R.id.homeFragment,
+        R.id.followingFragment
         )
         )
         setupActionBarWithNavController(navController,appBarConfiguration)

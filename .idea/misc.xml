@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/chip_custom_color.xml" value="0.22608695652173913" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_custom_cases.xml" value="0.22608695652173913" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_custom_home.xml" value="0.22608695652173913" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_custom_profile.xml" value="0.22608695652173913" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_follower_selected.xml" value="0.12905405405405404" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_following_selected.xml" value="0.12905405405405404" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_group_8172__1_.xml" value="0.22837837837837838" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_home.xml" value="0.22608695652173913" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_search.xml" value="0.22608695652173913" />
@@ -11,6 +16,7 @@
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/activity_registration.xml" value="0.23854166666666668" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_create_new_password.xml" value="0.2179054054054054" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_email_check.xml" value="0.2179054054054054" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_following.xml" value="0.2157190635451505" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_forget_password.xml" value="0.2157190635451505" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_login.xml" value="0.25" />
