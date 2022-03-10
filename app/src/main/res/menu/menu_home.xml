@@ -13,19 +13,19 @@
         />
 
     <item
-        android:id="@+id/sffsdsfd"
+        android:id="@+id/searchFragment"
         android:title="@string/search"
         android:icon="@drawable/ic_face_id"/>
 
 
     <item
-        android:id="@+id/sffsdfsd"
+        android:id="@+id/casesFragment"
         android:title="@string/cases"
         android:icon="@drawable/ic_custom_cases"/>
 
 
     <item
-        android:id="@+id/sfdfgfsd"
+        android:id="@+id/settingFragment"
         android:title="@string/setting"
         android:icon="@drawable/ic_custom_profile"/>
 

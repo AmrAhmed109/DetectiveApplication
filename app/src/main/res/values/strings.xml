@@ -31,4 +31,8 @@
     <string name="cases">cases</string>
     <string name="setting">setting</string>
     <string name="search_for_someone">search for someone</string>
+    <string name="lost_someone">Lost Someone</string>
+    <string name="found_someone">Found Someone</string>
+    <string name="creat_case">creat case</string>
+    <string name="create_case">create case</string>
 </resources>

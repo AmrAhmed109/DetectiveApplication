@@ -27,12 +27,12 @@ class HomeActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(setOf(
         R.id.homeFragment,
-        R.id.followingFragment
+        R.id.followingFragment,
+        R.id.casesFragment
         )
         )
+
         setupActionBarWithNavController(navController,appBarConfiguration)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
