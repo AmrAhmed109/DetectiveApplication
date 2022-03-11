@@ -32,8 +32,8 @@
         android:id="@+id/cv_missing_child_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
         android:layout_marginTop="8dp"
+        android:textAlignment="viewStart"
         app:cardCornerRadius="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -110,7 +110,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-
             android:fontFamily="@font/din_next_arabic_medium"
             android:textAlignment="viewStart"
             android:textColor="@color/purple_200"
@@ -139,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-
             android:fontFamily="@font/din_next_arabic_medium"
             android:textAlignment="viewStart"
             android:textColor="@color/purple_200"
@@ -168,6 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+
             android:fontFamily="@font/din_next_arabic_medium"
             android:textAlignment="viewStart"
             android:textColor="@color/purple_200"
@@ -195,4 +194,66 @@
         app:layout_constraintTop_toTopOf="@+id/cardView4"
         tools:text="20 / 5 / 2022" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_missing_child_picture">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView67"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/ic_round_shape"
+            android:backgroundTint="@color/purple_200"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name_missing_child"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_missing_child"
+            app:strokeColor="#E4E4EA">
+
+            <TextView
+                android:id="@+id/tv_statue_missing_childdddc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/din_next_arabic_medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="8dp"
+                android:text="@string/found" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView697"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_round_shape"
+            android:backgroundTint="@color/red"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name_missing_child"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name_missing_child"
+            app:strokeColor="#E4E4EA">
+
+            <TextView
+                android:id="@+id/tv_statue_missing_c9hilddddc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/din_next_arabic_medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="8dp"
+                android:text="@string/delete" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

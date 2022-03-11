@@ -19,6 +19,7 @@ class CasesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCasesBinding.inflate(inflater,container,false)
+
         return binding.root
     }
 
@@ -30,4 +31,3 @@ class CasesFragment : Fragment() {
 
 }
 
-//ذا جلوكال ستاند

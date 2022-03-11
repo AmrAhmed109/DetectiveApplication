@@ -35,4 +35,12 @@
     <string name="found_someone">Found Someone</string>
     <string name="creat_case">creat case</string>
     <string name="create_case">create case</string>
+    <string name="details">Details</string>
+    <string name="do_you_have_any_information_about_him">Do you have any information about him ?</string>
+    <string name="you_can_call_his_parent_and_help_them">you can call his parent and help them</string>
+    <string name="call">call</string>
+    <string name="possible_details">possible details</string>
+    <string name="wating_cases">wating cases</string>
+    <string name="found">Found</string>
+    <string name="delete">delete</string>
 </resources>

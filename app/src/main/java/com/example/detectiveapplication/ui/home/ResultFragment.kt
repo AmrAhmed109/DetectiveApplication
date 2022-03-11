@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentDetailsBinding
-import com.example.detectiveapplication.databinding.FragmentFollowingBinding
 
 
-class DetailsFragment : Fragment() {
+class ResultFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -27,10 +26,8 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

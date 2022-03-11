@@ -25,4 +25,14 @@
         android:name="com.example.detectiveapplication.ui.home.CasesFragment"
         android:label="fragment_cases"
         tools:layout="@layout/fragment_cases" />
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.detectiveapplication.ui.home.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/watingCasesFragment"
+        android:name="com.example.detectiveapplication.ui.home.WatingCasesFragment"
+        android:label="fragment_wating_cases"
+        tools:layout="@layout/fragment_wating_cases" />
 </navigation>
