@@ -43,4 +43,16 @@
     <string name="wating_cases">wating cases</string>
     <string name="found">Found</string>
     <string name="delete">delete</string>
+    <string name="add_picture_for_birthdate">add picture for birthdate</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="description">Description</string>
+    <string name="parent_address">Parent Address</string>
+    <string name="parent_name">Parent Name</string>
+    <string name="parent_phone">Parent Phone</string>
+    <string name="parent_id">Parent ID</string>
+    <string name="parent_details">Parent Details</string>
+    <string name="name">Name</string>
+    <string name="your_details">Your Details</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

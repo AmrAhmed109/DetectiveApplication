@@ -43,4 +43,16 @@
     <string name="wating_cases">قضايا قيد الانتظار</string>
     <string name="found">تم العثور علية</string>
     <string name="delete">حذف</string>
+    <string name="add_picture_for_birthdate">اضف صورة لشهادة الميلاد</string>
+    <string name="birth_date">تاريخ الميلاد</string>
+    <string name="description">ملاحظات</string>
+    <string name="parent_address">العنوان</string>
+    <string name="parent_name">الاسم</string>
+    <string name="parent_phone">رقم الهاتف</string>
+    <string name="parent_id">الرقم القومي</string>
+    <string name="parent_details">بيانات ولي الامر</string>
+    <string name="name">الاسم</string>
+    <string name="your_details">بياناتك</string>
+    <string name="edit_profile">تعديل بيانات الحساب</string>
+    <string name="save_changes">حفظ التعديلات</string>
 </resources>

@@ -2,6 +2,10 @@ package com.example.detectiveapplication.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -9,7 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.ActivityMainBinding
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var navHostFragment : NavHostFragment
@@ -32,11 +36,27 @@ class HomeActivity : AppCompatActivity() {
         )
         )
 
+        navController.addOnDestinationChangedListener(this)
         setupActionBarWithNavController(navController,appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navHostFragment.navController.navigateUp()||super.onSupportNavigateUp()
     }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        destination?.let {
+            when (destination.id) {
+                R.id.searchFragment2 -> { binding.bottomNavigationView.visibility = View.GONE }
+                else -> { binding.bottomNavigationView.visibility = View.VISIBLE }
+            }
+        }
+
+    }
+
 
 }

@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.detectiveapplication.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment2"
+            app:destination="@id/searchFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/followingFragment"
         android:name="com.example.detectiveapplication.ui.home.FollowingFragment"
@@ -35,4 +39,24 @@
         android:name="com.example.detectiveapplication.ui.home.WatingCasesFragment"
         android:label="fragment_wating_cases"
         tools:layout="@layout/fragment_wating_cases" />
+    <fragment
+        android:id="@+id/createParentCaseFragment"
+        android:name="com.example.detectiveapplication.ui.home.CreateParentCaseFragment"
+        android:label="fragment_create_parent_case"
+        tools:layout="@layout/fragment_create_parent_case" />
+    <fragment
+        android:id="@+id/createStrangerCaseFragment"
+        android:name="com.example.detectiveapplication.ui.home.CreateStrangerCaseFragment"
+        android:label="fragment_create_stranger_case"
+        tools:layout="@layout/fragment_create_stranger_case" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.detectiveapplication.ui.home.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.detectiveapplication.ui.home.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

@@ -45,6 +45,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="center"
+            android:rotation="180"
             android:src="@drawable/ic_white_back" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -57,7 +58,7 @@
         android:elevation="10dp"
         android:fontFamily="@font/din_next_arabic_medium"
         android:text="@string/possible_details"
-        android:textAlignment="viewEnd"
+        android:textAlignment="viewStart"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/back"
