@@ -55,4 +55,8 @@
     <string name="your_details">بياناتك</string>
     <string name="edit_profile">تعديل بيانات الحساب</string>
     <string name="save_changes">حفظ التعديلات</string>
+    <string name="settings">الاعدادات</string>
+    <string name="edit_profile_data">تعديل بيانات الحساب</string>
+    <string name="rate_the_app">تقييم التطبيق</string>
+    <string name="log_out">تسجيل خروج</string>
 </resources>
