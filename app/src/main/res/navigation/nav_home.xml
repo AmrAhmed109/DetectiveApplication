@@ -28,7 +28,14 @@
         android:id="@+id/casesFragment"
         android:name="com.example.detectiveapplication.ui.home.CasesFragment"
         android:label="fragment_cases"
-        tools:layout="@layout/fragment_cases" />
+        tools:layout="@layout/fragment_cases" >
+        <action
+            android:id="@+id/action_casesFragment_to_createParentCaseFragment"
+            app:destination="@id/createParentCaseFragment" />
+        <action
+            android:id="@+id/action_casesFragment_to_createStrangerCaseFragment"
+            app:destination="@id/createStrangerCaseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.detectiveapplication.ui.home.ResultFragment"
@@ -38,30 +45,67 @@
         android:id="@+id/watingCasesFragment"
         android:name="com.example.detectiveapplication.ui.home.WatingCasesFragment"
         android:label="fragment_wating_cases"
-        tools:layout="@layout/fragment_wating_cases" />
+        tools:layout="@layout/fragment_wating_cases" >
+        <action
+            android:id="@+id/action_watingCasesFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:popUpTo="@id/watingCasesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/createParentCaseFragment"
         android:name="com.example.detectiveapplication.ui.home.CreateParentCaseFragment"
         android:label="fragment_create_parent_case"
-        tools:layout="@layout/fragment_create_parent_case" />
+        tools:layout="@layout/fragment_create_parent_case" >
+        <action
+            android:id="@+id/action_createParentCaseFragment_to_casesFragment"
+            app:destination="@id/casesFragment"
+            app:popUpTo="@id/createParentCaseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/createStrangerCaseFragment"
         android:name="com.example.detectiveapplication.ui.home.CreateStrangerCaseFragment"
         android:label="fragment_create_stranger_case"
-        tools:layout="@layout/fragment_create_stranger_case" />
+        tools:layout="@layout/fragment_create_stranger_case" >
+        <action
+            android:id="@+id/action_createStrangerCaseFragment_to_casesFragment"
+            app:destination="@id/casesFragment"
+            app:popUpTo="@id/createStrangerCaseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.detectiveapplication.ui.home.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:popUpTo="@id/editProfileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.detectiveapplication.ui.home.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.detectiveapplication.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_watingCasesFragment"
+            app:destination="@id/watingCasesFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
 </navigation>

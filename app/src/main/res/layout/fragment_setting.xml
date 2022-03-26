@@ -14,6 +14,7 @@
         android:layout_marginTop="-16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="-16dp"
+        app:cardCornerRadius="8dp"
         android:backgroundTint="@color/purple_200"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_email"
@@ -76,7 +77,6 @@
         tools:text="amro.ahmed109@gmail.com" />
 
 
-
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="0dp"
@@ -113,9 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="1dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/edit_profile_data"
@@ -137,6 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/lighter_grey"
         android:elevation="1dp"
@@ -150,13 +151,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="1dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/wating_cases"
             android:textAlignment="viewStart"
+            app:cardCornerRadius="8dp"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -178,6 +180,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/lighter_grey"
         android:elevation="1dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_wating_cases">
@@ -188,9 +191,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="1dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/rate_the_app"
@@ -215,6 +218,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/lighter_grey"
         android:elevation="1dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -225,9 +229,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:elevation="1dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:text="@string/log_out"
@@ -242,10 +246,6 @@
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_arrow" />
     </com.google.android.material.card.MaterialCardView>
-
-
-
-
 
 
     <com.google.android.material.card.MaterialCardView

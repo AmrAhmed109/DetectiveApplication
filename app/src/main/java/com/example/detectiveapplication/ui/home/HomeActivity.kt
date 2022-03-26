@@ -51,7 +51,9 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     ) {
         destination?.let {
             when (destination.id) {
-                R.id.searchFragment2 -> { binding.bottomNavigationView.visibility = View.GONE }
+                R.id.searchFragment -> { binding.bottomNavigationView.visibility = View.GONE }
+                R.id.createStrangerCaseFragment -> { binding.bottomNavigationView.visibility = View.GONE }
+                R.id.createParentCaseFragment -> { binding.bottomNavigationView.visibility = View.GONE }
                 else -> { binding.bottomNavigationView.visibility = View.VISIBLE }
             }
         }
