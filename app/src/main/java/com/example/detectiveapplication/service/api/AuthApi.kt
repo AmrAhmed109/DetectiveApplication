@@ -1,6 +1,6 @@
-package com.example.detectiveapplication.api
+package com.example.detectiveapplication.service.api
 
-import com.example.detectiveapplication.models.auth.user_login_response.UserLoginResponse
+import com.example.detectiveapplication.dto.response.UserLoginResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*

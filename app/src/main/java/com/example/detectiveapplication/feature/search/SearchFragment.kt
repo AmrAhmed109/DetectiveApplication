@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.home
+package com.example.detectiveapplication.feature.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentCreateParentCaseBinding
-import com.example.detectiveapplication.databinding.FragmentCreateStrangerCaseBinding
+import com.example.detectiveapplication.databinding.FragmentSearchBinding
 
+class SearchFragment : Fragment() {
 
-class CreateStrangerCaseFragment : Fragment() {
-    private var _binding: FragmentCreateStrangerCaseBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCreateStrangerCaseBinding.inflate(inflater,container,false)
+        _binding = FragmentSearchBinding.inflate(inflater,container,false)
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -31,4 +31,6 @@ class CreateStrangerCaseFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
 }

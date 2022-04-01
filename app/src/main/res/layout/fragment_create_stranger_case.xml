@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/screen_background"
-    tools:context=".ui.home.CreateStrangerCaseFragment">
+    tools:context=".feature.create_case.CreateStrangerCaseFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

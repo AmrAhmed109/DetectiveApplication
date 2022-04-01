@@ -1,6 +1,6 @@
 package com.example.detectiveapplication.di
 
-import com.example.detectiveapplication.api.AuthApi
+import com.example.detectiveapplication.service.api.AuthApi
 import com.example.detectiveapplication.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides

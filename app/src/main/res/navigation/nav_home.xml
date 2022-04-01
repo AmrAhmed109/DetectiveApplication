@@ -21,12 +21,12 @@
         tools:layout="@layout/fragment_following" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.detectiveapplication.ui.home.DetailsFragment"
+        android:name="com.example.detectiveapplication.feature.case_.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/casesFragment"
-        android:name="com.example.detectiveapplication.ui.home.CasesFragment"
+        android:name="com.example.detectiveapplication.feature.cases.CasesFragment"
         android:label="fragment_cases"
         tools:layout="@layout/fragment_cases" >
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.detectiveapplication.ui.home.ResultFragment"
+        android:name="com.example.detectiveapplication.feature.search_result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
     <fragment
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/createParentCaseFragment"
-        android:name="com.example.detectiveapplication.ui.home.CreateParentCaseFragment"
+        android:name="com.example.detectiveapplication.feature.create_case.CreateParentCaseFragment"
         android:label="fragment_create_parent_case"
         tools:layout="@layout/fragment_create_parent_case" >
         <action
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/createStrangerCaseFragment"
-        android:name="com.example.detectiveapplication.ui.home.CreateStrangerCaseFragment"
+        android:name="com.example.detectiveapplication.feature.create_case.CreateStrangerCaseFragment"
         android:label="fragment_create_stranger_case"
         tools:layout="@layout/fragment_create_stranger_case" >
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.detectiveapplication.ui.home.SearchFragment"
+        android:name="com.example.detectiveapplication.feature.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action

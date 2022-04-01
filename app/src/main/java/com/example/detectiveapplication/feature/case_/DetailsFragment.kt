@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.home
+package com.example.detectiveapplication.feature.case_
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentDetailsBinding
+import com.example.detectiveapplication.databinding.FragmentFollowingBinding
 
 
-class ResultFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
@@ -26,8 +27,10 @@ class ResultFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.auth
+package com.example.detectiveapplication.feature.login
 
 import android.app.Application
 import android.content.Context
@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.detectiveapplication.models.auth.user_login_response.UserLoginResponse
+import com.example.detectiveapplication.dto.response.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.NetworkResult

@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.models.auth.user_login_request
+package com.example.detectiveapplication.dto.request
 
 data class UserLoginRequest(
     val email :String,
