@@ -6,9 +6,10 @@ import android.os.Bundle
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.fragment.NavHostFragment
 import com.example.detectiveapplication.databinding.ActivityRegistrationBinding
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.internal.Util
 import java.util.*
-
+@AndroidEntryPoint
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding : ActivityRegistrationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
