@@ -1,6 +1,10 @@
 package com.example.detectiveapplication.ui.auth
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +15,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentLoginBinding
+import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -71,13 +80,13 @@ class LoginFragment : Fragment() {
                         )
                             .show()
                     }
-
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG)
                         .show()
                     Log.d("NetworkResult.Error", "requestApiData: ${response.message.toString()}")
                 }
+
                 is NetworkResult.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
                         .show()
@@ -90,5 +99,7 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
 
 }

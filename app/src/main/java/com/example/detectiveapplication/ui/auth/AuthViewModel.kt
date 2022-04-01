@@ -5,13 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.detectiveapplication.models.auth.user_login_response.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
+import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -20,11 +20,20 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository,
+    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ) : AndroidViewModel(application) {
 
+    val readToken = dataStoreRepository.readToken.asLiveData()
     var loginResponse: MutableLiveData<NetworkResult<UserLoginResponse>> = MutableLiveData()
 
+
+    fun saveToken(token :String)= viewModelScope.launch(Dispatchers.IO) {
+        dataStoreRepository.saveToken(token)
+    }
+
+
+    // login
     fun login(map:Map<String, String>) {
         viewModelScope.launch {
             getLoginSafeCall(map)
@@ -32,6 +41,7 @@ class AuthViewModel @Inject constructor(
 
         }
     }
+
     private suspend fun getLoginSafeCall(map:Map<String, String>) {
         loginResponse.value = NetworkResult.Loading()
 
@@ -48,6 +58,8 @@ class AuthViewModel @Inject constructor(
         }
 
     }
+
+
     private fun handelLoginResponse(response: Response<UserLoginResponse>): NetworkResult<UserLoginResponse>? {
         when {
             response.message().toString().contains("Timeout") -> {
@@ -62,6 +74,7 @@ class AuthViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val userLoginResponse = response.body()
+                saveToken(response.body()!!.data.accessToken)
                 return NetworkResult.Success(userLoginResponse!!)
             }
             else -> {

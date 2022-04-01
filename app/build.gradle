@@ -63,7 +63,7 @@ dependencies {
     kapt "androidx.databinding:databinding-common:7.1.2"
 
     // DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
