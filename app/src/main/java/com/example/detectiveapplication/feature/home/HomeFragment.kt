@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.databinding.FragmentHomeBinding
-import com.example.detectiveapplication.ui.home.HomeFragmentDirections
 
 
 class HomeFragment : Fragment() {
