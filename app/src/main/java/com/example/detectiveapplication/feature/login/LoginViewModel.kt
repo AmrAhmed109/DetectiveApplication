@@ -73,7 +73,7 @@ class LoginViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val userLoginResponse = response.body()
-                saveToken(response.body()!!.data.accessToken)
+                saveToken("Bearer ${response.body()!!.data.accessToken}")
                 return NetworkResult.Success(userLoginResponse!!)
             }
             else -> {
