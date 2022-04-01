@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.auth
+package com.example.detectiveapplication.navigation.login
 
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.auth.forgetPassword
+package com.example.detectiveapplication.feature.reset_password
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

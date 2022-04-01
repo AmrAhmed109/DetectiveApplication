@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.detectiveapplication.ui.auth.LoginFragment"
+        android:name="com.example.detectiveapplication.feature.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.detectiveapplication.ui.auth.RegistrationFragment"
+        android:name="com.example.detectiveapplication.feature.signup.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.example.detectiveapplication.ui.auth.forgetPassword.ForgetPasswordFragment"
+        android:name="com.example.detectiveapplication.feature.reset_password.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailCheckFragment"
-        android:name="com.example.detectiveapplication.ui.auth.forgetPassword.EmailCheckFragment"
+        android:name="com.example.detectiveapplication.feature.reset_password.EmailCheckFragment"
         android:label="fragment_email_check"
         tools:layout="@layout/fragment_email_check">
         <action
@@ -52,12 +52,12 @@
     </fragment>
     <fragment
         android:id="@+id/createNewPasswordFragment"
-        android:name="com.example.detectiveapplication.ui.auth.forgetPassword.CreateNewPasswordFragment"
+        android:name="com.example.detectiveapplication.feature.reset_password.CreateNewPasswordFragment"
         android:label="fragment_create_new_password"
         tools:layout="@layout/fragment_create_new_password" />
     <activity
         android:id="@+id/homeActivity"
-        android:name="com.example.detectiveapplication.ui.home.HomeActivity"
+        android:name="com.example.detectiveapplication.navigation.home.HomeActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
 </navigation>

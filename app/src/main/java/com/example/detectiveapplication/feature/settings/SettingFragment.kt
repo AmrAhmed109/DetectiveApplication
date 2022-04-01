@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.home
+package com.example.detectiveapplication.feature.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.auth
+package com.example.detectiveapplication.feature.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

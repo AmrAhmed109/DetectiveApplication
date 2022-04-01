@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.detectiveapplication.ui.home.EditProfileFragment"
+        android:name="com.example.detectiveapplication.feature.edit_profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.detectiveapplication.ui.home.SettingFragment"
+        android:name="com.example.detectiveapplication.feature.settings.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
         <action
