@@ -55,7 +55,7 @@ class RegistrationFragment : Fragment() {
         email: String,
         password: String,
         confirmPassword: String
-    ): Map<String, String> {
+    ): HashMap<String,String> {
         val map: HashMap<String, String> = HashMap()
 
         map["name"] = name
@@ -71,7 +71,7 @@ class RegistrationFragment : Fragment() {
         registrationViewModel.register(
             registrationRequest(
                 "Amro",
-                "amtr3qo@gmail.com",
+                "amtreaersqo@gmail.com",
                 "123456789",
                 "123456789"
             )
@@ -80,25 +80,25 @@ class RegistrationFragment : Fragment() {
 
             when (response) {
                 is NetworkResult.Success -> {
-                    findNavController().popBackStack()
                     response.data?.let {
                         Toast.makeText(
                             requireContext(),
-                            response.data.message,
+                            "success ${it.data.name.toString()}",
                             Toast.LENGTH_LONG
-                        )
-                            .show()
+                        ).show()
                     }
+
+                    findNavController().popBackStack()
+
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
                         requireContext(),
-                        response.data?.error?.first().toString(),
+                        "Error ${response.data?.message}",
                         Toast.LENGTH_LONG
                     ).show()
-                    Log.d("NetworkResult.Error", "requestApiData: ${response.message.toString()}")
+                    Log.d("NetworkResult.Error", "requestApiData: ${response.message}")
                 }
-
                 is NetworkResult.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
                         .show()
@@ -106,7 +106,6 @@ class RegistrationFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

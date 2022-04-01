@@ -20,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val dataStoreRepository: DataStoreRepository,
     application: Application
 ) : AndroidViewModel(application) {
     val tag ="RegistrationViewModel"
@@ -42,6 +41,7 @@ class RegistrationViewModel @Inject constructor(
                 registrationResponse.value = handelRegistrationResponse(response)
             } catch (e: Exception) {
                 registrationResponse.value = NetworkResult.Error(e.message.toString())
+                Log.d(tag, "getRegistrationSafeCall: ${e.cause}")
                 Log.d(tag, "getRegistrationSafeCall: ${e.message}")
             }
         } else {
@@ -54,20 +54,23 @@ class RegistrationViewModel @Inject constructor(
     private fun handelRegistrationResponse(response: Response<UserRegistrationResponse>): NetworkResult<UserRegistrationResponse>? {
         when {
             response.message().toString().contains("Timeout") -> {
+                Log.d(tag, " case 1")
                 return NetworkResult.Error("Timeout")
             }
             response.code() == 402 -> {
+                Log.d(tag, " case 2")
                 return NetworkResult.Error("Api Key Limited")
             }
-            response.body()!!.data.name.isEmpty() -> {
-                Log.d(tag, "handelRegistrationResponse: ${response.body()!!.message}")
-                return NetworkResult.Error( response.body()!!.message)
+            response.body()?.data?.name.isNullOrEmpty() -> {
+                Log.d(tag, "handelRegistrationResponse: ${response.body()?.message}")
+                return NetworkResult.Error(response.message())
             }
             response.isSuccessful -> {
-                val userLoginResponse = response.body()
-                return NetworkResult.Success(userLoginResponse!!)
+                val userRegistrationResponse = response.body()
+                return NetworkResult.Success(userRegistrationResponse!!)
             }
             else -> {
+                Log.d(tag, " case 4")
                 return NetworkResult.Error(response.message())
             }
         }

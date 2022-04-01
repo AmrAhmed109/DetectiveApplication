@@ -27,9 +27,9 @@ interface AuthApi {
     @POST("user/register")
     @Headers("Content-Type: application/json")
     suspend fun userRegistration(
-        @Body body: Map<String, String>,
-//        @Part image:MultipartBody.Part? = null
+        @Body body: Map<String, String>
     ):Response<UserRegistrationResponse>
+//        @Part image:MultipartBody.Part? = null
 
 
 
