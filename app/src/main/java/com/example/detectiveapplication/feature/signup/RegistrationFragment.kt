@@ -55,7 +55,7 @@ class RegistrationFragment : Fragment() {
         email: String,
         password: String,
         confirmPassword: String
-    ): HashMap<String,String> {
+    ): Map<String,String> {
         val map: HashMap<String, String> = HashMap()
 
         map["name"] = name
@@ -71,7 +71,7 @@ class RegistrationFragment : Fragment() {
         registrationViewModel.register(
             registrationRequest(
                 "Amro",
-                "amtreaersqo@gmail.com",
+                "amro.ahmed1060009@gmail.com",
                 "123456789",
                 "123456789"
             )
@@ -83,7 +83,7 @@ class RegistrationFragment : Fragment() {
                     response.data?.let {
                         Toast.makeText(
                             requireContext(),
-                            "success ${it.data.name.toString()}",
+                            "created New User Named ${it.name}",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -94,7 +94,7 @@ class RegistrationFragment : Fragment() {
                 is NetworkResult.Error -> {
                     Toast.makeText(
                         requireContext(),
-                        "Error ${response.data?.message}",
+                        "Error ${response.message}",
                         Toast.LENGTH_LONG
                     ).show()
                     Log.d("NetworkResult.Error", "requestApiData: ${response.message}")

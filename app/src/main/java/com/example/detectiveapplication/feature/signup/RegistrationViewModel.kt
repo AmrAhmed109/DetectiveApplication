@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
 import com.example.detectiveapplication.repository.AuthRepository
-import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -41,7 +40,6 @@ class RegistrationViewModel @Inject constructor(
                 registrationResponse.value = handelRegistrationResponse(response)
             } catch (e: Exception) {
                 registrationResponse.value = NetworkResult.Error(e.message.toString())
-                Log.d(tag, "getRegistrationSafeCall: ${e.cause}")
                 Log.d(tag, "getRegistrationSafeCall: ${e.message}")
             }
         } else {
@@ -57,17 +55,18 @@ class RegistrationViewModel @Inject constructor(
                 Log.d(tag, " case 1")
                 return NetworkResult.Error("Timeout")
             }
-            response.code() == 402 -> {
+            response.code() == 422 -> {
                 Log.d(tag, " case 2")
-                return NetworkResult.Error("Api Key Limited")
-            }
-            response.body()?.data?.name.isNullOrEmpty() -> {
-                Log.d(tag, "handelRegistrationResponse: ${response.body()?.message}")
-                return NetworkResult.Error(response.message())
+                return NetworkResult.Error(response.body()?.message)
             }
             response.isSuccessful -> {
                 val userRegistrationResponse = response.body()
+                Log.d(tag, " case 7")
                 return NetworkResult.Success(userRegistrationResponse!!)
+            }
+            response.body()?.name.isNullOrEmpty() -> {
+                Log.d(tag, "case 8: ${response.body()?.name}")
+                return NetworkResult.Error(response.message())
             }
             else -> {
                 Log.d(tag, " case 4")

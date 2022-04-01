@@ -2,7 +2,6 @@ package com.example.detectiveapplication.service.api
 
 import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
 import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
-import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 

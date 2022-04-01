@@ -6,12 +6,18 @@ import com.google.gson.annotations.SerializedName
 data class UserRegistrationResponse(
     @SerializedName("code")
     val code: Int,
-    @SerializedName("data")
-    val `data`: Data,
+    @SerializedName("created_at")
+    val createdAt: String,
+    @SerializedName("email")
+    val email: String,
     @SerializedName("error")
     val error: List<String>,
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("message")
     val message: String,
-    @SerializedName("statues")
-    val statues: Boolean
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("status")
+    val status: Boolean
 )
