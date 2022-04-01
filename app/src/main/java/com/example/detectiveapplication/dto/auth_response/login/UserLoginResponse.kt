@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.dto.response
+package com.example.detectiveapplication.dto.auth_response.login
 
 
 import com.google.gson.annotations.SerializedName

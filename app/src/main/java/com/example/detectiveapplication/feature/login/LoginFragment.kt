@@ -1,10 +1,6 @@
 package com.example.detectiveapplication.feature.login
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,24 +11,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentLoginBinding
-import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var loginViewModel: LoginViewModel
+    val tage ="LoginFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        authViewModel = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
+        loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -60,14 +52,19 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun loginRequest(email : String , password : String):Map<String,String>{
+        val map: HashMap<String, String> = HashMap()
+        map["email"] = email
+        map["password"] = password
+
+        return map
+    }
+
     private fun requestApiData() {
         Log.v("recipesFragment", "requestApiData called!")
-        val queries: HashMap<String, String> = HashMap()
-        queries["email"] = "name@gmail.com"
-        queries["password"] = "123456789"
 
-        authViewModel.login(queries)
-        authViewModel.loginResponse.observe(viewLifecycleOwner, { response ->
+        loginViewModel.login(loginRequest("name@gmail.com" , "123456789"))
+        loginViewModel.loginResponse.observe(viewLifecycleOwner, { response ->
 
             when (response) {
                 is NetworkResult.Success -> {
