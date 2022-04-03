@@ -18,6 +18,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
