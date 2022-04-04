@@ -6,7 +6,10 @@ import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 interface AuthApi {
 
@@ -19,7 +22,7 @@ interface AuthApi {
     @Headers("Content-Type: application/json")
     suspend fun userLogin(
         @Body body: Map<String, String>,
-    ):Response<UserLoginResponse>
+    ): Response<UserLoginResponse>
 
 
     /**
@@ -30,7 +33,7 @@ interface AuthApi {
     @Headers("Content-Type: application/json")
     suspend fun userRegistration(
         @Body body: Map<String, String>
-    ):Response<UserRegistrationResponse>
+    ): Response<UserRegistrationResponse>
 //        @Part image:MultipartBody.Part? = null
 
 
@@ -42,20 +45,20 @@ interface AuthApi {
     @Headers("Content-Type: application/json")
     suspend fun userForgetPassword(
         @Body body: Map<String, String>
-    ):Response<ForgetPasswordResponse>
+    ): Response<ForgetPasswordResponse>
 
 
     @POST("user/logout")
     @Headers("Content-Type: application/json")
     suspend fun userLogout(
         @Header("Authorization") token: String
-    ):Response<UserLogoutResponse>
+    ): Response<UserLogoutResponse>
 
     @POST("user/me")
     @Headers("Content-Type: application/json")
     suspend fun getUserInfo(
         @Header("Authorization") token: String
-    ):Response<UserProfileInfo>
+    ): Response<UserProfileInfo>
 
 
 }
