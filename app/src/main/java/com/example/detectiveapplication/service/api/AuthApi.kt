@@ -1,10 +1,10 @@
 package com.example.detectiveapplication.service.api
 
-import com.example.detectiveapplication.dto.auth_response.forget_password.ForgetPasswordResponse
-import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
-import com.example.detectiveapplication.dto.auth_response.logout.UserLogoutResponse
-import com.example.detectiveapplication.dto.auth_response.profile_data.UserProfileInfo
-import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
+import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
+import com.example.detectiveapplication.dto.login.UserLoginResponse
+import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
+import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import retrofit2.Response
 import retrofit2.http.*
 

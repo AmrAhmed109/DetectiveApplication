@@ -7,11 +7,9 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
-import com.example.detectiveapplication.dto.auth_response.logout.UserLogoutResponse
-import com.example.detectiveapplication.dto.auth_response.profile_data.UserProfileInfo
+import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.NetworkResult

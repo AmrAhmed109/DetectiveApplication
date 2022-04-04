@@ -1,25 +1,23 @@
-package com.example.detectiveapplication.dto.auth_response.profile_data
+package com.example.detectiveapplication.dto.registration
 
 
 import com.google.gson.annotations.SerializedName
 
-data class UserProfileInfo(
+data class UserRegistrationResponse(
     @SerializedName("code")
     val code: Int,
     @SerializedName("created_at")
-    val createdAt: Any,
+    val createdAt: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("email_verified_at")
-    val emailVerifiedAt: Any,
+    @SerializedName("error")
+    val error: List<String>,
     @SerializedName("id")
     val id: Int,
-    @SerializedName("image")
-    val image: String,
     @SerializedName("message")
     val message: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("status")
-    val status: String
+    val status: Boolean
 )

@@ -1,13 +1,11 @@
-package com.example.detectiveapplication.dto.auth_response.forget_password
+package com.example.detectiveapplication.dto.logout
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ForgetPasswordResponse(
+data class UserLogoutResponse(
     @SerializedName("code")
     val code: Int,
-    @SerializedName("error")
-    val error: List<String>,
     @SerializedName("message")
     val message: String,
     @SerializedName("status")

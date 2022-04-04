@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.dto.auth_response.login
+package com.example.detectiveapplication.dto.login
 import com.google.gson.annotations.SerializedName
 
 data class Error(

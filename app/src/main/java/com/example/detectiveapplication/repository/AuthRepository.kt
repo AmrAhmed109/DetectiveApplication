@@ -1,11 +1,11 @@
 package com.example.detectiveapplication.repository
 
-import com.example.detectiveapplication.dto.auth_response.forget_password.ForgetPasswordResponse
+import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
 import com.example.detectiveapplication.service.api.AuthApi
-import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
-import com.example.detectiveapplication.dto.auth_response.logout.UserLogoutResponse
-import com.example.detectiveapplication.dto.auth_response.profile_data.UserProfileInfo
-import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
+import com.example.detectiveapplication.dto.login.UserLoginResponse
+import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
+import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import javax.inject.Inject

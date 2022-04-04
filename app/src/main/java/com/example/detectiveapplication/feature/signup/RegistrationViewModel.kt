@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
+import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel

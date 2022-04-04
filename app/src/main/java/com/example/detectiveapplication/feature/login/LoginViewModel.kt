@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
+import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.Constants

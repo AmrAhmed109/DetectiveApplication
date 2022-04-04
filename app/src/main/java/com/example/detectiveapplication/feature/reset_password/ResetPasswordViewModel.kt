@@ -8,8 +8,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.detectiveapplication.dto.auth_response.forget_password.ForgetPasswordResponse
-import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
+import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.NetworkResult
