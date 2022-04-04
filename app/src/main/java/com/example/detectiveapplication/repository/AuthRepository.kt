@@ -4,6 +4,7 @@ import com.example.detectiveapplication.dto.auth_response.forget_password.Forget
 import com.example.detectiveapplication.service.api.AuthApi
 import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
 import com.example.detectiveapplication.dto.auth_response.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.auth_response.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
@@ -27,6 +28,10 @@ class AuthRepository @Inject constructor(private val authApi: AuthApi) {
 
     suspend fun logout(token:String): Response<UserLogoutResponse> {
         return authApi.userLogout(token)
+    }
+
+    suspend fun getUserData(token:String): Response<UserProfileInfo> {
+        return authApi.getUserInfo(token)
     }
 
 }

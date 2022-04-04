@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
+import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,8 @@ class LoginViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    val readToken = dataStoreRepository.readToken.asLiveData()
+    //  this variable to check if there is User logged (will use later)
+    val readToken = dataStoreRepository.readToken
     var loginResponse: MutableLiveData<NetworkResult<UserLoginResponse>> = MutableLiveData()
 
 
@@ -74,6 +76,7 @@ class LoginViewModel @Inject constructor(
             response.isSuccessful -> {
                 val userLoginResponse = response.body()
                 saveToken("Bearer ${response.body()!!.data.accessToken}")
+                Constants.TOKEN ="Bearer ${response.body()!!.data.accessToken}"
                 return NetworkResult.Success(userLoginResponse!!)
             }
             else -> {

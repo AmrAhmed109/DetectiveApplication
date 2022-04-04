@@ -3,6 +3,7 @@ package com.example.detectiveapplication.service.api
 import com.example.detectiveapplication.dto.auth_response.forget_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
 import com.example.detectiveapplication.dto.auth_response.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.auth_response.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -44,26 +45,17 @@ interface AuthApi {
     ):Response<ForgetPasswordResponse>
 
 
-    @POST("logout-user")
+    @POST("user/logout")
     @Headers("Content-Type: application/json")
     suspend fun userLogout(
         @Header("Authorization") token: String
     ):Response<UserLogoutResponse>
 
-
-
-
-
-
-
-
-
-    /////////////////  Not Used Yet  ///////////////////
-
-
     @POST("user/me")
     @Headers("Content-Type: application/json")
-    suspend fun getMyUserData(
+    suspend fun getUserInfo(
         @Header("Authorization") token: String
-    ):Response<UserLoginResponse>
+    ):Response<UserProfileInfo>
+
+
 }

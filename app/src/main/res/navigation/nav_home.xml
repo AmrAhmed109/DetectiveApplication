@@ -107,5 +107,13 @@
         <action
             android:id="@+id/action_settingFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_registrationActivity"
+            app:destination="@id/registrationActivity" />
     </fragment>
+    <activity
+        android:id="@+id/registrationActivity"
+        android:name="com.example.detectiveapplication.navigation.login.RegistrationActivity"
+        android:label="activity_registration"
+        tools:layout="@layout/activity_registration" />
 </navigation>

@@ -13,6 +13,7 @@ class Constants {
     companion object{
         const val BASE_URL = "https://krombo.000webhostapp.com/api/"
         const val IMAGE = "image"
+        var TOKEN:String = ""
 
 
 
