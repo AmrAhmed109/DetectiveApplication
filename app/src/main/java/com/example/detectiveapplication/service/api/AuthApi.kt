@@ -1,5 +1,6 @@
 package com.example.detectiveapplication.service.api
 
+import com.example.detectiveapplication.dto.auth_response.forget_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.auth_response.login.UserLoginResponse
 import com.example.detectiveapplication.dto.auth_response.registration.UserRegistrationResponse
 import retrofit2.Response
@@ -31,7 +32,26 @@ interface AuthApi {
 //        @Part image:MultipartBody.Part? = null
 
 
+    /**
+     * User Parameter
+     * email* - password* - password_confirmation* -image(not required) - name*
+     * */
+    @POST("user/forget-password")
+    @Headers("Content-Type: application/json")
+    suspend fun userForgetPassword(
+        @Body body: Map<String, String>
+    ):Response<ForgetPasswordResponse>
 
+
+
+
+
+
+
+
+
+
+    /////////////////  Not Used Yet  ///////////////////
     @POST("logout-user")
     @Headers("Content-Type: application/json")
     suspend fun userLogout(

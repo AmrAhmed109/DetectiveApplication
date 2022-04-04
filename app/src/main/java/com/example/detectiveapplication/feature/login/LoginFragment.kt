@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
     private fun requestApiData() {
         Log.v("recipesFragment", "requestApiData called!")
 
-        loginViewModel.login(loginRequest("name@gmail.com" , "123456789"))
+        loginViewModel.login(loginRequest("name@gmail.com" , "987654321"))
         loginViewModel.loginResponse.observe(viewLifecycleOwner, { response ->
 
             when (response) {
