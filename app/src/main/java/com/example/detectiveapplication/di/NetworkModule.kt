@@ -1,6 +1,6 @@
 package com.example.detectiveapplication.di
 
-import com.example.detectiveapplication.service.api.AuthApi
+import com.example.detectiveapplication.service.api.UserService
 import com.example.detectiveapplication.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -47,8 +47,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): AuthApi {
-        return retrofit.create(AuthApi::class.java)
+    fun provideApiService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
     }
 
 }

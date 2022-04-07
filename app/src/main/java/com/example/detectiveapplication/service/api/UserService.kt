@@ -11,7 +11,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface AuthApi {
+interface UserService {
 
 
     /**

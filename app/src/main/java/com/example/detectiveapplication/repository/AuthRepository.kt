@@ -1,7 +1,7 @@
 package com.example.detectiveapplication.repository
 
 import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
-import com.example.detectiveapplication.service.api.AuthApi
+import com.example.detectiveapplication.service.api.UserService
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 
 @ViewModelScoped
-class AuthRepository @Inject constructor(private val authApi: AuthApi) {
+class AuthRepository @Inject constructor(private val authApi: UserService) {
 
     suspend fun login(map: Map<String, String>): Response<UserLoginResponse> {
         return authApi.userLogin(map)
