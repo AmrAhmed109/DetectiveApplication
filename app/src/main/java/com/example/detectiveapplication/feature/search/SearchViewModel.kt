@@ -3,7 +3,7 @@ package com.example.detectiveapplication.feature.search
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.englizya.common.base.BaseViewModel
+import com.example.detectiveapplication.base.BaseViewModel
 import com.englizya.model.model.Branch
 import com.englizya.model.model.Trip
 import com.englizya.model.request.TripSearchRequest
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val stationRepository: StationRepository,
     private val tripsRepository: TripRepository,
-) : BaseViewModel() {
+) : BaseViewModel(application) {
 
     private var _formValidity = MutableLiveData<BookingFormState>()
     val formValidity: LiveData<BookingFormState> = _formValidity

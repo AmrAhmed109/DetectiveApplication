@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:progressTint="@color/prima"
+            android:progressTint="@color/material_dynamic_primary0"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,8 +27,8 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lalezar"
-            android:text="@string/loading"
+            android:fontFamily="@font/din_next_arabic_black"
+            android:text="loading"
             app:layout_constraintBottom_toBottomOf="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,44 +1,49 @@
-package com.example.detectiveapplication.feature.cases
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.englyzia.navigation.databinding.CardViewNavigationItemBinding
+import coil.Coil
+import coil.request.ImageRequest
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
+import com.example.detectiveapplication.dto.cases.Case
+import com.squareup.picasso.Picasso
 
 class CasesAdapter(
-    private val navigationItems: List<NavigationItem>,
-    private val onItemClicked: (NavigationItem) -> Unit,
-) : RecyclerView.Adapter<CasesAdapter.NavigationItemViewHolder>() {
+    private val cases: List<Case>,
+    private val onItemClicked: (Case) -> Unit,
+) : RecyclerView.Adapter<CasesAdapter.CaseViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavigationItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaseViewHolder {
         val bind = CardViewCaseBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return NavigationItemViewHolder(binding = bind)
+        return CaseViewHolder(binding = bind)
     }
 
-    override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
-        holder.updateUI(navigationItems.get(position))
+    override fun onBindViewHolder(holder: CaseViewHolder, position: Int) {
+        holder.updateUI(cases.get(position))
         holder.itemView.setOnClickListener {
-            onItemClicked(navigationItems.get(position))
+            onItemClicked(cases.get(position))
         }
     }
 
     override fun getItemCount(): Int {
-        return navigationItems.size
+        return cases.size
     }
 
-    class NavigationItemViewHolder(private val binding: CardViewCaseBinding) :
+    class CaseViewHolder(
+        private val binding: CardViewCaseBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
+        fun updateUI(case: Case) {
+            binding.tvAge.text = case.age.toString()
+            binding.tvNameMissingChild.text = case.name.toString()
+            binding.tvStatueMissingChild.text = case.status.toString()
+            binding.tvCity.text = case.city.toString()
 
-        fun updateUI(navigationItem: NavigationItem) {
-            binding.imageView9.setImageResource(navigationItem.itemIconRes)
-            binding.itemId.setText(navigationItem.itemTitleRes)
+            Picasso.get().load(case.image).into(binding.ivMissingChild);
         }
-
     }
 }

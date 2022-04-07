@@ -1,5 +1,6 @@
 package com.example.detectiveapplication.di
 
+import com.example.detectiveapplication.service.api.CaseService
 import com.example.detectiveapplication.service.api.UserService
 import com.example.detectiveapplication.utils.Constants.Companion.BASE_URL
 import dagger.Module
@@ -49,6 +50,12 @@ object NetworkModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCaseService(retrofit: Retrofit): CaseService {
+        return retrofit.create(CaseService::class.java)
     }
 
 }
