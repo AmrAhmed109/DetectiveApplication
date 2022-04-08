@@ -14,8 +14,8 @@ import javax.inject.Inject
 @ViewModelScoped
 class AuthRepository @Inject constructor(private val authApi: UserService) {
 
-    suspend fun login(map: Map<String, String>): Response<UserLoginResponse> {
-        return authApi.userLogin(map)
+    suspend fun login(map: Map<String, String>) = kotlin.runCatching {
+        authApi.userLogin(map)
     }
 
     suspend fun registration(map: Map<String, String>): Response<UserRegistrationResponse> {

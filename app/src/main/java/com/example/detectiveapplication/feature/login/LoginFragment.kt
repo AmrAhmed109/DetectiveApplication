@@ -56,6 +56,8 @@ class LoginFragment : Fragment() {
         val map: HashMap<String, String> = HashMap()
         map["email"] = email
         map["password"] = password
+        map["fcm_token"] = "123456"
+//        TODO
 
         return map
     }
@@ -63,7 +65,7 @@ class LoginFragment : Fragment() {
     private fun requestApiData() {
         Log.v("recipesFragment", "requestApiData called!")
 
-        loginViewModel.login(loginRequest("name@gmail.com" , "987654321"))
+        loginViewModel.login(loginRequest("hassanstar201118@gmail.com" , "123456789"))
         loginViewModel.loginResponse.observe(viewLifecycleOwner, { response ->
 
             when (response) {
