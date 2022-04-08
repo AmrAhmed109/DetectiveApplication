@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-//    id 'androidx.navigation.safeargs.kotlin'
-    id 'androidx.navigation.safeargs'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-parcelize'
 }
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdk 31
@@ -95,4 +93,7 @@ dependencies {
 
     // image Slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
 }

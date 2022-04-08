@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "672185707098",
+    "project_id": "englizya-ticket",
+    "storage_bucket": "englizya-ticket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672185707098:android:c7a6e506cd69134f65c663",
+        "android_client_info": {
+          "package_name": "com.example.detectiveapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672185707098-vbmnhi9odljcnu4mu7pirom9030g45rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe2AaM7RG-tDoigPufwOZJxFggxabkyF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672185707098-vbmnhi9odljcnu4mu7pirom9030g45rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
