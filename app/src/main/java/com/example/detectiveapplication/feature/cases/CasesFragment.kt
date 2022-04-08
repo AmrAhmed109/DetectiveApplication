@@ -1,7 +1,5 @@
 package com.example.detectiveapplication.feature.cases
 
-import CasesAdapter
-import CasesViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

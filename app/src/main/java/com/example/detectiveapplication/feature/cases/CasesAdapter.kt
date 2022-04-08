@@ -1,11 +1,14 @@
+package com.example.detectiveapplication.feature.cases
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.Coil
+import coil.load
 import coil.request.ImageRequest
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
 import com.example.detectiveapplication.dto.cases.Case
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 
 class CasesAdapter(
     private val cases: List<Case>,
@@ -43,7 +46,9 @@ class CasesAdapter(
             binding.tvStatueMissingChild.text = case.status.toString()
             binding.tvCity.text = case.city.toString()
 
-            Picasso.get().load(case.image).into(binding.ivMissingChild);
+//            Picasso.get().load(case.image).into(binding.ivMissingChild);
+
+            binding.ivMissingChild.load(case.image)
         }
     }
 }

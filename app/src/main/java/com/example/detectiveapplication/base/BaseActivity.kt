@@ -4,7 +4,8 @@ import android.content.Intent
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.englizya.common.ui.LoadingDialog
+import com.example.detectiveapplication.base.ui.LoadingDialog
+//import com.englizya.common.ui.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

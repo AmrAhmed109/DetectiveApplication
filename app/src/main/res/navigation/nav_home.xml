@@ -10,8 +10,9 @@
         android:name="com.example.detectiveapplication.feature.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+
         <action
-            android:id="@+id/action_homeFragment_to_searchFragment2"
+            android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
     <fragment
