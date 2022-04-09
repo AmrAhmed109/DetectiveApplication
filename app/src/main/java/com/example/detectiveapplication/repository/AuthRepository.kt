@@ -1,11 +1,11 @@
 package com.example.detectiveapplication.repository
 
 import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
-import com.example.detectiveapplication.service.api.UserService
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
+import com.example.detectiveapplication.service.api.UserService
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
 import javax.inject.Inject
@@ -26,11 +26,11 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
         return authApi.userForgetPassword(map)
     }
 
-    suspend fun logout(token:String): Response<UserLogoutResponse> {
+    suspend fun logout(token: String): Response<UserLogoutResponse> {
         return authApi.userLogout(token)
     }
 
-    suspend fun getUserData(token:String): Response<UserProfileInfo> {
+    suspend fun getUserData(token: String): Response<UserProfileInfo> {
         return authApi.getUserInfo(token)
     }
 

@@ -1,14 +1,13 @@
 package com.example.detectiveapplication.feature.reset_password
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentEmailCheckBinding
-import com.example.detectiveapplication.databinding.FragmentForgetPasswordBinding
 
 class EmailCheckFragment : Fragment() {
 
@@ -18,7 +17,7 @@ class EmailCheckFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEmailCheckBinding.inflate(inflater,container,false)
+        _binding = FragmentEmailCheckBinding.inflate(inflater, container, false)
         return binding.root
     }
 

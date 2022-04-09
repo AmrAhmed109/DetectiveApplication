@@ -5,19 +5,18 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
-import com.example.detectiveapplication.utils.Constants
-import com.example.detectiveapplication.utils.GenericApiResponse
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
-import kotlin.math.log
 
 
 @HiltViewModel

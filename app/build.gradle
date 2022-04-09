@@ -5,6 +5,7 @@ plugins {
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdk 31
@@ -25,7 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
     compileOptions {
@@ -96,4 +97,9 @@ dependencies {
 
     implementation "androidx.room:room-runtime:2.4.2"
     annotationProcessor "androidx.room:room-compiler:2.4.2"
+
+    implementation(Ktor.ktorClient)
+    implementation(Ktor.ktorClientAndroid)
+    implementation(Ktor.ktorClientGson)
+    implementation(Ktor.ktorClientSerialization)
 }

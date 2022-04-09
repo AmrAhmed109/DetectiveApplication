@@ -1,13 +1,12 @@
 package com.example.detectiveapplication.feature.reset_password
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.databinding.FragmentCreateNewPasswordBinding
-import com.example.detectiveapplication.databinding.FragmentRegistrationBinding
 
 
 class CreateNewPasswordFragment : Fragment() {
@@ -19,7 +18,7 @@ class CreateNewPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCreateNewPasswordBinding.inflate(inflater,container,false)
+        _binding = FragmentCreateNewPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
 

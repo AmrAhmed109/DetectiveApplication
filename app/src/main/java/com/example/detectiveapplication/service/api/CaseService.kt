@@ -1,14 +1,27 @@
 package com.example.detectiveapplication.service.api
 
 import com.example.detectiveapplication.response.ActiveCasesResponse
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
+import com.example.detectiveapplication.utils.Routing
+import io.ktor.client.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import javax.inject.Inject
+
 
 interface CaseService {
 
-    @GET("/user/kids/index")
-    @Headers("Content-Type: application/json")
-    suspend fun fetchActiveCases(@Header("Authorization") token: String): Response<ActiveCasesResponse>
+    suspend fun fetchActiveCases(token: String): ActiveCasesResponse
+}
+
+class CaseServiceImpl @Inject constructor(
+    private val client: HttpClient
+) : CaseService {
+
+    override suspend fun fetchActiveCases(token: String): ActiveCasesResponse =
+        client.get(Routing.FETCH_CASES) {
+            headers.append(
+                name = HttpHeaders.Authorization,
+                value = token
+            )
+        }
 }

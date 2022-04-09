@@ -6,7 +6,10 @@ import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 interface UserService {
 
@@ -65,6 +68,4 @@ interface UserService {
     suspend fun getUserInfo(
         @Header("Authorization") token: String
     ): Response<UserProfileInfo>
-
-
 }

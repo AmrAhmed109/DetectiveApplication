@@ -1,7 +1,9 @@
 package com.example.detectiveapplication.dto.cases
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Case(
     @SerializedName("id") var id: Int? = null,
     @SerializedName("name") var name: String? = null,

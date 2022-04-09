@@ -29,10 +29,6 @@ class SettingViewModel @Inject constructor(
     var logoutResponse: MutableLiveData<NetworkResult<UserLogoutResponse>> = MutableLiveData()
     private val tag = "RegistrationViewModel"
 
-    // take token to delete is later
-    private val readToken = dataStoreRepository.readToken
-
-    // delete token
     fun saveToken(token: String) = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.saveToken(token)
     }
@@ -40,14 +36,15 @@ class SettingViewModel @Inject constructor(
     // getUserProfileInfo
     fun getUserProfileInfo() {
         viewModelScope.launch {
-            readToken.collect {
+            dataStoreRepository.readToken.let {
                 getUserInfoSafeCall(it)
             }
             Log.d(tag, " getLoginSafeCall(email,password)")
 
         }
     }
-    private suspend fun getUserInfoSafeCall(token:String) {
+
+    private suspend fun getUserInfoSafeCall(token: String) {
         userInfoResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
@@ -63,6 +60,7 @@ class SettingViewModel @Inject constructor(
         }
 
     }
+
     private fun handeluserInfoResponse(response: Response<UserProfileInfo>): NetworkResult<UserProfileInfo>? {
         when {
             response.message().toString().contains("Timeout") -> {
@@ -87,13 +85,14 @@ class SettingViewModel @Inject constructor(
 
     fun userLogout() {
         viewModelScope.launch {
-            readToken.collect {
+            dataStoreRepository.readToken.let {
                 getUserLogOutSafeCall(it)
             }
             Log.d(tag, " userLogout(email,password)")
         }
     }
-    private suspend fun getUserLogOutSafeCall(token:String) {
+
+    private suspend fun getUserLogOutSafeCall(token: String) {
         logoutResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
@@ -109,11 +108,16 @@ class SettingViewModel @Inject constructor(
         }
 
     }
+
     private fun handelUserLogoutResponse(response: Response<UserLogoutResponse>): NetworkResult<UserLogoutResponse>? {
         when {
-            response.message().toString().contains("Timeout") -> {
+            response
+                .message()
+                .toString()
+                .contains("Timeout") -> {
                 return NetworkResult.Error("Timeout")
             }
+            
             response.code() == 401 -> {
                 return NetworkResult.Error(response.body()?.message)
             }
@@ -131,7 +135,6 @@ class SettingViewModel @Inject constructor(
             }
         }
     }
-
 
 
     private fun hasInternetConnection(): Boolean {

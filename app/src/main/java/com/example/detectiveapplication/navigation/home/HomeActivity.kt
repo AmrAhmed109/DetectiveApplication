@@ -1,8 +1,8 @@
 package com.example.detectiveapplication.navigation.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -16,8 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
 
-    private lateinit var binding : ActivityMainBinding
-    private lateinit var navHostFragment : NavHostFragment
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,24 +25,26 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         val navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        appBarConfiguration = AppBarConfiguration(setOf(
-        R.id.homeFragment,
-        R.id.followingFragment,
-        R.id.casesFragment
-        )
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.followingFragment,
+                R.id.casesFragment
+            )
         )
 
         navController.addOnDestinationChangedListener(this)
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navHostFragment.navController.navigateUp()||super.onSupportNavigateUp()
+        return navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onDestinationChanged(
@@ -52,10 +54,18 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     ) {
         destination?.let {
             when (destination.id) {
-                R.id.searchFragment -> { binding.bottomNavigationView.visibility = View.GONE }
-                R.id.createStrangerCaseFragment -> { binding.bottomNavigationView.visibility = View.GONE }
-                R.id.createParentCaseFragment -> { binding.bottomNavigationView.visibility = View.GONE }
-                else -> { binding.bottomNavigationView.visibility = View.VISIBLE }
+                R.id.searchFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.createStrangerCaseFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.createParentCaseFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
             }
         }
 

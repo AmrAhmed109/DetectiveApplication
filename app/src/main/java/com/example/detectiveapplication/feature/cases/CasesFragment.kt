@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,7 +11,6 @@ import com.englizya.common.base.BaseFragment
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentCasesBinding
 import com.example.detectiveapplication.dto.cases.Case
-import com.example.detectiveapplication.feature.login.LoginViewModel
 import com.example.detectiveapplication.response.ActiveCasesResponse
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +42,7 @@ class CasesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
+        setupObservers()
         lifecycleScope.launchWhenCreated {
             casesViewModel.getCases()
         }
@@ -56,7 +55,7 @@ class CasesFragment : BaseFragment() {
     }
 
     private fun updateUI(response: ActiveCasesResponse) {
-        adapter = CasesAdapter(response.cases) {
+        adapter = CasesAdapter(response.data.cases) {
             progressToCaseDetails(it)
         }
 

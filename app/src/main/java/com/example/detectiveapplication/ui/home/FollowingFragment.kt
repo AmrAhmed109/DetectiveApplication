@@ -1,12 +1,10 @@
 package com.example.detectiveapplication.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.example.detectiveapplication.databinding.FragmentCreateNewPasswordBinding
+import androidx.fragment.app.Fragment
 import com.example.detectiveapplication.databinding.FragmentFollowingBinding
 
 class FollowingFragment : Fragment() {
@@ -18,10 +16,9 @@ class FollowingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFollowingBinding.inflate(inflater,container,false)
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
 
     override fun onDestroy() {

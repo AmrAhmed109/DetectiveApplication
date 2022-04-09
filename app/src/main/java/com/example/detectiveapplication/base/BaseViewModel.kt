@@ -8,9 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-open class BaseViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+open class BaseViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
 
-     val TAG = this::class.java.name
+    val TAG = this::class.java.name
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -33,6 +34,7 @@ open class BaseViewModel @Inject constructor(application: Application) : Android
     fun handleException(exception: Throwable?) {
         //TODO check for every exception type print specific message
         exception?.printStackTrace()
+        _error.postValue(Exception(exception))
     }
 
     fun updateConnectivity(connectivity: Boolean) {

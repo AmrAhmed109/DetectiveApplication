@@ -25,21 +25,23 @@ class ResetPasswordViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
     private val tag = "ResetPasswordViewModel"
-    var forgetPasswordResponse: MutableLiveData<NetworkResult<ForgetPasswordResponse>> = MutableLiveData()
+    var forgetPasswordResponse: MutableLiveData<NetworkResult<ForgetPasswordResponse>> =
+        MutableLiveData()
 
-    fun saveToken(token :String)= viewModelScope.launch(Dispatchers.IO) {
+    fun saveToken(token: String) = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.saveToken(token)
     }
 
     // forgetPassword
-    fun forgetPassword(map:Map<String, String>) {
+    fun forgetPassword(map: Map<String, String>) {
         viewModelScope.launch {
             getForgetPasswordSafeCall(map)
             Log.d(tag, " getForgetPasswordSafeCall(email)")
 
         }
     }
-    private suspend fun getForgetPasswordSafeCall(map:Map<String, String>) {
+
+    private suspend fun getForgetPasswordSafeCall(map: Map<String, String>) {
         forgetPasswordResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
@@ -66,7 +68,7 @@ class ResetPasswordViewModel @Inject constructor(
             }
             response.body()!!.status == false -> {
                 Log.d(tag, "handelForgetPasswordResponse: ${response.body()!!.message}")
-                return NetworkResult.Error( response.body()?.error?.first() )
+                return NetworkResult.Error(response.body()?.error?.first())
             }
             response.isSuccessful -> {
                 val userForgetPasswordResponse = response.body()

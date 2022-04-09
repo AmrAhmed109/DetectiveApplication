@@ -63,7 +63,7 @@ open class BaseActivity : AppCompatActivity() {
             .also { finish() }
     }
 
-    fun changeStatusBarColor(colorRes : Int) {
+    fun changeStatusBarColor(colorRes: Int) {
         window?.statusBarColor = getColor(colorRes)
     }
 }

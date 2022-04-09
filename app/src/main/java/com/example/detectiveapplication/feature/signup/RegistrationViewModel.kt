@@ -21,17 +21,18 @@ class RegistrationViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     application: Application
 ) : AndroidViewModel(application) {
-    val tag ="RegistrationViewModel"
-    var registrationResponse: MutableLiveData<NetworkResult<UserRegistrationResponse>> = MutableLiveData()
+    val tag = "RegistrationViewModel"
+    var registrationResponse: MutableLiveData<NetworkResult<UserRegistrationResponse>> =
+        MutableLiveData()
 
-    fun register(map:Map<String, String>) {
+    fun register(map: Map<String, String>) {
         viewModelScope.launch {
             getRegistrationSafeCall(map)
             Log.d(tag, " getLoginSafeCall(email,password)")
         }
     }
 
-    private suspend fun getRegistrationSafeCall(map:Map<String, String>) {
+    private suspend fun getRegistrationSafeCall(map: Map<String, String>) {
         registrationResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {

@@ -2,17 +2,15 @@ package com.example.detectiveapplication.feature.settings
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentSettingBinding
-import com.example.detectiveapplication.feature.login.LoginViewModel
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +52,7 @@ class SettingFragment : Fragment() {
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
-                        Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_settingFragment_to_registrationActivity)
                         Log.d(tage, "Success : ${response.message.toString()}")
                     }

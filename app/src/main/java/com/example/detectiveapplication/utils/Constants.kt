@@ -10,16 +10,11 @@ import okhttp3.RequestBody
 import java.io.File
 
 class Constants {
-    companion object{
+    companion object {
         const val BASE_URL = "https://krombo.000webhostapp.com/api/"
         const val IMAGE = "image"
-        var TOKEN:String = ""
-
-
-
-
-
-
+        const val TIME_OUT = 5000.toLong()
+        var TOKEN: String = ""
 
         @SuppressLint("Recycle")
         fun imageBody(mContext: Context, uri: Uri, key: String? = null): MultipartBody.Part {
@@ -43,7 +38,4 @@ class Constants {
             )
         }
     }
-
-
-
 }

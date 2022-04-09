@@ -1,13 +1,11 @@
 package com.example.detectiveapplication.feature.edit_profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.detectiveapplication.R
-import com.example.detectiveapplication.databinding.FragmentCreateStrangerCaseBinding
 import com.example.detectiveapplication.databinding.FragmentEditProfileBinding
 
 
@@ -19,7 +17,7 @@ class EditProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEditProfileBinding.inflate(inflater,container,false)
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }

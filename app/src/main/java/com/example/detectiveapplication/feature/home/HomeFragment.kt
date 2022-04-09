@@ -1,10 +1,10 @@
 package com.example.detectiveapplication.feature.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentHomeBinding
@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater,container,false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.cvSearch.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }

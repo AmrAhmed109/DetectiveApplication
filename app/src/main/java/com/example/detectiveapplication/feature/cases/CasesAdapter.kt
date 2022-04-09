@@ -3,11 +3,10 @@ package com.example.detectiveapplication.feature.cases
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
 import coil.load
-import coil.request.ImageRequest
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
 import com.example.detectiveapplication.dto.cases.Case
+
 //import com.squareup.picasso.Picasso
 
 class CasesAdapter(
