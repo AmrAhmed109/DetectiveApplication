@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.ActivityRegistrationBinding
 import com.example.detectiveapplication.feature.login.LoginViewModel
+import com.example.detectiveapplication.feature.settings.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,7 @@ import java.util.*
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var navHostFragment: NavHostFragment
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var settingViewModel: SettingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,11 @@ class RegistrationActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
+        if (settingViewModel.getToken().isNotEmpty()){
+            navController.navigate(R.id.action_loginFragment_to_homeActivity)
+        }
+
     }
 
     private fun setLocate(Lang: String) {

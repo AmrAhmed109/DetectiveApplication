@@ -32,6 +32,12 @@ class SettingViewModel @Inject constructor(
     fun saveToken(token: String) = viewModelScope.launch(Dispatchers.IO) {
         dataStoreRepository.saveToken(token)
     }
+    fun getToken():String{
+        dataStoreRepository.readToken.let {
+           return it
+        }
+    }
+
 
     // getUserProfileInfo
     fun getUserProfileInfo() {
