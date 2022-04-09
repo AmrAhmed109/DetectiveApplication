@@ -166,7 +166,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-
             android:fontFamily="@font/din_next_arabic_medium"
             android:textAlignment="viewStart"
             android:textColor="@color/purple_200"
@@ -220,14 +219,14 @@
                 android:id="@+id/tv_statue_missing_childdddc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
                 android:layout_gravity="center"
+                android:layout_margin="3dp"
                 android:fontFamily="@font/din_next_arabic_medium"
+                android:text="@string/found"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteY="8dp"
-                android:text="@string/found" />
+                tools:layout_editor_absoluteY="8dp" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -249,11 +248,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/din_next_arabic_medium"
+                android:text="@string/delete"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteY="8dp"
-                android:text="@string/delete" />
+                tools:layout_editor_absoluteY="8dp" />
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

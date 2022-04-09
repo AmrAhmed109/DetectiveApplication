@@ -43,7 +43,8 @@ class CasesAdapter(
             binding.tvAge.text = case.age.toString()
             binding.tvNameMissingChild.text = case.name.toString()
             binding.tvStatueMissingChild.text = case.status.toString()
-            binding.tvCity.text = case.city.toString()
+            binding.tvCity.text = case.subCity.toString()
+            binding.tvCapital.text = case.city.toString()
 
 //            Picasso.get().load(case.image).into(binding.ivMissingChild);
 
