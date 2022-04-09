@@ -6,17 +6,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.detectiveapplication.base.BaseViewModel
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.repository.AuthRepository
 import com.example.detectiveapplication.repository.DataStoreRepository
 import com.example.detectiveapplication.utils.Constants
+import com.example.detectiveapplication.utils.GenericApiResponse
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
+import kotlin.math.log
 
 
 @HiltViewModel
@@ -24,7 +25,7 @@ class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val dataStoreRepository: DataStoreRepository,
     application: Application
-) : BaseViewModel(application) {
+) : AndroidViewModel(application) {
 
     //  this variable to check if there is User logged (will use later)
     val readToken = dataStoreRepository.readToken
@@ -35,7 +36,7 @@ class LoginViewModel @Inject constructor(
         dataStoreRepository.saveToken(token)
     }
 
-    // login
+    //     login
     fun login(map: Map<String, String>) {
         viewModelScope.launch {
             getLoginSafeCall(map)
@@ -48,14 +49,17 @@ class LoginViewModel @Inject constructor(
         loginResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
-            authRepository.login(map)
-                .onSuccess {
-                    loginResponse.value = handelLoginResponse(it)
-                }
-                .onFailure {
-                    loginResponse.value = NetworkResult.Error(it.message.toString())
-                    handleException(it)
-                }
+            try {
+                val response = authRepository.login(map)
+                Log.d("amro", "GenericApiResponse: response: ${response.body()}")
+                Log.d("amro", "GenericApiResponse: raw: ${response.raw()}")
+                Log.d("amro", "GenericApiResponse: headers: ${response.headers()}")
+                Log.d("amro", "GenericApiResponse: message: ${response.message()}")
+                loginResponse.value = handelLoginResponse(response)
+            } catch (e: Exception) {
+                loginResponse.value = NetworkResult.Error(e.message.toString())
+                Log.d("getLoginSafeCall", "getLoginSafeCall: ${e.message}")
+            }
         } else {
             loginResponse.value = NetworkResult.Error("No Internet Connection")
         }
@@ -64,26 +68,30 @@ class LoginViewModel @Inject constructor(
 
 
     private fun handelLoginResponse(response: Response<UserLoginResponse>): NetworkResult<UserLoginResponse>? {
+
         when {
-            response.message().toString().contains("Timeout") -> {
-                return NetworkResult.Error("Timeout")
-            }
-            response.code() == 402 -> {
-                return NetworkResult.Error("Api Key Limited")
-            }
-            response.body()!!.data.accessToken.isEmpty() -> {
-                Log.d(TAG, "handelLoginResponse: ${response.body()!!.message}")
-                return NetworkResult.Error(response.body()!!.message)
+            response.code() == 422 -> {
+                Log.d("amro", "case 1")
+                return NetworkResult.Error("عذا منك توجد مشكلة")
             }
             response.isSuccessful -> {
+                if (response.body()?.status == false) {
+                    if (response.body()?.error?.email != null) {
+                        return NetworkResult.Error(response.body()!!.error.email!!.first())
+                    } else if (response.body()?.error?.password != null) {
+                        return NetworkResult.Error(response.body()!!.error.password!!.first())
+                    } else {
+                        return NetworkResult.Error(response.body()!!.message)
+                    }
+                }
                 val userLoginResponse = response.body()
                 saveToken("Bearer ${response.body()!!.data.accessToken}")
-                Constants.TOKEN = "Bearer ${response.body()!!.data.accessToken}"
                 return NetworkResult.Success(userLoginResponse!!)
             }
             else -> {
-                return NetworkResult.Error(response.message())
+                return NetworkResult.Error(response.body()!!.message)
             }
+
         }
     }
 

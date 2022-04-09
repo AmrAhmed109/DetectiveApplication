@@ -6,10 +6,7 @@ import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
 
@@ -23,6 +20,15 @@ interface UserService {
     suspend fun userLogin(
         @Body body: Map<String, String>,
     ): Response<UserLoginResponse>
+
+//    @FormUrlEncoded
+//    @POST("user/login")
+//    @Headers("Content-Type: application/json")
+//    suspend fun userLogin(
+//        @Field("email") email:String,
+//        @Field("password") password :String,
+//        @Field("fcm_token") token :String
+//    ): Response<UserLoginResponse>
 
 
     /**

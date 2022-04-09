@@ -3,7 +3,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Error(
     @SerializedName("email")
-    val email: List<String>,
+    val email: List<String>? = null,
     @SerializedName("password")
-    val password: List<String>
+    val password: List<String>?=null
 )

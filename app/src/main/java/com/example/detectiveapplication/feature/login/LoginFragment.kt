@@ -20,7 +20,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var loginViewModel: LoginViewModel
-    val tage ="LoginFragment"
+    val tage = "LoginFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +52,11 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun loginRequest(email : String , password : String):Map<String,String>{
+    private fun loginRequest(email: String, password: String): Map<String, String> {
         val map: HashMap<String, String> = HashMap()
         map["email"] = email
         map["password"] = password
         map["fcm_token"] = "123456"
-//        TODO
 
         return map
     }
@@ -65,7 +64,12 @@ class LoginFragment : Fragment() {
     private fun requestApiData() {
         Log.v("recipesFragment", "requestApiData called!")
 
-        loginViewModel.login(loginRequest("hassanstar201118@gmail.com" , "123456789"))
+        loginViewModel.login(
+            loginRequest(
+                binding.etUsername.text?.trim().toString(),
+                binding.etPasswordInput.text?.trim().toString()
+            )
+        )
         loginViewModel.loginResponse.observe(viewLifecycleOwner, { response ->
 
             when (response) {
@@ -85,7 +89,6 @@ class LoginFragment : Fragment() {
                         .show()
                     Log.d("NetworkResult.Error", "requestApiData: ${response.message.toString()}")
                 }
-
                 is NetworkResult.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
                         .show()
@@ -98,7 +101,6 @@ class LoginFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 
 }
