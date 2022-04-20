@@ -1,10 +1,12 @@
 package com.example.detectiveapplication.service.api
 
-import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
+import com.example.detectiveapplication.dto.reset_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
+import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
+import com.example.detectiveapplication.dto.reset_password.ResetPasswordResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -23,15 +25,6 @@ interface UserService {
     suspend fun userLogin(
         @Body body: Map<String, String>,
     ): Response<UserLoginResponse>
-
-//    @FormUrlEncoded
-//    @POST("user/login")
-//    @Headers("Content-Type: application/json")
-//    suspend fun userLogin(
-//        @Field("email") email:String,
-//        @Field("password") password :String,
-//        @Field("fcm_token") token :String
-//    ): Response<UserLoginResponse>
 
 
     /**
@@ -55,6 +48,28 @@ interface UserService {
     suspend fun userForgetPassword(
         @Body body: Map<String, String>
     ): Response<ForgetPasswordResponse>
+
+    /**
+     * Reset Parameter
+     * token*
+     * password*
+     * password_confirmation*
+     * */
+    @POST("user/reset-password")
+    @Headers("Content-Type: application/json")
+    suspend fun userResetPassword(
+        @Body body: Map<String, String>
+    ): Response<ResetPasswordResponse>
+
+    /**
+     * code verify Parameter
+     * code*
+     * */
+    @POST("user/reset-password")
+    @Headers("Content-Type: application/json")
+    suspend fun userCodeCheck(
+        @Body body: Map<String, String>
+    ): Response<CodeVerificationResponse>
 
 
     @POST("user/logout")

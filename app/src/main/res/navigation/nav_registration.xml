@@ -54,7 +54,14 @@
         android:id="@+id/createNewPasswordFragment"
         android:name="com.example.detectiveapplication.feature.reset_password.CreateNewPasswordFragment"
         android:label="fragment_create_new_password"
-        tools:layout="@layout/fragment_create_new_password" />
+        tools:layout="@layout/fragment_create_new_password" >
+        <argument
+            android:name="token"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_createNewPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <activity
         android:id="@+id/homeActivity"
         android:name="com.example.detectiveapplication.navigation.home.HomeActivity"

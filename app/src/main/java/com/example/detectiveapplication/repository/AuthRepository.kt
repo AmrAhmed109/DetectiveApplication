@@ -1,10 +1,12 @@
 package com.example.detectiveapplication.repository
 
-import com.example.detectiveapplication.dto.forget_password.ForgetPasswordResponse
+import com.example.detectiveapplication.dto.reset_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
+import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
+import com.example.detectiveapplication.dto.reset_password.ResetPasswordResponse
 import com.example.detectiveapplication.service.api.UserService
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Response
@@ -24,6 +26,14 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
 
     suspend fun forgetPassword(map: Map<String, String>): Response<ForgetPasswordResponse> {
         return authApi.userForgetPassword(map)
+    }
+
+    suspend fun resetPassword(map: Map<String, String>): Response<ResetPasswordResponse> {
+        return authApi.userResetPassword(map)
+    }
+
+    suspend fun codeCheck(map: Map<String, String>): Response<CodeVerificationResponse> {
+        return authApi.userCodeCheck(map)
     }
 
     suspend fun logout(token: String): Response<UserLogoutResponse> {

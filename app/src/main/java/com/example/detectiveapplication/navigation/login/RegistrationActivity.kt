@@ -28,13 +28,16 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(binding.root)
         setLocate("ar")
         supportActionBar?.hide()
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
         settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
         if (settingViewModel.getToken().isNotEmpty()){
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
+//            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         }
+//        else{
+//            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
+//        }
 
     }
 

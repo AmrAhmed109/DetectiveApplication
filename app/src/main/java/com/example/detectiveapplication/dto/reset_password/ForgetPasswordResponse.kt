@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.dto.forget_password
+package com.example.detectiveapplication.dto.reset_password
 
 
 import com.google.gson.annotations.SerializedName

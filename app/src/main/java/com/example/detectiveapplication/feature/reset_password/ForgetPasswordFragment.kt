@@ -44,9 +44,7 @@ class ForgetPasswordFragment : Fragment() {
 
         binding.btnEmailCheck.setOnClickListener {
             requestApiData()
-
         }
-
     }
 
     private fun forgetPasswordRequest(email: String): Map<String, String> {
@@ -58,7 +56,7 @@ class ForgetPasswordFragment : Fragment() {
     private fun requestApiData() {
         Log.v(tage, "requestApiData called!")
 
-        resetPasswordViewModel.forgetPassword(forgetPasswordRequest("amro.ahmed1009@gmail.com"))
+        resetPasswordViewModel.forgetPassword(forgetPasswordRequest(binding.etRewriteEmail.text.toString()))
         resetPasswordViewModel.forgetPasswordResponse.observe(viewLifecycleOwner, { response ->
 
             when (response) {
@@ -70,23 +68,19 @@ class ForgetPasswordFragment : Fragment() {
                             requireContext(),
                             response.data.message,
                             Toast.LENGTH_LONG
-                        )
-                            .show()
+                        ).show()
                     }
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG)
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT)
                         .show()
                     Log.d(tage, "requestApiData: ${response.message.toString()}")
                 }
-
                 is NetworkResult.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
-
-
         })
     }
 
