@@ -2,6 +2,7 @@ package com.example.detectiveapplication.navigation.login
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +32,8 @@ class RegistrationActivity : AppCompatActivity() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
         settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
-        if (settingViewModel.getToken().isNotEmpty()){
+        Log.v("tokenCheck",settingViewModel.getToken())
+        if (settingViewModel.getToken().length > 5){
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
 //            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         }
