@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.feature.cases
+package com.example.detectiveapplication.feature.home
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CasesViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val casesRepository: CaseRepository,
     private val dataStoreRepository: DataStoreRepository,
     application: Application,
@@ -20,17 +20,17 @@ class CasesViewModel @Inject constructor(
     private var _cases = MutableLiveData<ActiveCasesResponse>()
     val cases: LiveData<ActiveCasesResponse> = _cases
 
-    suspend fun getCases() {
+    suspend fun getFeedCases() {
         updateLoading(true)
 
         dataStoreRepository.readToken.let {
-            getCases(it)
+            getFeedCases(it)
         }
     }
 
-    private suspend fun getCases(token: String) {
+    private suspend fun getFeedCases(token: String) {
         casesRepository
-            .getUserCases(token)
+            .getAllActiveCases(token)
             .onSuccess {
                 updateLoading(false)
                 _cases.postValue(it)
@@ -39,10 +39,6 @@ class CasesViewModel @Inject constructor(
                 updateLoading(false)
                 handleException(it)
             }
-
-    }
-
-    fun setCases(cases: ActiveCasesResponse) {
 
     }
 }

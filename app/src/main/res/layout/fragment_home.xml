@@ -33,42 +33,42 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/main_course_chip"
+                    android:id="@+id/all"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="all" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/side_dish_chip"
+                    android:id="@+id/cairo"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cairo" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/dessert_chip"
+                    android:id="@+id/alexandria"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Alexandria" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/appetizer_chip"
+                    android:id="@+id/giza"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giza" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/salad_chip"
+                    android:id="@+id/qalyubia"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Qalyubia" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/bread_chip"
+                    android:id="@+id/gharnbia"
                     style="@style/CustomChipStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -221,6 +221,8 @@
         android:layout_marginTop="16dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

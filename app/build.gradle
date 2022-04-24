@@ -103,4 +103,27 @@ dependencies {
     implementation(Ktor.ktorClientAndroid)
     implementation(Ktor.ktorClientGson)
     implementation(Ktor.ktorClientSerialization)
+
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.coroutinesTest)
+    testImplementation(Testing.testRules)
+
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:4.13.2"
+
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation "io.mockk:mockk:1.12.2"
+
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
+    // Optional -- UI testing with Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.1.1"
+
+    // To use the androidx.test.core APIs
+    androidTestImplementation("androidx.test:core:1.4.0")
+    // Kotlin extensions for androidx.test.core
+    androidTestImplementation("androidx.test:core-ktx:1.4.0")
+
+    // To use the androidx.test.espresso
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
 }

@@ -10,6 +10,10 @@ import javax.inject.Inject
 class CaseRepository @Inject constructor(private val caseService: CaseService) {
 
     suspend fun getAllActiveCases(token: String): Result<ActiveCasesResponse> = kotlin.runCatching {
-        caseService.fetchActiveCases(token)
+        caseService.fetchAllActiveCases(token)
+    }
+
+    suspend fun getUserCases(token: String): Result<ActiveCasesResponse> = kotlin.runCatching {
+        caseService.fetchUserActiveCases(token)
     }
 }
