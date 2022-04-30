@@ -35,11 +35,8 @@ class RegistrationActivity : AppCompatActivity() {
         Log.v("tokenCheck",settingViewModel.getToken())
         if (settingViewModel.getToken().length > 5){
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
-//            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         }
-//        else{
-//            navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
-//        }
+
 
     }
 

@@ -40,7 +40,7 @@ class CasesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(case: Case) {
-            binding.tvAge.text = case.age.toString()
+            binding.tvAge.text = case.age.toString() + " " +"سنة"
             binding.tvNameMissingChild.text = case.name.toString()
             binding.tvStatueMissingChild.text = case.status.toString()
             binding.tvCity.text = case.subCity.toString()

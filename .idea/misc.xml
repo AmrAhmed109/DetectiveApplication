@@ -20,6 +20,7 @@
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/drawable/ic_white_back.xml" value="0.22608695652173913" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/activity_registration.xml" value="0.23854166666666668" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/card_view_case.xml" value="0.15337837837837837" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/case_list_item.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_cases.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_create_new_password.xml" value="0.2179054054054054" />
@@ -34,10 +35,10 @@
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_registration.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_result.xml" value="0.2157190635451505" />
-        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_search.xml" value="0.176" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_search.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_setting.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/fragment_wating_cases.xml" value="0.152" />
-        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/missing_child_list_item.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/layout/missing_child_list_item.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjectsHere(work)/DetectiveApplication/app/src/main/res/menu/menu_home.xml" value="0.2179054054054054" />
         <entry key="..\:/Users/Harera/StudioProjects/DetectiveApplication/app/src/main/res/layout/card_view_case.xml" value="0.33" />
         <entry key="..\:/Users/Harera/StudioProjects/DetectiveApplication/app/src/main/res/layout/case_list_item.xml" value="0.35260416666666666" />

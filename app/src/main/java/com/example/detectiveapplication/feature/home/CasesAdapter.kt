@@ -1,10 +1,14 @@
 package com.example.detectiveapplication.feature.home
 
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
+import com.example.detectiveapplication.databinding.MissingChildListItemBinding
 import com.example.detectiveapplication.dto.cases.Case
 
 //import com.squareup.picasso.Picasso
@@ -15,7 +19,7 @@ class CasesAdapter(
 ) : RecyclerView.Adapter<CasesAdapter.CaseViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CaseViewHolder {
-        val bind = CardViewCaseBinding.inflate(
+        val bind = MissingChildListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -35,13 +39,14 @@ class CasesAdapter(
     }
 
     class CaseViewHolder(
-        private val binding: CardViewCaseBinding
+        private val binding: MissingChildListItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(case: Case) {
-            binding.tvAge.text = case.age.toString()
+            binding.tvAge.text = case.age.toString() + " " + "سنة"
             binding.tvNameMissingChild.text = case.name.toString()
+            binding.tvDescriptionMissingChild.text = checkText(case.otherInfo.toString())
             binding.tvStatueMissingChild.text = case.status.toString()
             binding.tvCity.text = case.subCity.toString()
             binding.tvCapital.text = case.city.toString()
@@ -50,5 +55,16 @@ class CasesAdapter(
 
             binding.ivMissingChild.load(case.image)
         }
+
+        private fun checkText(string: String): String {
+            return if (string in "other_info") {
+                strings
+            } else {
+                string
+            }
+        }
+
+        val strings: String =
+            "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. "
     }
 }

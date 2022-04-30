@@ -71,6 +71,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="3dp"
         android:backgroundTint="@color/light_red"
         android:elevation="1dp"
         app:cardCornerRadius="100dp"
@@ -83,13 +85,15 @@
             android:id="@+id/tv_statue_missing_child"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             android:fontFamily="@font/din_next_arabic_medium"
             android:textColor="@color/red"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="8dp"
-            tools:text="TextView" />
+            tools:text="مفقود" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView

@@ -41,6 +41,7 @@
 
 
     <EditText
+
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -55,10 +56,14 @@
         android:paddingBottom="8dp"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
+        android:imeOptions="actionSearch"
         app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView"
         app:layout_constraintStart_toEndOf="@+id/back"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+       >
+        <requestFocus/>
+    </EditText>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
