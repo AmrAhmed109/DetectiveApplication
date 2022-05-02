@@ -1,25 +1,29 @@
 package com.example.detectiveapplication.dto.profile_data
 
 
-import com.google.gson.annotations.SerializedName
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class UserProfileInfo(
     @SerializedName("code")
-    val code: Int,
+    val code: Int?,
     @SerializedName("created_at")
-    val createdAt: Any,
+    val createdAt: String?,
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("email_verified_at")
-    val emailVerifiedAt: Any,
+    val emailVerifiedAt: String?,
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("message")
-    val message: String,
+    val message: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("status")
-    val status: String
-)
+    val status: String?
+): Parcelable

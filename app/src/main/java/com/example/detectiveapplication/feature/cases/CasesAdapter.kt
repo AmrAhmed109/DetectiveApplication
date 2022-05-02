@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
 import com.example.detectiveapplication.dto.cases.Case
+import com.example.detectiveapplication.utils.Constants
 
 //import com.squareup.picasso.Picasso
 
@@ -40,15 +41,29 @@ class CasesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(case: Case) {
+            if (case.status == "not_found"){
+                binding.tvStatueMissingChild.text = "مفقود"
+            }else{
+                binding.tvStatueMissingChild.text = "تم العثور علية"
+            }
             binding.tvAge.text = case.age.toString() + " " +"سنة"
             binding.tvNameMissingChild.text = case.name.toString()
-            binding.tvStatueMissingChild.text = case.status.toString()
+//            binding.tvStatueMissingChild.text = case.status.toString()
             binding.tvCity.text = case.subCity.toString()
             binding.tvCapital.text = case.city.toString()
+            binding.tvDescriptionMissingChild.text = checkText(case.otherInfo.toString())
 
 //            Picasso.get().load(case.image).into(binding.ivMissingChild);
 
             binding.ivMissingChild.load(case.image)
         }
+        private fun checkText(string: String): String {
+            return if (string in "other_info") {
+                Constants.LOREM
+            } else {
+                string
+            }
+        }
     }
+
 }

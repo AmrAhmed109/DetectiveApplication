@@ -7,21 +7,99 @@
     tools:context=".feature.edit_profile.EditProfileFragment">
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints="password"
+        android:focusedByDefault="true"
+        android:hint="@string/password"
+        android:textColorHint="@color/textColorHint"
+        app:boxBackgroundColor="@color/boxBackgroundColor"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailInputLayout"
+        app:passwordToggleEnabled="true"
+        tools:targetApi="o">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/din_next_arabic_medium"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etConfirmPasswordInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints="password"
+        android:focusedByDefault="true"
+        android:hint="@string/rewrite_password"
+        android:textColorHint="@color/textColorHint"
+        app:boxBackgroundColor="@color/boxBackgroundColor"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordInputLayout"
+        app:passwordToggleEnabled="true"
+        tools:targetApi="o">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/din_next_arabic_medium"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
+        android:visibility="gone"
         android:id="@+id/btn_sign_up_button"
         style="@style/ShapeAppearance.App.SmallComponent"
         android:layout_width="0dp"
         android:layout_height="63dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/dark_grey"
         android:fontFamily="@font/din_next_arabic_medium"
         android:text="@string/change_password"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save_changes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmailInputLayout" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_save_changes"
@@ -40,54 +118,16 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etSecondNameInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints="name"
-        android:focusedByDefault="true"
-        android:hint="@string/second_name"
-        android:textColorHint="@color/textColorHint"
-        app:boxBackgroundColor="@color/boxBackgroundColor"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/etFirstNameInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etFirstNameInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/etFirstNameInputLayout"
-        tools:targetApi="o">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSecondName"
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/din_next_arabic_medium"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etFirstNameInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:autofillHints="emailAddress"
         android:focusedByDefault="true"
-        android:hint="@string/first_name"
+        android:hint="@string/name"
         android:textColorHint="@color/textColorHint"
         app:boxBackgroundColor="@color/boxBackgroundColor"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -95,7 +135,7 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeWidth="0dp"
-        app:layout_constraintEnd_toStartOf="@id/etSecondNameInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
         tools:targetApi="o">

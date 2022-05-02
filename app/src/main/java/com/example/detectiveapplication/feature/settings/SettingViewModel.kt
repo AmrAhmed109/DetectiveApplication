@@ -56,6 +56,10 @@ class SettingViewModel @Inject constructor(
         if (hasInternetConnection()) {
             try {
                 val response = authRepository.getUserData(token)
+                Log.d(tag, "GenericApiResponse: response: ${response.body()}")
+                Log.d(tag, "GenericApiResponse: raw: ${response.raw()}")
+                Log.d(tag, "GenericApiResponse: headers: ${response.headers()}")
+                Log.d(tag, "GenericApiResponse: message: ${response.message()}")
                 userInfoResponse.value = handeluserInfoResponse(response)
             } catch (e: Exception) {
                 userInfoResponse.value = NetworkResult.Error(e.message.toString())
@@ -75,7 +79,7 @@ class SettingViewModel @Inject constructor(
             response.code() == 401 -> {
                 return NetworkResult.Error(response.body()?.message)
             }
-            response.body()!!.name.isEmpty() -> {
+            response.body()!!.name!!.isEmpty() -> {
                 Log.d(tag, "handeluserInfoResponse: ${response.body()!!.message}")
                 return NetworkResult.Error(response.body()!!.message)
             }

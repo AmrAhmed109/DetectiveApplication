@@ -85,6 +85,11 @@
             app:destination="@id/settingFragment"
             app:popUpTo="@id/editProfileFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="userProfile"
+            app:argType="com.example.detectiveapplication.dto.profile_data.UserProfileInfo"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

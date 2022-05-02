@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentSettingBinding
+import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +21,7 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var settingViewModel: SettingViewModel
     val tage = "SettingFragment"
+    var userProfile:UserProfileInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,13 @@ class SettingFragment : Fragment() {
 
         binding.cvLogOut.setOnClickListener {
             requestLogout()
+        }
+        binding.cvEditProfile.setOnClickListener {
+            val action = SettingFragmentDirections.actionSettingFragmentToEditProfileFragment(userProfile)
+            findNavController().navigate(action)
+        }
+        binding.cvWatingCases.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_watingCasesFragment)
         }
     }
 
@@ -75,11 +84,18 @@ class SettingFragment : Fragment() {
         Log.v(tage, "requestApiData called!")
 
         settingViewModel.getUserProfileInfo()
-        settingViewModel.userInfoResponse.observe(viewLifecycleOwner, { response ->
+        settingViewModel.userInfoResponse.observe(viewLifecycleOwner) { response ->
 
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
+                        userProfile = it
+                        Toast.makeText(
+                            requireContext(),
+                            userProfile!!.email.toString(),
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
                         binding.tvName.text = it.name
                         binding.tvEmail.text = it.email
                     }
@@ -95,7 +111,7 @@ class SettingFragment : Fragment() {
                         .show()
                 }
             }
-        })
+        }
     }
 
     override fun onDestroy() {

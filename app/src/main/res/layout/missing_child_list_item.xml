@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    android:layout_marginBottom="5dp">
 
 
     <TextView
@@ -73,8 +75,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="3dp"
-        android:backgroundTint="@color/light_red"
         android:elevation="1dp"
+        app:cardBackgroundColor="@color/light_red"
         app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_name_missing_child"
         app:layout_constraintEnd_toEndOf="parent"

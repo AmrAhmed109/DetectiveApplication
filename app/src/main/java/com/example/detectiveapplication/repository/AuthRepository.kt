@@ -1,8 +1,10 @@
 package com.example.detectiveapplication.repository
 
+import com.example.detectiveapplication.dto.edit_profile.EditProfileResponse
 import com.example.detectiveapplication.dto.reset_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.pendingCases.PendingCasesResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
@@ -16,12 +18,21 @@ import javax.inject.Inject
 @ViewModelScoped
 class AuthRepository @Inject constructor(private val authApi: UserService) {
 
+
     suspend fun login(map: Map<String, String>): Response<UserLoginResponse> {
         return authApi.userLogin(map)
     }
 
     suspend fun registration(map: Map<String, String>): Response<UserRegistrationResponse> {
         return authApi.userRegistration(map)
+    }
+
+    suspend fun editProfile(token: String,map: Map<String, String>): Response<EditProfileResponse> {
+        return authApi.userEditProfile(token,map)
+    }
+
+    suspend fun getPendingCases(token: String): Response<PendingCasesResponse> {
+        return authApi.pendingCases(token)
     }
 
     suspend fun forgetPassword(map: Map<String, String>): Response<ForgetPasswordResponse> {

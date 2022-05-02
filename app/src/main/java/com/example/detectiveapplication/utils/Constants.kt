@@ -15,7 +15,7 @@ class Constants {
         const val IMAGE = "image"
         const val TIME_OUT = 5000.toLong()
         var TOKEN: String = ""
-
+        val LOREM: String = "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. "
         @SuppressLint("Recycle")
         fun imageBody(mContext: Context, uri: Uri, key: String? = null): MultipartBody.Part {
             val p: String
