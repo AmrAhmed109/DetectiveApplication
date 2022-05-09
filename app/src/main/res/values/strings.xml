@@ -59,4 +59,15 @@
     <string name="edit_profile_data">Edit Profile Data</string>
     <string name="rate_the_app">Rate the app</string>
     <string name="log_out">Log out</string>
+    <string name="add_child_photo">add child Photo</string>
+    <string name="city">city</string>
+    <string name="capital">Capital</string>
+    <string name="age">Age</string>
+
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>German</item>
+        <item>Ehglish</item>
+    </string-array>
 </resources>

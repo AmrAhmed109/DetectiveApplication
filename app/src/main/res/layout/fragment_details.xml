@@ -11,6 +11,7 @@
         android:id="@+id/materialCardView5"
         android:layout_width="0dp"
         android:layout_height="150dp"
+        android:visibility="gone"
         android:backgroundTint="@color/lighter_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/ic_launcher" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -83,17 +84,18 @@
 
     <TextView
         android:id="@+id/tv_name_missing_child"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:elevation="10dp"
         android:fontFamily="@font/din_next_arabic_medium"
-        tools:text="محمود علي محمد"
-        android:textAlignment="viewEnd"
+        android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toEndOf="@+id/materialCardView4"
-        app:layout_constraintTop_toTopOf="@+id/materialCardView4" />
+        app:layout_constraintTop_toTopOf="@+id/materialCardView4"
+        tools:text="محمود علي محمد" />
 
 
     <TextView
@@ -200,6 +202,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="-10dp"
+        android:visibility="gone"
+
         android:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +214,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -232,7 +237,7 @@
             android:text="@string/do_you_have_any_information_about_him"
             android:textAlignment="viewStart"
             android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/textView11"
@@ -245,7 +250,7 @@
             android:text="@string/you_can_call_his_parent_and_help_them"
             android:textAlignment="viewStart"
             android:textColor="@color/white"
-            android:textSize="14dp" />
+            android:textSize="12dp" />
 
     </LinearLayout>
 
@@ -258,6 +263,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/lighter_grey"
         android:elevation="1dp"
+        android:visibility="gone"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -280,6 +286,19 @@
             tools:layout_editor_absoluteY="8dp"
             android:text="@string/call" />
     </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:visibility="gone"
+        android:backgroundTint="@color/dark_grey"
+        android:fontFamily="@font/din_next_arabic_black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name_missing_child"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name_missing_child" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

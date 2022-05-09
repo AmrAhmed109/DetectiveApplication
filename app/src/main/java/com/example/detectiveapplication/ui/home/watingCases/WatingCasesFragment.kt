@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.home
+package com.example.detectiveapplication.ui.home.watingCases
 
 import android.os.Bundle
 import android.util.Log
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentWatingCasesBinding
 import com.example.detectiveapplication.dto.pendingCases.DataList
-import com.example.detectiveapplication.ui.home.WatingCasesAdapter.Interaction
+import com.example.detectiveapplication.ui.home.FollowingFragmentDirections
+import com.example.detectiveapplication.ui.home.watingCases.WatingCasesAdapter.Interaction
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,8 +83,8 @@ class WatingCasesFragment : Fragment(), Interaction {
     }
 
     override fun onItemSelected(position: Int, item: DataList, state: Int) {
-        Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
-    }
+        val action = WatingCasesFragmentDirections.actionWatingCasesFragmentToDetailsFragment(item.id.toString())
+        findNavController().navigate(action)    }
 
 
 }

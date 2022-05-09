@@ -49,6 +49,8 @@ class CasesAdapter(
             if (case.status == "not_found"){
                 binding.tvStatueMissingChild.text = "مفقود"
             }else{
+                // change cardView background to light_blue
+                // change tvStatueMissingChild color to purple_200
                 binding.tvStatueMissingChild.text = "تم العثور علية"
             }
             binding.tvAge.text = case.age.toString() + " " + "سنة"

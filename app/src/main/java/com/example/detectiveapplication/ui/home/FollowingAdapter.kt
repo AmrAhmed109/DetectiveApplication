@@ -9,23 +9,23 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.MissingChildListItemBinding
-import com.example.detectiveapplication.dto.pendingCases.DataList
+import com.example.detectiveapplication.dto.followedCases.FollowedCasesItem
 import com.example.detectiveapplication.utils.Constants
 
-class WatingCasesAdapter(private val interaction: Interaction? = null) :
-    RecyclerView.Adapter<WatingCasesAdapter.ViewHolder>() {
+class FollowingAdapter(private val interaction:Interaction? = null) :
+    RecyclerView.Adapter<FollowingAdapter.ViewHolder>()  {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataList>() {
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowedCasesItem>() {
         override fun areItemsTheSame(
-            oldItem: DataList,
-            newItem: DataList
+            oldItem: FollowedCasesItem,
+            newItem: FollowedCasesItem
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: DataList,
-            newItem: DataList
+            oldItem: FollowedCasesItem,
+            newItem: FollowedCasesItem
         ): Boolean {
             return oldItem == newItem
         }
@@ -38,10 +38,20 @@ class WatingCasesAdapter(private val interaction: Interaction? = null) :
         private val binding: MissingChildListItemBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: DataList, position: Int) = with(binding.root) {
-            binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.lighter_grey))
-            binding.tvStatueMissingChild.setTextColor(ContextCompat.getColor(context,R.color.dark_grey))
-            binding.tvStatueMissingChild.setText("قيد المراجعة")
+        fun bind(item: FollowedCasesItem, position: Int) = with(binding.root) {
+            if (item.status == "not_found"){
+                binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,
+                    R.color.light_red
+                ))
+                binding.tvStatueMissingChild.setTextColor(ContextCompat.getColor(context,
+                    R.color.red
+                ))
+                binding.tvStatueMissingChild.setText("مفقود")
+            }else{
+                binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_blue))
+                binding.tvStatueMissingChild.setTextColor(ContextCompat.getColor(context, R.color.purple_200))
+                binding.tvStatueMissingChild.setText("تم العثور علية")
+            }
 
             binding.tvNameMissingChild.text = item.name
             binding.tvDescriptionMissingChild.text = checkText(item.otherInfo)
@@ -87,13 +97,13 @@ class WatingCasesAdapter(private val interaction: Interaction? = null) :
         return differ.currentList.size
     }
 
-    fun submitList(list: List<DataList>) {
+    fun submitList(list: List<FollowedCasesItem>) {
         differ.submitList(list)
     }
 
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: DataList, state: Int)
+        fun onItemSelected(position: Int, item: FollowedCasesItem, state: Int)
     }
 
 

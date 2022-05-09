@@ -125,6 +125,8 @@ dependencies {
     // Kotlin extensions for androidx.test.core
     androidTestImplementation("androidx.test:core-ktx:1.4.0")
 
+    implementation 'com.github.nguyenhoanglam:ImagePicker:1.5.2'
+
     // To use the androidx.test.espresso
     androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
 }

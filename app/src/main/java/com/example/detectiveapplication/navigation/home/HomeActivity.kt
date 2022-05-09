@@ -69,6 +69,9 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 R.id.watingCasesFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.detailsFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }

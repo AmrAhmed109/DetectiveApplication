@@ -14,17 +14,29 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/followingFragment"
         android:name="com.example.detectiveapplication.ui.home.FollowingFragment"
         android:label="fragment_following"
-        tools:layout="@layout/fragment_following" />
+        tools:layout="@layout/fragment_following" >
+        <action
+            android:id="@+id/action_followingFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.detectiveapplication.feature.case_.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/casesFragment"
         android:name="com.example.detectiveapplication.feature.cases.CasesFragment"
@@ -36,15 +48,22 @@
         <action
             android:id="@+id/action_casesFragment_to_createStrangerCaseFragment"
             app:destination="@id/createStrangerCaseFragment" />
+        <action
+            android:id="@+id/action_casesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.detectiveapplication.feature.search_result.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/watingCasesFragment"
-        android:name="com.example.detectiveapplication.ui.home.WatingCasesFragment"
+        android:name="com.example.detectiveapplication.ui.home.watingCases.WatingCasesFragment"
         android:label="fragment_wating_cases"
         tools:layout="@layout/fragment_wating_cases">
         <action
@@ -52,6 +71,9 @@
             app:destination="@id/settingFragment"
             app:popUpTo="@id/watingCasesFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_watingCasesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createParentCaseFragment"
@@ -63,6 +85,9 @@
             app:destination="@id/casesFragment"
             app:popUpTo="@id/createParentCaseFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_createParentCaseFragment_to_watingCasesFragment"
+            app:destination="@id/watingCasesFragment" />
     </fragment>
     <fragment
         android:id="@+id/createStrangerCaseFragment"
