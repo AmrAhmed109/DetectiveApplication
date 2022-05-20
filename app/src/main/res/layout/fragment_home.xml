@@ -6,131 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".navigation.home.HomeActivity">
 
-    <HorizontalScrollView
-        android:id="@+id/mealType_scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/capitalRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:scrollbars="none"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/capital_chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:checkedChip="@+id/main_course_chip"
-                app:selectionRequired="false"
-                app:singleLine="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/all"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="all" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/cairo"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cairo" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/alexandria"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alexandria" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/giza"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giza" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/qalyubia"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Qalyubia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/gharnbia"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gharbia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/breakfast_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dakahlia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/soup_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Asyut" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/beverage_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fayoum" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/sauce_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sharqia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/marinade_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ismailia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/finger_food_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Qalyubia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/snack_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aswan" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/drink_chip"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Beheira" />
-
-            </com.google.android.material.chip.ChipGroup>
-        </LinearLayout>
-    </HorizontalScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        tools:listitem="@layout/card_view_capital" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
@@ -217,14 +103,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:orientation="vertical"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealType_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/capitalRV"
         tools:listitem="@layout/missing_child_list_item" />
 
 

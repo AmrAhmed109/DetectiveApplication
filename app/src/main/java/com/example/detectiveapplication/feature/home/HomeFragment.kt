@@ -1,6 +1,5 @@
 package com.example.detectiveapplication.feature.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentHomeBinding
 import com.example.detectiveapplication.dto.cases.Case
-import com.example.detectiveapplication.navigation.login.RegistrationActivity
+import com.example.detectiveapplication.feature.home.utils.capitalList
 import com.example.detectiveapplication.response.ActiveCasesResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,6 +21,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var adapter: CasesAdapter
+    private lateinit var capitalAdapter: CapitalAdapter
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -41,15 +41,39 @@ class HomeFragment : Fragment() {
 
         setupListeners()
         setupObservers()
+        setupCapitalsUI()
 
         lifecycleScope.launch {
             homeViewModel.getFeedCases()
         }
     }
 
+    private fun setupCapitalsUI() {
+        capitalAdapter = CapitalAdapter(
+            capitalList,
+            homeViewModel.selectedCapital.value!!,
+        ) {
+            homeViewModel.setSelectedCapital(it)
+        }
+
+        binding.capitalRV.adapter = capitalAdapter
+    }
+
     private fun setupObservers() {
         homeViewModel.error.observe(viewLifecycleOwner) {
             progressToLogin()
+        }
+
+        homeViewModel.cases.observe(viewLifecycleOwner) {
+
+        }
+
+        homeViewModel.cases.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+
+        homeViewModel.selectedCapital.observe(viewLifecycleOwner) {
+            setupCapitalsUI()
         }
     }
 
@@ -64,13 +88,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        homeViewModel.cases.observe(viewLifecycleOwner) {
-
-        }
-
-        homeViewModel.cases.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
     }
 
     private fun updateUI(activeCasesResponse: ActiveCasesResponse?) {
