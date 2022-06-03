@@ -38,8 +38,29 @@ class Constants {
             val file = File(p)
             val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
             return MultipartBody.Part.createFormData(
-                if (key.isNullOrEmpty()) Constants.IMAGE else key,
+                key!!,
                 file.name,
+                requestFile
+            )
+        }
+
+        @SuppressLint("Recycle")
+        fun anotherImageBody(mContext: Context, uri: Uri, key: String? = null): MultipartBody.Part {
+            val p: String
+            val cursor = mContext.contentResolver.query(uri, null, null, null, null)
+
+            p = if (cursor == null) {
+                uri.path.toString()
+            } else {
+                cursor.moveToFirst()
+                val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+                cursor.getString(idx)
+            }
+            val file = File(p)
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            return MultipartBody.Part.createFormData(
+                key!!,
+                file.absolutePath,
                 requestFile
             )
         }

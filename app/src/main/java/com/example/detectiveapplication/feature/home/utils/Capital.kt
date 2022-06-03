@@ -2,7 +2,7 @@ package com.example.detectiveapplication.feature.home.utils
 
 sealed class Capital(val capitalName: String) {
     object All : Capital("All")
-    object Cairo : Capital("Cairo")
+    object Cairo : Capital("القاهرة")
     object Alexandria : Capital("Alexandria")
     object Giza : Capital("Giza")
     object Qalyubia : Capital("Qalyubia")
@@ -36,7 +36,7 @@ object CapitalUtils {
     fun getCapital(capitalName: String): Capital {
         return when (capitalName) {
             "All" -> Capital.All
-            "Cairo" -> Capital.Cairo
+            "القاهرة" -> Capital.Cairo
             "Alexandria" -> Capital.Alexandria
             "Giza" -> Capital.Giza
             "Qalyubia" -> Capital.Qalyubia

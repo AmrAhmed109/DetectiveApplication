@@ -71,6 +71,7 @@ class CaseDetailsViewModel @Inject constructor(
             }
             response.isSuccessful -> {
                 val detailResponse = response.body()
+                Log.d(tag, "handleDetailCasesResponse: detailResponse")
                 return NetworkResult.Success(detailResponse!!)
             }
             else -> {

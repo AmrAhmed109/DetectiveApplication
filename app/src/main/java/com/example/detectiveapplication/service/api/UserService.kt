@@ -47,24 +47,26 @@ interface UserService {
 
 //    @FormUrlEncoded  multipart/form-data
     @Multipart
+//    @Headers("Content-Type: application/json")
 //    @Headers("content-type:multipart/form-data")
     @POST("user/kiddnaped/create-kid")
     suspend fun createKidnappedKid(
         @Header("Authorization") token: String,
-        @Part("name") name: RequestBody = "Ahmed".requestBodyConvert(),
+        @Part("name") name: RequestBody = "احمد علي".requestBodyConvert(),
         @Part image: MultipartBody.Part,
-        @Part("other_info") other_info: RequestBody = "sdasdfsdfdsfsd".requestBodyConvert(),
+        @Part("other_info") other_info: RequestBody = "بيانات اخرى".requestBodyConvert(),
         @Part("status") status: RequestBody = "not_found".requestBodyConvert(),
-        @Part("city") city: RequestBody = "sdasd".requestBodyConvert(),
-        @Part("sub_city") sub_city: RequestBody = "wefwef".requestBodyConvert(),
-        @Part("parent_name") parent_name: RequestBody = "sdasd".requestBodyConvert(),
-        @Part("parent_address") parent_address: RequestBody = "sdasd".requestBodyConvert(),
-        @Part("parent_national_id") parent_national_id: RequestBody = "sdasd".requestBodyConvert(),
-        @Part("parent_phone_number") parent_phone_number: RequestBody = "34534535345".requestBodyConvert(),
-        @Part("parent_other_info") parent_other_info: RequestBody = "sdasd".requestBodyConvert(),
+        @Part("city") city: RequestBody = "القاهرة".requestBodyConvert(),
+        @Part("sub_city") sub_city: RequestBody = "عين شمس".requestBodyConvert(),
+        @Part("parent_name") parent_name: RequestBody = "علي محمد".requestBodyConvert(),
+        @Part("parent_address") parent_address: RequestBody = "على ناصية الشارع".requestBodyConvert(),
+        @Part("parent_national_id") parent_national_id: RequestBody = "30007258994".requestBodyConvert(),
+        @Part("parent_phone_number") parent_phone_number: RequestBody = "01018685229".requestBodyConvert(),
+        @Part("parent_other_info") parent_other_info: RequestBody = "بيانات اضافية للوالد".requestBodyConvert(),
         @Part birth_image: MultipartBody.Part,
         @Part("kidnap_date") kidnap_date: RequestBody = "28-8-2022".requestBodyConvert(),
         @Part("age") age: RequestBody = "8".requestBodyConvert(),
+        @Part("id_number") id_number: RequestBody = "6546516516".requestBodyConvert(),
     ): Response<CreateKidnappedResponse>
 
 //    @Multipart
@@ -118,7 +120,7 @@ interface UserService {
         @Body kid_id :Map<String,String>
     ): Response<FollowStatuesSaveResponse>
 
-    @GET("user/auth/pending")
+    @GET("user/auth/pending?page=1&limit=700")
     @Headers("Content-Type: application/json")
     suspend fun pendingCases(
         @Header("Authorization") token: String,

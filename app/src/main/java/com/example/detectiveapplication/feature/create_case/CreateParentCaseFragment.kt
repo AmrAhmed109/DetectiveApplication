@@ -21,6 +21,7 @@ import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentCreateParentCaseBinding
 import com.example.detectiveapplication.feature.settings.SettingViewModel
 import com.example.detectiveapplication.utils.City
+import com.example.detectiveapplication.utils.Constants.Companion.anotherImageBody
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
 import com.nguyenhoanglam.imagepicker.model.GridCount
@@ -143,7 +144,7 @@ class CreateParentCaseFragment : Fragment() {
         val dpd = DatePickerDialog(
             requireContext(),
             DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                binding.etKidnappedDate.setText("$day-$month-$year")
+                binding.etKidnappedDate.setText("$dayOfMonth-$month-$year")
                 binding.etKidnappedDate.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -164,9 +165,12 @@ class CreateParentCaseFragment : Fragment() {
         if (mainImage != null ||
             birthImage != null
         ) {
+            val TAG = "imagePicker"
+            Log.e(TAG, "mainImage : ${mainImage.toString()}")
+            Log.e(TAG, "birthImage: ${birthImage.toString()}")
             createKidViewModel.createKidnappedKid(
                 name = binding.etName.text.toString(),
-                image = imageBody(requireContext(), mainImage!!),
+                image = imageBody(requireContext(), mainImage!!,"image"),
                 other_info = binding.etDescription.text.toString(),
                 status = "not_found",
                 city = binding.etName.text.toString(),
@@ -176,7 +180,7 @@ class CreateParentCaseFragment : Fragment() {
                 parent_national_id = binding.etParentID.text.toString(),
                 parent_phone_number = binding.etParentPhone.text.toString(),
                 parent_other_info = "other Info",
-                birth_image = imageBody(requireContext(),birthImage!!),
+                birth_image = anotherImageBody(requireContext(),birthImage!!,"birth_image"),
                 kidnap_date =binding.etKidnappedDate.text.toString() ,
                 age = binding.etAge.text.toString(),
             )
@@ -220,6 +224,7 @@ class CreateParentCaseFragment : Fragment() {
         statusBarColor = "#FF6F00",
         isLightStatusBar = false,
         isFolderMode = true,
+        maxSize = 1,
         isMultipleMode = true,
         backgroundColor = "#FFFFFFFF",
         isShowCamera = true,
@@ -232,6 +237,5 @@ class CreateParentCaseFragment : Fragment() {
         subDirectory = "Photos",
         folderGridCount = GridCount(2, 4),
         imageGridCount = GridCount(3, 5),
-        // See more at configuration attributes table below
     )
 }

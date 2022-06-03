@@ -64,5 +64,8 @@ data class Error(
     @SerializedName("status")
     val status: List<String>,
     @SerializedName("sub_city")
-    val subCity: List<String>
+    val subCity: List<String>,
+    @SerializedName("birth_image")
+    val birth_image: List<String>
+
 )

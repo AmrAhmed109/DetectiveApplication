@@ -39,35 +39,50 @@ class DetailsFragment : Fragment() {
 
         arguments?.let {
             val kidID = DetailsFragmentArgs.fromBundle(it).id
-            kidID?.let { it1 -> requestApi(it1) }
+            Log.d("kidID", "onCreateView: $kidID")
+            requestApi(kidID!!)
         }
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
 
-
+        observeViewModel()
         return binding.root
     }
 
     private fun requestApi(id: String) {
-        Log.v(tage, "requestApiData called!")
+        Log.v(tage, "requestApi called!")
 
         caseDetailsViewModel.getDetailCasesInfo(id)
+
+
+    }
+    private fun observeViewModel(){
         caseDetailsViewModel.caseDetailResponse.observe(viewLifecycleOwner) { response ->
 
+            Log.d(tage, "observeViewModel 1:we are here")
             when (response) {
                 is NetworkResult.Success -> {
+                    Log.d(tage, "observeViewModel 2: we are here")
                     response.data?.let {
-                        binding.tvNameMissingChild.setText(it.data.name)
-                        binding.tvAgeMissingChild.setText(" ${it.data.age} "+"سنة ")
-                        binding.tvDateMissingChild.setText(it.data.kidnapDate)
-                        binding.tvCityMissingChildd.setText(it.data.city)
-                        binding.tvDescriptionMissingChild.setText(it.data.otherInfo)
-                        binding.ivMissingChild.load(it.data.image)
-                        phoneNumber = it.data.guardian.first().phoneNumber
+                        Log.d(tage, "observeViewModel 3: ${it.data.name}")
+                        try {
 
-                        handleButton(it.data.authFollowed,it.data.id.toString())
-                        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+                            binding.tvNameMissingChild.setText(it.data.name)
+                            binding.tvAgeMissingChild.setText(" ${it.data.age} "+"سنة ")
+                            binding.tvDateMissingChild.setText(it.data.kidnapDate)
+                            binding.tvCityMissingChildd.setText(it.data.city)
+                            binding.tvDescriptionMissingChild.setText(it.data.otherInfo)
+                            binding.ivMissingChild.load(it.data.image)
+                            handleButton(it.data.authFollowed,it.data.id.toString())
+                            phoneNumber = it.data.guardian.first().phoneNumber
+                        }catch (e:Exception){
+                            Log.d(tage, "observeViewModel 4: ${e.message}")
+
+                        }
+//                        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+
+                        Log.d(tage, "observeViewModel 5: ${it.data.name}")
                     }
                 }
                 is NetworkResult.Error -> {
@@ -79,9 +94,12 @@ class DetailsFragment : Fragment() {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
                         .show()
                 }
+                else->{
+                    Log.d(tage, "observeViewModel 5: ")
+
+                }
             }
         }
-
     }
 
     private fun handleButton(status: Boolean, id: String) {
@@ -114,7 +132,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun addRequestApi(id: String) {
-        Log.v(tage, "requestApiData called!")
+        Log.v(tage, "addRequestApi called!")
 
         caseDetailsViewModel.addKidInfo(id)
         caseDetailsViewModel.addKidResponse.observe(viewLifecycleOwner) { response ->
@@ -146,7 +164,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun removeRequestApi(id: String) {
-        Log.v(tage, "requestApiData called!")
+        Log.v(tage, "removeRequestApi called!")
 
         caseDetailsViewModel.removeKidInfo(id)
         caseDetailsViewModel.removeKidResponse.observe(viewLifecycleOwner) { response ->

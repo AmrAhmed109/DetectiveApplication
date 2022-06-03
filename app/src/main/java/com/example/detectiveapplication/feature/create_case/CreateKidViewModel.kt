@@ -54,8 +54,24 @@ class CreateKidViewModel @Inject constructor(
         age: String,
     ) {
         viewModelScope.launch {
-            Log.d(tag, "createKidnappedKid: $name   $image   $other_info   $status   $city  $sub_city   $parent_address   $parent_name   $kidnap_date ")
-            createKidnappedKidSafeCall(getToken(),name, image, other_info, status, city, sub_city, parent_name, parent_address, parent_national_id, parent_phone_number, parent_other_info, birth_image, kidnap_date, age)
+            Log.d(tag, "createKidnappedKid: $image  $birth_image ")
+            createKidnappedKidSafeCall(
+                getToken(),
+                name,
+                image,
+                other_info,
+                status,
+                city,
+                sub_city,
+                parent_name,
+                parent_address,
+                parent_national_id,
+                parent_phone_number,
+                parent_other_info,
+                birth_image,
+                kidnap_date,
+                age
+            )
 //            val map :HashMap<String, String> = HashMap()
 //            map["name"] = name
 //            map["other_info"] = other_info
@@ -97,7 +113,23 @@ class CreateKidViewModel @Inject constructor(
 
         if (hasInternetConnection()) {
             try {
-                val response = authRepository.createKidnappedKid(token, name, image, other_info, status, city, sub_city, parent_name, parent_address, parent_national_id, parent_phone_number, parent_other_info, birth_image, kidnap_date, age)
+                val response = authRepository.createKidnappedKid(
+                    token,
+                    name,
+                    image,
+                    other_info,
+                    status,
+                    city,
+                    sub_city,
+                    parent_name,
+                    parent_address,
+                    parent_national_id,
+                    parent_phone_number,
+                    parent_other_info,
+                    birth_image,
+                    kidnap_date,
+                    age
+                )
 //                val response = authRepository.createKidnappedKid(token, image, birth_image, map)
                 Log.d(tag, "GenericApiResponse: response: ${response.body()}")
                 Log.d(tag, "GenericApiResponse: raw: ${response.raw()}")
@@ -123,30 +155,34 @@ class CreateKidViewModel @Inject constructor(
                 return NetworkResult.Error(response.body()?.message)
             }
             response.isSuccessful -> {
-                if (response.body()?.code == 404 ){
+                if (response.body()?.code == 404) {
                     return NetworkResult.Error(response.body()!!.message)
-                }else if (response.body()?.code == 422 ){
+                } else if (response.body()?.code == 422) {
 
-                    if (response.body()?.error?.name!!.isNotEmpty()){
+                    if (response.body()?.error?.name!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.name.first())
-                    }else if (response.body()?.error?.image!!.isNotEmpty()){
+                    } else if (response.body()?.error?.image!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.image.first())
-                    }else if (response.body()?.error?.otherInfo!!.isNotEmpty()){
+                    } else if (response.body()?.error?.otherInfo!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.otherInfo.first())
-                    }else if (response.body()?.error?.status!!.isNotEmpty()){
+                    } else if (response.body()?.error?.status!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.status.first())
-                    }else if (response.body()?.error?.city!!.isNotEmpty()){
+                    } else if (response.body()?.error?.city!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.city.first())
-                    }else if (response.body()?.error?.parentName!!.isNotEmpty()){
+                    } else if (response.body()?.error?.parentName!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentName.first())
-                    }else if (response.body()?.error?.parentAddress!!.isNotEmpty()){
+                    } else if (response.body()?.error?.parentAddress!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentAddress.first())
-                    }else if (response.body()?.error?.parentNationalId!!.isNotEmpty()){
+                    } else if (response.body()?.error?.parentNationalId!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentNationalId.first())
-                    }else if (response.body()?.error?.parentPhoneNumber!!.isNotEmpty()){
+                    } else if (response.body()?.error?.parentPhoneNumber!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentNationalId.first())
-                    }else if (response.body()?.error?.parentOtherInfo!!.isNotEmpty()){
+                    } else if (response.body()?.error?.parentOtherInfo!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentOtherInfo.first())
+                    } else if (response.body()?.error?.birth_image!!.isNotEmpty()) {
+                        return NetworkResult.Error(response.body()!!.error.birth_image.first())
+                    }else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
+                        return NetworkResult.Error(response.body()!!.message)
                     }
                     return NetworkResult.Error(response.body()!!.message)
                 }
