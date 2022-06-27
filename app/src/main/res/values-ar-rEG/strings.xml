@@ -63,6 +63,7 @@
     <string name="city">المدينة</string>
     <string name="capital">المحافظة</string>
     <string name="age">تاريخ الاختفاء</string>
+    <string name="person_national_id">الرقم القومي الخاص بالشخص</string>
 
 
     <string-array name="languages">

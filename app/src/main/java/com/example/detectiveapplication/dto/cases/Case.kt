@@ -9,6 +9,7 @@ data class Case(
     @SerialName("name") var name: String? = null,
     @SerialName("image") var image: String? = null,
     @SerialName("status") var status: String? = null,
+    @SerialName("kidnap_status") var kidnap_status: String? = null,
     @SerialName("other_info") var otherInfo: String? = null,
     @SerialName("age") var age: Int? = null,
     @SerialName("city") var city: String? = null,

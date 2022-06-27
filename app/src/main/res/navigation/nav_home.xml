@@ -147,4 +147,9 @@
         android:name="com.example.detectiveapplication.navigation.login.RegistrationActivity"
         android:label="activity_registration"
         tools:layout="@layout/activity_registration" />
+    <fragment
+        android:id="@+id/faceDetectionFragment"
+        android:name="com.example.detectiveapplication.feature.home.faceDetection.FaceDetectionFragment"
+        android:label="fragment_face_detection"
+        tools:layout="@layout/fragment_face_detection" />
 </navigation>

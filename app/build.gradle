@@ -126,7 +126,11 @@ dependencies {
     androidTestImplementation("androidx.test:core-ktx:1.4.0")
 
     implementation 'com.github.nguyenhoanglam:ImagePicker:1.5.2'
-
+    // camera examples
+    implementation "dev.priyankvasa.android:cameraview-ex:3.5.5-alpha"
+//    implementation 'io.fotoapparat:fotoapparat:2.7.0'
+    implementation 'com.rbddevs.splashy:splashy:1.1.0'
+    implementation 'com.maxkeppeler.sheets:calendar:2.2.8'
     // To use the androidx.test.espresso
     androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
 }

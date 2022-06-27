@@ -41,7 +41,7 @@
 
 
     <EditText
-
+        android:id="@+id/searchEditText"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -54,9 +54,11 @@
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="8dp"
+        android:drawableEnd="@drawable/ic_search"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:imeOptions="actionSearch"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView"
         app:layout_constraintStart_toEndOf="@+id/back"

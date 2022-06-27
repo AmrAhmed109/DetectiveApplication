@@ -1,6 +1,7 @@
 package com.example.detectiveapplication.repository
 
 import com.example.detectiveapplication.dto.caseDetails.CaseDetailsResponse
+import com.example.detectiveapplication.dto.createKid.CreateFoundKidResponse
 import com.example.detectiveapplication.dto.createKid.CreateKidnappedResponse
 import com.example.detectiveapplication.dto.edit_profile.EditProfileResponse
 import com.example.detectiveapplication.dto.followStatues.FollowStatuesSaveResponse
@@ -11,6 +12,7 @@ import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
 import com.example.detectiveapplication.dto.pendingCases.PendingCasesResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
+import com.example.detectiveapplication.dto.recognition.RecognitionResponse
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
 import com.example.detectiveapplication.dto.reset_password.ResetPasswordResponse
@@ -25,22 +27,67 @@ import javax.inject.Inject
 @ViewModelScoped
 class AuthRepository @Inject constructor(private val authApi: UserService) {
 
+
+    suspend fun recognition(
+        token: String,
+        image: MultipartBody.Part
+    ): Response<RecognitionResponse> {
+        return recognition(token, image)
+    }
+
+
     suspend fun getFollowedCases(token: String): Response<List<FollowedCasesItem>> {
         return authApi.getFollowedCases(token)
     }
-    suspend fun getCaseDetails(token: String,id:String): Response<CaseDetailsResponse> {
+
+    suspend fun getCaseDetails(token: String, id: String): Response<CaseDetailsResponse> {
         return authApi.getDetailsCases(token, id)
     }
 
-    suspend fun addKidToFollowList(token: String,id:String): Response<FollowStatuesSaveResponse> {
-        val map  = HashMap<String,String>()
+    suspend fun addKidToFollowList(token: String, id: String): Response<FollowStatuesSaveResponse> {
+        val map = HashMap<String, String>()
         map["kid_id"] = id
         return authApi.addKidToFollowList(token, map)
     }
-    suspend fun deleteKidFromFollowList(token: String,id:String): Response<FollowStatuesSaveResponse> {
-        val map  = HashMap<String,String>()
+
+    suspend fun deleteKidFromFollowList(
+        token: String,
+        id: String
+    ): Response<FollowStatuesSaveResponse> {
+        val map = HashMap<String, String>()
         map["kid_id"] = id
         return authApi.deleteKidFromFollowList(token, map)
+    }
+
+    suspend fun createFoundKidnappedKid(
+        token: String,
+        name: String,
+        image: MultipartBody.Part,
+        other_info: String,
+        city: String,
+        sub_city: String,
+        parent_name: String,
+        parent_address: String,
+        parent_national_id: String,
+        parent_phone_number: String,
+        parent_other_info: String,
+        kidnap_date: String,
+    ): Response<CreateFoundKidResponse> {
+        return authApi.createFoundKidnappedKid(
+            token = token,
+            name = name.requestBodyConvert(),
+            image = image,
+            other_info = other_info.requestBodyConvert(),
+            status = "found".requestBodyConvert(),
+            city = city.requestBodyConvert(),
+            sub_city = sub_city.requestBodyConvert(),
+            parent_name = parent_name.requestBodyConvert(),
+            parent_address = parent_address.requestBodyConvert(),
+            parent_national_id = parent_national_id.requestBodyConvert(),
+            parent_phone_number = parent_phone_number.requestBodyConvert(),
+            parent_other_info = parent_other_info.requestBodyConvert(),
+            kidnap_date = kidnap_date.requestBodyConvert(),
+        )
     }
 
     suspend fun createKidnappedKid(
@@ -59,23 +106,27 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
         birth_image: MultipartBody.Part,
         kidnap_date: String,
         age: String,
+        parent_image: MultipartBody.Part,
+        id_number: String
     ): Response<CreateKidnappedResponse> {
         return authApi.createKidnappedKid(
             token = token,
-//            name = name.requestBodyConvert(),
+            name = name.requestBodyConvert(),
             image = image,
-//            other_info = other_info.requestBodyConvert(),
-//            status = status.requestBodyConvert(),
-//            city = city.requestBodyConvert(),
-//            sub_city = sub_city.requestBodyConvert(),
-//            parent_name = parent_name.requestBodyConvert(),
-//            parent_address = parent_address.requestBodyConvert(),
-//            parent_national_id = parent_national_id.requestBodyConvert(),
-//            parent_phone_number = parent_phone_number.requestBodyConvert(),
-//            parent_other_info = parent_other_info.requestBodyConvert(),
+            other_info = other_info.requestBodyConvert(),
+            status = "not_found".requestBodyConvert(),
+            city = city.requestBodyConvert(),
+            sub_city = sub_city.requestBodyConvert(),
+            parent_name = parent_name.requestBodyConvert(),
+            parent_address = parent_address.requestBodyConvert(),
+            parent_national_id = parent_national_id.requestBodyConvert(),
+            parent_phone_number = parent_phone_number.requestBodyConvert(),
+            parent_other_info = parent_other_info.requestBodyConvert(),
             birth_image = birth_image,
-//            kidnap_date = kidnap_date.requestBodyConvert(),
-//            age = age.requestBodyConvert()
+            kidnap_date = kidnap_date.requestBodyConvert(),
+            age = age.requestBodyConvert(),
+            parent_image = parent_image,
+            id_number = id_number.requestBodyConvert(),
         )
     }
 //suspend fun createKidnappedKid(

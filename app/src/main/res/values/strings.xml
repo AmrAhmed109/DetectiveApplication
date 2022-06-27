@@ -63,6 +63,7 @@
     <string name="city">city</string>
     <string name="capital">Capital</string>
     <string name="age">Age</string>
+    <string name="person_national_id">Person National Id</string>
 
 
     <string-array name="languages">

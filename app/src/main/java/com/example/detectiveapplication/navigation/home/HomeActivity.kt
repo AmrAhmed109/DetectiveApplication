@@ -25,8 +25,7 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         val navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -35,7 +34,8 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             setOf(
                 R.id.homeFragment,
                 R.id.followingFragment,
-                R.id.casesFragment
+                R.id.casesFragment,
+                R.id.faceDetectionFragment
             )
         )
 

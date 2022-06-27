@@ -52,6 +52,8 @@ class CreateKidViewModel @Inject constructor(
         birth_image: MultipartBody.Part,
         kidnap_date: String,
         age: String,
+        parent_image:MultipartBody.Part,
+        kid_national_id:String
     ) {
         viewModelScope.launch {
             Log.d(tag, "createKidnappedKid: $image  $birth_image ")
@@ -70,7 +72,9 @@ class CreateKidViewModel @Inject constructor(
                 parent_other_info,
                 birth_image,
                 kidnap_date,
-                age
+                age,
+                parent_image,
+                kid_national_id
             )
 //            val map :HashMap<String, String> = HashMap()
 //            map["name"] = name
@@ -107,30 +111,15 @@ class CreateKidViewModel @Inject constructor(
         birth_image: MultipartBody.Part,
         kidnap_date: String,
         age: String,
+        parent_image:MultipartBody.Part,
+        kid_national_id:String
 //        map: Map<String,String>
     ) {
         createKidnappedKidResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
             try {
-                val response = authRepository.createKidnappedKid(
-                    token,
-                    name,
-                    image,
-                    other_info,
-                    status,
-                    city,
-                    sub_city,
-                    parent_name,
-                    parent_address,
-                    parent_national_id,
-                    parent_phone_number,
-                    parent_other_info,
-                    birth_image,
-                    kidnap_date,
-                    age
-                )
-//                val response = authRepository.createKidnappedKid(token, image, birth_image, map)
+                val response = authRepository.createKidnappedKid(token, name, image, other_info, status, city, sub_city, parent_name, parent_address, parent_national_id, parent_phone_number, parent_other_info, birth_image, kidnap_date, age, parent_image, kid_national_id)
                 Log.d(tag, "GenericApiResponse: response: ${response.body()}")
                 Log.d(tag, "GenericApiResponse: raw: ${response.raw()}")
                 Log.d(tag, "GenericApiResponse: headers: ${response.headers()}")
@@ -152,7 +141,7 @@ class CreateKidViewModel @Inject constructor(
                 return NetworkResult.Error("Timeout")
             }
             response.code() == 422 -> {
-                return NetworkResult.Error(response.body()?.message)
+                return NetworkResult.Error(response.body()?.message.toString())
             }
             response.isSuccessful -> {
                 if (response.body()?.code == 404) {

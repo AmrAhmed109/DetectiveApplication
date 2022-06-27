@@ -24,12 +24,15 @@ import com.example.detectiveapplication.utils.City
 import com.example.detectiveapplication.utils.Constants.Companion.anotherImageBody
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
+import com.maxkeppeler.sheets.calendar.CalendarSheet
+import com.maxkeppeler.sheets.calendar.SelectionMode
 import com.nguyenhoanglam.imagepicker.model.GridCount
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.model.RootDirectory
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
 
 class CreateParentCaseFragment : Fragment() {
@@ -37,9 +40,10 @@ class CreateParentCaseFragment : Fragment() {
     private var _binding: FragmentCreateParentCaseBinding? = null
     private val binding get() = _binding!!
     var subCity: List<String> = listOf()
-   lateinit var createKidViewModel: CreateKidViewModel
+    lateinit var createKidViewModel: CreateKidViewModel
     private var mainImage: Uri? = null
     private var birthImage: Uri? = null
+    private var parentImage: Uri? = null
     private val mainLauncher = registerImagePicker { images ->
         // Selected images are ready to use
         if (images.isNotEmpty()) {
@@ -52,6 +56,13 @@ class CreateParentCaseFragment : Fragment() {
         if (images.isNotEmpty()) {
             birthImage = images.first().uri
             binding.ivBirthDate.load(birthImage)
+        }
+    }
+    private val parentLauncher = registerImagePicker { images ->
+        // Selected images are ready to use
+        if (images.isNotEmpty()) {
+            parentImage = images.first().uri
+            binding.ivParentImage.load(parentImage)
         }
     }
 
@@ -68,7 +79,8 @@ class CreateParentCaseFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.etKidnappedTimeInputLayout.setOnClickListener {
-            addDatePicker()
+//            addDatePicker()
+            addAnotherDatePicker()
         }
 
 
@@ -115,7 +127,6 @@ class CreateParentCaseFragment : Fragment() {
         }
         binding.etSubCityAutoCompleteTextView.setAdapter(secondArrayAdapter)
         binding.etSubCityAutoCompleteTextView.addTextChangedListener {
-
             Log.d("TAG", "onCreateView: ${binding.etSubCityAutoCompleteTextView.text}")
         }
 
@@ -127,14 +138,46 @@ class CreateParentCaseFragment : Fragment() {
         binding.ivBirthDate.setOnClickListener {
             birthDateLauncher.launch(config)
         }
+        binding.ivParentImage.setOnClickListener {
+            parentLauncher.launch(config)
+        }
 
         binding.btnCreateCase.setOnClickListener {
-            requestApiData()
+            if (validateFormData()){
+                requestApiData()
+            }
         }
 
         return binding.root
     }
 
+
+    private fun timeInMillisTOString(timeInMillis: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timeInMillis
+        return "${calendar.get(Calendar.DAY_OF_MONTH)}-${calendar.get(Calendar.MONTH) + 1}-${calendar.get(
+            Calendar.YEAR
+        )}"
+    }
+    private fun addAnotherDatePicker(){
+        CalendarSheet().show(requireActivity()){
+            title("ما هو تاريخ الاختفاء؟") // Set the title of the sheet
+            selectionMode(SelectionMode.DATE)
+            onPositive { dateStart, dateEnd ->
+                binding.etKidnappedDate.setText("${timeInMillisTOString(dateStart.timeInMillis)}")
+                Log.d("date", "addAnotherDatePicker: $dateStart")
+                Log.d("date", "addAnotherDatePicker: ${dateStart.firstDayOfWeek}")
+                Log.d("date", "addAnotherDatePicker: $dateEnd.")
+                Log.d("date", "addAnotherDatePicker: $dateStart")
+
+                binding.etKidnappedDate.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )        }
+    }
+    }
 
     private fun addDatePicker() {
         val c = Calendar.getInstance()
@@ -159,11 +202,79 @@ class CreateParentCaseFragment : Fragment() {
         dpd.show()
     }
 
+    private fun toast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+    private fun validateFormData(): Boolean {
+        var isValid = true
+        if (binding.etName.text.toString().isEmpty()) {
+            binding.etNameInputLayout.error = "الرجاء إدخال اسم الشخص"
+            isValid =  false
+        }
+        if (mainImage == null) {
+            toast("يرجى اضافة صورة للشخص المفقود")
+            isValid =  false
+        }
+        if (birthImage == null) {
+            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+            isValid =  false
+        }
+        if (parentImage == null) {
+            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+            isValid =  false
+        }
+        if (binding.etKidNationalId.text.toString().isEmpty()) {
+            binding.etKidNationalIdLayout.error = "الرجاء إدخال الرقم القومي الخاص بالشخص"
+            isValid =  false
+        }
+        if (binding.etKidnappedDate.text.toString().isEmpty()) {
+            toast("يرجى إدخال تاريخ الاختفاء")
+            isValid =  false
+        }
+        if (binding.etDescription.text.toString().isEmpty()) {
+            binding.etDesriptionLayout.error = "الرجاء إدخل تفاصيل الحالة"
+            isValid =  false
+        }
+        if (binding.etAge.text.toString().isEmpty()) {
+            binding.etAgeInputLayout.error = "الرجاء إدخل عمر الشخص"
+            isValid =  false
+        }
+        if (binding.etSubCityAutoCompleteTextView.text.isEmpty()) {
+            binding.etSubCityInputLayout.error = "الرجاء إدخال المدينة"
+            isValid =  false
+        }
+        if (binding.etCityAutoCompleteTextView.text.isEmpty()) {
+            binding.etCityInputLayout.error = "الرجاء إدخال المحافظة"
+            isValid =  false
+        }
+        if (binding.etParentAddress.text.toString().isEmpty()) {
+            binding.etParentAddressLayout.error = "الرجاء إدخال عنوان ولي الامر"
+            isValid =  false
+        }
+        if (binding.etParentName.text.toString().isEmpty()) {
+            binding.etParentNameLayout.error = "الرجاء إدخال اسم ولي الامر"
+            isValid =  false
+        }
+        if (binding.etParentID.text.toString().isEmpty()) {
+            binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي"
+            isValid =  false
+        }
+        if (binding.etParentPhone.text.toString().isEmpty()) {
+            binding.etParentPhoneLayout.error = "الرجاء إدخال رقم هاتف ولي الامر"
+            isValid =  false
+        }
+        if (!isValid){
+            return false
+        }
+        return true
+    }
+
     private fun requestApiData() {
         Log.v("recipesFragment", "requestApiData called!")
 
         if (mainImage != null ||
-            birthImage != null
+            birthImage != null ||
+            parentImage != null
         ) {
             val TAG = "imagePicker"
             Log.e(TAG, "mainImage : ${mainImage.toString()}")
@@ -172,17 +283,19 @@ class CreateParentCaseFragment : Fragment() {
                 name = binding.etName.text.toString(),
                 image = imageBody(requireContext(), mainImage!!,"image"),
                 other_info = binding.etDescription.text.toString(),
+                birth_image = anotherImageBody(requireContext(),birthImage!!,"birth_image"),
                 status = "not_found",
+                kid_national_id = binding.etKidNationalId.text.toString(),
                 city = binding.etName.text.toString(),
                 sub_city = binding.etSubCityAutoCompleteTextView.text.toString(),
                 parent_name = binding.etParentName.text.toString(),
                 parent_address = binding.etParentAddress.text.toString(),
                 parent_national_id = binding.etParentID.text.toString(),
                 parent_phone_number = binding.etParentPhone.text.toString(),
-                parent_other_info = "other Info",
-                birth_image = anotherImageBody(requireContext(),birthImage!!,"birth_image"),
+                parent_other_info = "هذة الحقل لا يتم الاستخدامة في المشروع التخرج",
                 kidnap_date =binding.etKidnappedDate.text.toString() ,
                 age = binding.etAge.text.toString(),
+                parent_image = anotherImageBody(requireContext(),parentImage!!,"parent_image")
             )
             createKidViewModel.createKidnappedKidResponse.observe(viewLifecycleOwner) { response ->
 

@@ -2,8 +2,10 @@ package com.example.detectiveapplication.feature.cases
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.CardViewCaseBinding
 import com.example.detectiveapplication.dto.cases.Case
 import com.example.detectiveapplication.utils.Constants
@@ -45,6 +47,10 @@ class CasesAdapter(
                 binding.tvStatueMissingChild.text = "مفقود"
             }else{
                 binding.tvStatueMissingChild.text = "تم العثور علية"
+//                binding.cardView.setBackgroundColor( ContextCompat.getColor(
+//                    binding.root.context,
+//                    R.color.black
+//                ))
             }
             binding.tvAge.text = case.age.toString() + " " +"سنة"
             binding.tvNameMissingChild.text = case.name.toString()

@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.ActivityRegistrationBinding
 import com.example.detectiveapplication.feature.login.LoginViewModel
 import com.example.detectiveapplication.feature.settings.SettingViewModel
+import com.rbddevs.splashy.Splashy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +29,8 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         setLocate("ar")
         supportActionBar?.hide()
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
@@ -34,20 +38,27 @@ class RegistrationActivity : AppCompatActivity() {
         settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
         Log.v("tokenCheck",settingViewModel.getToken())
         if (settingViewModel.getToken().length > 5){
+//            Splashy.hide()
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
         }
-
-
     }
 
+    fun setSplashy(){
+        Splashy(this) 		 // For JAVA : new Splashy(this)
+            .setLogo(R.drawable.splashy)
+            .setTitle("Splashy")
+            .setTitleColor("#FFFFFF")
+            .setSubTitle("Splash screen made easy")
+            .setProgressColor(R.color.white)
+            .setBackgroundResource(ContextCompat.getColor(this, R.color.white))
+            .setFullScreen(true)
+            .setTime(5000)
+            .show()
+    }
     private fun setLocate(Lang: String) {
-
         val locale = Locale(Lang)
-
         Locale.setDefault(locale)
-
         val config = Configuration()
-
         config.locale = locale
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
     }
