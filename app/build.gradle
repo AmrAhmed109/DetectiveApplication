@@ -133,4 +133,8 @@ dependencies {
     implementation 'com.maxkeppeler.sheets:calendar:2.2.8'
     // To use the androidx.test.espresso
     androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
+
+
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

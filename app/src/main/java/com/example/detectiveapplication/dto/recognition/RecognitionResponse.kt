@@ -1,7 +1,9 @@
 package com.example.detectiveapplication.dto.recognition
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class RecognitionResponse(
     @SerializedName("code")
@@ -15,7 +17,7 @@ data class RecognitionResponse(
 )
 
 
-
+@Parcelize
 data class RecognitionData(
     @SerializedName("age")
     val age: Int,
@@ -45,4 +47,4 @@ data class RecognitionData(
     val subCity: String,
     @SerializedName("user_id")
     val userId: Int
-)
+):Parcelable

@@ -1,8 +1,9 @@
 package com.example.detectiveapplication.feature.home.utils
 
 sealed class Capital(val capitalName: String) {
-    object All : Capital("All")
+    object All : Capital("الكل")
     object Cairo : Capital("القاهرة")
+    object BeniSuef : Capital("بنى سويف")
     object Alexandria : Capital("Alexandria")
     object Giza : Capital("Giza")
     object Qalyubia : Capital("Qalyubia")
@@ -19,6 +20,7 @@ sealed class Capital(val capitalName: String) {
 val capitalList = listOf(
     Capital.All,
     Capital.Cairo,
+    Capital.BeniSuef,
     Capital.Alexandria,
     Capital.Giza,
     Capital.Qalyubia,
@@ -35,8 +37,9 @@ val capitalList = listOf(
 object CapitalUtils {
     fun getCapital(capitalName: String): Capital {
         return when (capitalName) {
-            "All" -> Capital.All
+            "الكل" -> Capital.All
             "القاهرة" -> Capital.Cairo
+            "بنى سويف" -> Capital.BeniSuef
             "Alexandria" -> Capital.Alexandria
             "Giza" -> Capital.Giza
             "Qalyubia" -> Capital.Qalyubia

@@ -40,7 +40,6 @@ class FaceDetectionModel @Inject constructor(
         recognitionResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
-
             try {
                 val response = authRepository.recognition(token, image)
                 Log.d(tag, "GenericApiResponse: response: ${response.body()}")
@@ -55,7 +54,6 @@ class FaceDetectionModel @Inject constructor(
             }
         }
     }
-
     private fun handleRecognitionResponse(response: Response<RecognitionResponse>): NetworkResult<RecognitionResponse>? {
         when {
             response.message().toString().contains("Timeout") -> {
@@ -85,11 +83,9 @@ class FaceDetectionModel @Inject constructor(
                 if (response.body()!!.data.isNullOrEmpty()) {
                     return NetworkResult.Error(response.body()!!.message)
                 }
-
                 val recognitionResponse = response.body()
                 return NetworkResult.Success(recognitionResponse!!)
             }
-
             else -> {
                 return NetworkResult.Error(response.message())
             }

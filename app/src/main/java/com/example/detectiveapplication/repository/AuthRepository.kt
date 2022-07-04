@@ -32,7 +32,7 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
         token: String,
         image: MultipartBody.Part
     ): Response<RecognitionResponse> {
-        return recognition(token, image)
+        return authApi.recognition(token, image)
     }
 
 

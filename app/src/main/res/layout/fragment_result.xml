@@ -65,5 +65,4 @@
         app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="@+id/back" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

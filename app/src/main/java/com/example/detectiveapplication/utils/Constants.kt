@@ -11,7 +11,8 @@ import java.io.File
 
 class Constants {
     companion object {
-        const val BASE_URL = "https://krombo.000webhostapp.com/api/"
+//        const val BASE_URL = "https://krombo.000webhostapp.com/api/"
+        const val BASE_URL = "https://kidtrack.herokuapp.com/api/"
         const val IMAGE = "image"
         const val TIME_OUT = 5000.toLong()
         var TOKEN: String = ""
