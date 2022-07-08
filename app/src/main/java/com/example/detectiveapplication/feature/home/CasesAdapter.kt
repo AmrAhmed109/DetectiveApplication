@@ -46,12 +46,18 @@ class CasesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun updateUI(case: Case) {
-            if (case.status == "not_found"){
+            if (case.status == "not_found") {
                 binding.tvStatueMissingChild.text = "مفقود"
-            }else{
-                // change cardView background to light_blue
-                // change tvStatueMissingChild color to purple_200
+            } else {
                 binding.tvStatueMissingChild.text = "تم العثور علية"
+                binding.tvStatueMissingChild.setTextColor(ContextCompat.getColorStateList(
+                    binding.root.context,
+                    R.color.purple_200
+                ))
+                binding.cardView.setCardBackgroundColor(ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.light_blue
+                ))
             }
             binding.tvAge.text = case.age.toString() + " " + "سنة"
             binding.tvNameMissingChild.text = case.name.toString()
@@ -63,7 +69,9 @@ class CasesAdapter(
 
             binding.ivMissingChild.load(case.image)
         }
-
+        fun String?.fixHttpsRequest(): String? {
+            return this?.replace("http", "https")
+        }
         private fun checkText(string: String): String {
             return if (string in "other_info") {
                 LOREM

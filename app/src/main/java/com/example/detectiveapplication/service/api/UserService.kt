@@ -15,6 +15,7 @@ import com.example.detectiveapplication.dto.recognition.RecognitionResponse
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
 import com.example.detectiveapplication.dto.reset_password.ResetPasswordResponse
+import com.example.detectiveapplication.dto.search_response.SearchResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -32,7 +33,6 @@ interface UserService {
     suspend fun userLogin(
         @Body body: Map<String, String>,
     ): Response<UserLoginResponse>
-
 
     /**
      * User Parameter
@@ -91,13 +91,20 @@ interface UserService {
 
 
     @Multipart
-    @POST("user/kiddnaped/create-kid")
+    @POST("user/kiddnaped/ifInData")
     suspend fun recognition(
         @Header("Authorization") token: String,
         @Part image: MultipartBody.Part,
     ): Response<RecognitionResponse>
 
 
+
+    @GET("user/kids/index")
+    suspend fun searchQuery(
+        @Header("Authorization") token: String,
+        @Query ("name") name :String,
+        @Query("limit") limit :String = 700.toString()
+    ): Response<SearchResponse>
 
     /**
      * name*

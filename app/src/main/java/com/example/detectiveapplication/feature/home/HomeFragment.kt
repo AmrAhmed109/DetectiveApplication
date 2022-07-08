@@ -1,5 +1,7 @@
 package com.example.detectiveapplication.feature.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentHomeBinding
 import com.example.detectiveapplication.dto.cases.Case
 import com.example.detectiveapplication.feature.home.utils.capitalList
 import com.example.detectiveapplication.response.ActiveCasesResponse
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,17 +29,38 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dialogLoader: Dialogloader
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        dialogLoader = Dialogloader(requireContext())
+        dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.cvSearch.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            lifecycleScope.launch {
+                homeViewModel.getFeedCases()
+            }
+            homeViewModel.cases.observe(viewLifecycleOwner) {
+                updateUI(it)
+            }
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
+        homeViewModel.loading.observe(viewLifecycleOwner) { if (it) { showLoader() } else { hideLoader() } }
         return binding.root
     }
-
+    fun showLoader(){
+        dialogLoader.show()
+        dialogLoader
+    }
+    fun hideLoader(){
+        dialogLoader.hide()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -102,7 +127,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun showCase(it: Case) {
-
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it.id.toString())
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {

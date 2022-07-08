@@ -21,6 +21,8 @@ import com.example.detectiveapplication.databinding.FragmentCreateStrangerCaseBi
 import com.example.detectiveapplication.utils.City
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
+import com.maxkeppeler.sheets.calendar.CalendarSheet
+import com.maxkeppeler.sheets.calendar.SelectionMode
 import com.nguyenhoanglam.imagepicker.model.GridCount
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.model.RootDirectory
@@ -61,7 +63,8 @@ class CreateStrangerCaseFragment : Fragment() {
         }
 
         binding.etKidnappedTimeInputLayout.setOnClickListener {
-            addDatePicker()
+//            addDatePicker()
+            addAnotherDatePicker()
         }
         binding.ivMain.setOnClickListener {
             mainLauncher.launch(config)
@@ -247,6 +250,35 @@ class CreateStrangerCaseFragment : Fragment() {
         _binding = null
     }
 
+    private fun timeInMillisTOString(timeInMillis: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timeInMillis
+        return "${calendar.get(Calendar.DAY_OF_MONTH)}-${calendar.get(Calendar.MONTH) + 1}-${
+            calendar.get(
+                Calendar.YEAR
+            )
+        }"
+    }
+    private fun addAnotherDatePicker() {
+        CalendarSheet().show(requireActivity()) {
+            title("ما هو تاريخ الاختفاء؟") // Set the title of the sheet
+            selectionMode(SelectionMode.DATE)
+            onPositive { dateStart, dateEnd ->
+                binding.etKidnappedDate.setText("${timeInMillisTOString(dateStart.timeInMillis)}")
+                Log.d("date", "addAnotherDatePicker: $dateStart")
+                Log.d("date", "addAnotherDatePicker: ${dateStart.firstDayOfWeek}")
+                Log.d("date", "addAnotherDatePicker: $dateEnd.")
+                Log.d("date", "addAnotherDatePicker: $dateStart")
+
+                binding.etKidnappedDate.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.black
+                    )
+                )
+            }
+        }
+    }
 
     val config = ImagePickerConfig(
         statusBarColor = "#FF6F00",

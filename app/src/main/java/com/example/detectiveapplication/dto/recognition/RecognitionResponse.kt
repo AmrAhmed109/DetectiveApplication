@@ -4,47 +4,47 @@ package com.example.detectiveapplication.dto.recognition
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
+@Parcelize
 data class RecognitionResponse(
     @SerializedName("code")
-    val code: Int,
+    val code: Int?,
     @SerializedName("data")
-    val `data`: List<RecognitionData>,
+    val `data`: List<RecognitionData>?,
     @SerializedName("message")
-    val message: String,
+    val message: String?,
     @SerializedName("status")
-    val status: Boolean
-)
+    val status: Boolean?
+):Parcelable
 
 
 @Parcelize
 data class RecognitionData(
     @SerializedName("age")
-    val age: Int,
+    val age: Int?,
     @SerializedName("birth_image")
-    val birthImage: String,
+    val birthImage: String?,
     @SerializedName("city")
-    val city: String,
+    val city: String?,
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("id_number")
-    val idNumber: Long,
+    val idNumber: Long?,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("item")
-    val item: Int,
+    val item: Int?,
     @SerializedName("kidnap_date")
-    val kidnapDate: String,
+    val kidnapDate: String?,
     @SerializedName("kidnap_status")
-    val kidnapStatus: String,
+    val kidnapStatus: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("other_info")
-    val otherInfo: String,
+    val otherInfo: String?,
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("sub_city")
-    val subCity: String,
+    val subCity: String?,
     @SerializedName("user_id")
-    val userId: Int
+    val userId: Int?
 ):Parcelable

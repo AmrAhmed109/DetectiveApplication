@@ -1,4 +1,4 @@
-package com.example.detectiveapplication.ui.home
+package com.example.detectiveapplication.feature.search_result
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,25 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.MissingChildListItemBinding
-import com.example.detectiveapplication.dto.followedCases.FollowedCasesItem
+import com.example.detectiveapplication.dto.recognition.RecognitionData
 import com.example.detectiveapplication.utils.Constants
 
-class FollowingAdapter(private val interaction:Interaction? = null) :
-    RecyclerView.Adapter<FollowingAdapter.ViewHolder>()  {
+class ResultAdapter(private val interaction: Interaction? = null) :
+    RecyclerView.Adapter<ResultAdapter.ViewHolder>() {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FollowedCasesItem>() {
-        override fun areItemsTheSame(
-            oldItem: FollowedCasesItem,
-            newItem: FollowedCasesItem
-        ): Boolean {
+    val DIFF_CALLBACK = object : DiffUtil
+    .ItemCallback<RecognitionData>() {
+        override fun areItemsTheSame(oldItem: RecognitionData, newItem: RecognitionData): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: FollowedCasesItem,
-            newItem: FollowedCasesItem
+            oldItem: RecognitionData,
+            newItem: RecognitionData
         ): Boolean {
-            return oldItem == newItem
+            return false
+
         }
 
     }
@@ -38,12 +37,15 @@ class FollowingAdapter(private val interaction:Interaction? = null) :
         private val binding: MissingChildListItemBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: FollowedCasesItem, position: Int) = with(binding.root) {
+
+        fun bind(item: RecognitionData, position: Int) = with(binding.root) {
             if (item.status == "not_found"){
-                binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context,
+                binding.cardView.setCardBackgroundColor(
+                    ContextCompat.getColor(context,
                     R.color.light_red
                 ))
-                binding.tvStatueMissingChild.setTextColor(ContextCompat.getColor(context,
+                binding.tvStatueMissingChild.setTextColor(
+                    ContextCompat.getColor(context,
                     R.color.red
                 ))
                 binding.tvStatueMissingChild.setText("مفقود")
@@ -54,7 +56,7 @@ class FollowingAdapter(private val interaction:Interaction? = null) :
             }
 
             binding.tvNameMissingChild.text = item.name
-            binding.tvDescriptionMissingChild.text = checkText(item.otherInfo)
+            binding.tvDescriptionMissingChild.text = item.otherInfo?.let { checkText(it) }
             binding.tvAge.text = "سنوات" +"${item.age}"
             binding.tvCapital.text = item.city
             binding.tvCity.text = item.subCity
@@ -78,7 +80,7 @@ class FollowingAdapter(private val interaction:Interaction? = null) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultAdapter.ViewHolder {
 
         return ViewHolder(
             MissingChildListItemBinding.inflate(
@@ -90,24 +92,21 @@ class FollowingAdapter(private val interaction:Interaction? = null) :
         )
     }
 
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(differ.currentList[position], position)
+    override fun onBindViewHolder(holder: ResultAdapter.ViewHolder, position: Int) {
+        holder.bind(differ.currentList.get(position), position)
     }
-
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
-    fun submitList(list: List<FollowedCasesItem>) {
+    fun submitList(list: List<RecognitionData>) {
         differ.submitList(list)
     }
 
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: FollowedCasesItem, state: Int)
+        fun onItemSelected(position: Int, item: RecognitionData, state: Int)
     }
-
 
 }

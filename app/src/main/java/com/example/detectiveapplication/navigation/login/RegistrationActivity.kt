@@ -1,5 +1,6 @@
 package com.example.detectiveapplication.navigation.login
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -25,13 +26,25 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var settingViewModel: SettingViewModel
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setLocate("ar")
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPref = this.getSharedPreferences("shared", Context.MODE_PRIVATE)
+        val editor =sharedPref?.edit()
+        editor?.apply {
+            val language = "ar"
+            putString("language",language)
+            apply()
+        }
+        val languageReturned = sharedPref?.getString("language","ar")
+        setLocate(languageReturned!!)
 
-        setLocate("ar")
         supportActionBar?.hide()
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
@@ -55,6 +68,7 @@ class RegistrationActivity : AppCompatActivity() {
             .setTime(5000)
             .show()
     }
+
     private fun setLocate(Lang: String) {
         val locale = Locale(Lang)
         Locale.setDefault(locale)

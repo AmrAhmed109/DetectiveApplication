@@ -16,6 +16,7 @@ import com.example.detectiveapplication.dto.recognition.RecognitionResponse
 import com.example.detectiveapplication.dto.registration.UserRegistrationResponse
 import com.example.detectiveapplication.dto.reset_password.CodeVerificationResponse
 import com.example.detectiveapplication.dto.reset_password.ResetPasswordResponse
+import com.example.detectiveapplication.dto.search_response.SearchResponse
 import com.example.detectiveapplication.service.api.UserService
 import com.example.detectiveapplication.utils.Constants.Companion.requestBodyConvert
 import dagger.hilt.android.scopes.ViewModelScoped
@@ -35,6 +36,12 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
         return authApi.recognition(token, image)
     }
 
+    suspend fun searchQuery(
+        token: String,
+        name:String
+    ): Response<SearchResponse> {
+        return authApi.searchQuery(token, name)
+    }
 
     suspend fun getFollowedCases(token: String): Response<List<FollowedCasesItem>> {
         return authApi.getFollowedCases(token)

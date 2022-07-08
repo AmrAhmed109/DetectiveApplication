@@ -1,5 +1,7 @@
 package com.example.detectiveapplication.ui.home
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentFollowingBinding
 import com.example.detectiveapplication.dto.followedCases.FollowedCasesItem
@@ -26,6 +29,7 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
     private val followingAdapter:FollowingAdapter by lazy {
         FollowingAdapter(this)
     }
+    private lateinit var dialogLoader: Dialogloader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +41,30 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFollowingBinding.inflate(inflater, container, false)
+        dialogLoader = Dialogloader(requireContext())
+        dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requestApi()
+        binding.cvSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_followingFragment_to_searchFragment)
+        }
         binding.rvFollowing.apply {
             adapter = followingAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            requestApi()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
+    }
+    fun showLoader(){
+        dialogLoader.show()
+        dialogLoader
+    }
+
+    fun hideLoader(){
+        dialogLoader.hide()
     }
     private fun requestApi() {
         Log.v(tage, "requestApiData called!")
@@ -53,16 +75,19 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {
+                        hideLoader()
                         followingAdapter.submitList(it)
                         Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is NetworkResult.Error -> {
+                    hideLoader()
                     Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG).show()
                     Log.d(tage, "Error 1 : ${response.message.toString()}")
                 }
 
                 is NetworkResult.Loading -> {
+                    showLoader()
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
                         .show()
                 }

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_followingFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_followingFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -51,6 +54,9 @@
         <action
             android:id="@+id/action_casesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_casesFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -61,9 +67,12 @@
             android:id="@+id/action_resultFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
         <argument
-            android:name="recognitionData("
-            app:argType="com.example.detectiveapplication.dto.recognition.RecognitionData"
+            android:name="recognitionResponse"
+            app:argType="com.example.detectiveapplication.dto.recognition.RecognitionResponse"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_resultFragment_to_faceDetectionFragment"
+            app:destination="@id/faceDetectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/watingCasesFragment"
@@ -155,5 +164,11 @@
         android:id="@+id/faceDetectionFragment"
         android:name="com.example.detectiveapplication.feature.home.faceDetection.FaceDetectionFragment"
         android:label="fragment_face_detection"
-        tools:layout="@layout/fragment_face_detection" />
+        tools:layout="@layout/fragment_face_detection" >
+        <action
+            android:id="@+id/action_faceDetectionFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/faceDetectionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

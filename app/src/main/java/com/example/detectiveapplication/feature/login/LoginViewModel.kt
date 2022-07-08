@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(
     fun login(map: Map<String, String>) {
         viewModelScope.launch {
             getLoginSafeCall(map)
-            Log.d("getLoginSafeCall", " getLoginSafeCall(email,password)")
+            Log.d("LoginViewModel", " getLoginSafeCall(email,password)")
 
         }
     }
@@ -50,14 +50,15 @@ class LoginViewModel @Inject constructor(
         if (hasInternetConnection()) {
             try {
                 val response = authRepository.login(map)
-                Log.d("amro", "GenericApiResponse: response: ${response.body()}")
-                Log.d("amro", "GenericApiResponse: raw: ${response.raw()}")
-                Log.d("amro", "GenericApiResponse: headers: ${response.headers()}")
-                Log.d("amro", "GenericApiResponse: message: ${response.message()}")
+                Log.d("LoginViewModel", "GenericApiResponse: response: ${response.code()}")
+                Log.d("LoginViewModel", "GenericApiResponse: response: ${response.body()}")
+                Log.d("LoginViewModel", "GenericApiResponse: raw: ${response.raw()}")
+                Log.d("LoginViewModel", "GenericApiResponse: headers: ${response.headers()}")
+                Log.d("LoginViewModel", "GenericApiResponse: message: ${response.message()}")
                 loginResponse.value = handelLoginResponse(response)
             } catch (e: Exception) {
                 loginResponse.value = NetworkResult.Error(e.message.toString())
-                Log.d("getLoginSafeCall", "getLoginSafeCall: ${e.message}")
+                Log.d("LoginViewModel", "getLoginSafeCall: ${e.message}")
             }
         } else {
             loginResponse.value = NetworkResult.Error("No Internet Connection")
@@ -70,7 +71,7 @@ class LoginViewModel @Inject constructor(
 
         when {
             response.code() == 422 -> {
-                Log.d("amro", "case 1")
+                Log.d("LoginViewModel", "case 1")
                 return NetworkResult.Error("عذا منك توجد مشكلة")
             }
             response.isSuccessful -> {

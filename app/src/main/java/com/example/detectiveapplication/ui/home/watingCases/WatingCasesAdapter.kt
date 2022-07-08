@@ -45,7 +45,7 @@ class WatingCasesAdapter(private val interaction: Interaction? = null) :
 
             binding.tvNameMissingChild.text = item.name
             binding.tvDescriptionMissingChild.text = checkText(item.otherInfo)
-            binding.tvAge.text = "سنوات" +"${item.age}"
+            binding.tvAge.text = item.age.toString() + " " + "سنة"
             binding.tvCapital.text = item.city
             binding.tvCity.text = item.subCity
 //            binding.textView7 =
@@ -53,8 +53,9 @@ class WatingCasesAdapter(private val interaction: Interaction? = null) :
             binding.container.setOnClickListener {
                 interaction?.onItemSelected(position,item ,0)
             }
-
-
+        }
+        fun String?.fixHttpsRequest(): String? {
+            return this?.replace("http", "https")
         }
         private fun checkText(string: String): String {
             return if (string in "other_info" || string.isNullOrEmpty()) {

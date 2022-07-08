@@ -18,7 +18,8 @@
             app:destination="@id/forgetPasswordFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
+            app:destination="@id/homeActivity"
+            app:popUpToInclusive="false" />
 
     </fragment>
 
@@ -29,7 +30,8 @@
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
+            app:destination="@id/homeActivity"
+            app:popUpToInclusive="false" />
 
     </fragment>
     <fragment
@@ -60,7 +62,9 @@
             app:argType="string" />
         <action
             android:id="@+id/action_createNewPasswordFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/createNewPasswordFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <activity
         android:id="@+id/homeActivity"
