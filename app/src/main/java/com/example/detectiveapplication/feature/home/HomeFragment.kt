@@ -3,6 +3,7 @@ package com.example.detectiveapplication.feature.home
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.example.detectiveapplication.dto.cases.Case
 import com.example.detectiveapplication.feature.home.utils.capitalList
 import com.example.detectiveapplication.response.ActiveCasesResponse
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,7 +40,12 @@ class HomeFragment : Fragment() {
         dialogLoader = Dialogloader(requireContext())
         dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.cvSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment("","","","","")
+            findNavController().navigate(action)
+        }
+        binding.cvNotification.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToNotificationFragment()
+            findNavController().navigate(action)
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -61,6 +68,7 @@ class HomeFragment : Fragment() {
     fun hideLoader(){
         dialogLoader.hide()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

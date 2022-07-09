@@ -89,8 +89,9 @@ class SettingFragment : Fragment() {
                 is NetworkResult.Success -> {
                     hideLoader()
                     response.data?.let {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_settingFragment_to_registrationActivity)
+                        requireActivity().finish()
                         Log.d(tage, "Success : ${response.message.toString()}")
                     }
                 }
@@ -101,8 +102,7 @@ class SettingFragment : Fragment() {
                 }
                 is NetworkResult.Loading -> {
                     showLoader()
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
-                        .show()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -118,27 +118,20 @@ class SettingFragment : Fragment() {
                     hideLoader()
                     response.data?.let {
                         userProfile = it
-                        Toast.makeText(
-                            requireContext(),
-                            userProfile!!.email.toString(),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+//                        Toast.makeText(requireContext(), userProfile!!.email.toString(), Toast.LENGTH_LONG).show()
                         binding.tvName.text = it.name
                         binding.tvEmail.text = it.email
                     }
                 }
                 is NetworkResult.Error -> {
                     hideLoader()
-                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG).show()
                     Log.d(tage, "Error 2: ${response.message.toString()}")
                 }
 
                 is NetworkResult.Loading -> {
                     showLoader()
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
-                        .show()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
                 }
             }
         }

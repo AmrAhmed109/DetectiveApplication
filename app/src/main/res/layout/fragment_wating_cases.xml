@@ -7,20 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.watingCases.WatingCasesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_wating_cases"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="8dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
-        tools:listitem="@layout/card_view_case" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView3">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_wating_cases"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
+            tools:listitem="@layout/card_view_case" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
         android:layout_width="0dp"

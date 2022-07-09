@@ -35,17 +35,17 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun query(query: String) =
+    fun query(query: String,city:String, age:String, from:String, to:String) =
         viewModelScope.launch {
-            getQuery(query)
+            getQuery(query,city,age,from,to)
         }
 
-    private suspend fun getQuery(query: String) {
+    private suspend fun getQuery(query: String,city:String, age:String, from:String, to:String) {
         searchResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
             try {
-                val response = repository.searchQuery(getToken(), query)
+                val response = repository.searchQuery(getToken(), query,city, age, from, to)
                 Log.d(tag, "GenericApiResponse: response: ${response.body()}")
                 Log.d(tag, "GenericApiResponse: raw: ${response.raw()}")
                 Log.d(tag, "GenericApiResponse: headers: ${response.headers()}")

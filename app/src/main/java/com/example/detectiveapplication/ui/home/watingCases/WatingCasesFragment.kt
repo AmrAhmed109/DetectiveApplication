@@ -43,6 +43,10 @@ class WatingCasesFragment : Fragment(), Interaction {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            apiRequest()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
         return binding.root
     }
     fun showLoader(){

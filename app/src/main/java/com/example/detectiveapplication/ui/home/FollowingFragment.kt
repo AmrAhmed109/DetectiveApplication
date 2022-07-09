@@ -17,6 +17,8 @@ import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentFollowingBinding
 import com.example.detectiveapplication.dto.followedCases.FollowedCasesItem
+import com.example.detectiveapplication.feature.cases.CasesFragmentDirections
+import com.example.detectiveapplication.feature.home.HomeFragmentDirections
 import com.example.detectiveapplication.feature.settings.SettingViewModel
 import com.example.detectiveapplication.utils.NetworkResult
 
@@ -45,7 +47,12 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
         dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         requestApi()
         binding.cvSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_followingFragment_to_searchFragment)
+            val action = FollowingFragmentDirections.actionFollowingFragmentToSearchFragment("","","","","")
+            findNavController().navigate(action)
+        }
+        binding.cvNotification.setOnClickListener {
+            val action = FollowingFragmentDirections.actionFollowingFragmentToNotificationFragment()
+            findNavController().navigate(action)
         }
         binding.rvFollowing.apply {
             adapter = followingAdapter
@@ -77,7 +84,7 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
                     response.data?.let {
                         hideLoader()
                         followingAdapter.submitList(it)
-                        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is NetworkResult.Error -> {
@@ -88,8 +95,7 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
 
                 is NetworkResult.Loading -> {
                     showLoader()
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
-                        .show()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
                 }
             }
         }

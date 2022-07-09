@@ -53,6 +53,7 @@ class RegistrationActivity : AppCompatActivity() {
         if (settingViewModel.getToken().length > 5){
 //            Splashy.hide()
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
+            this.finish()
         }
     }
 

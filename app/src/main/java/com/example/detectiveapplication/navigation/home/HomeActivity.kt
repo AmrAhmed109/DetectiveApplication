@@ -101,6 +101,12 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 R.id.resultFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
+                R.id.notificationFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.filterFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }

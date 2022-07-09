@@ -19,7 +19,7 @@
         <action
             android:id="@+id/action_loginFragment_to_homeActivity"
             app:destination="@id/homeActivity"
-            app:popUpToInclusive="false" />
+           />
 
     </fragment>
 
@@ -31,7 +31,8 @@
         <action
             android:id="@+id/action_registrationFragment_to_homeActivity"
             app:destination="@id/homeActivity"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment
@@ -70,5 +71,7 @@
         android:id="@+id/homeActivity"
         android:name="com.example.detectiveapplication.navigation.home.HomeActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        tools:layout="@layout/activity_main"
+        app:popUpTo="@id/homeActivity"
+        app:popUpToInclusive="true"/>
 </navigation>

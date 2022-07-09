@@ -15,7 +15,9 @@ import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentCasesBinding
 import com.example.detectiveapplication.dto.cases.Case
+import com.example.detectiveapplication.feature.home.HomeFragmentDirections
 import com.example.detectiveapplication.response.ActiveCasesResponse
+import com.example.detectiveapplication.ui.home.FollowingFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -36,9 +38,13 @@ class CasesFragment : BaseFragment(), CasesAdapter.Interaction {
         dialogLoader = Dialogloader(requireContext())
         dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         casesViewModel = ViewModelProvider(requireActivity())[CasesViewModel::class.java]
-
+        binding.cvNotification.setOnClickListener {
+            val action = CasesFragmentDirections.actionCasesFragmentToNotificationFragment()
+            findNavController().navigate(action)
+        }
         binding.cvSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_casesFragment_to_searchFragment)
+            val action = CasesFragmentDirections.actionCasesFragmentToSearchFragment("","","","","")
+            findNavController().navigate(action)
         }
         binding.cvFoundSomeone.setOnClickListener {
             findNavController().navigate(R.id.action_casesFragment_to_createStrangerCaseFragment)

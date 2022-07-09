@@ -10,6 +10,8 @@ import com.example.detectiveapplication.dto.followedCases.FollowedCasesResponse
 import com.example.detectiveapplication.dto.reset_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.notification.NotificationReadResponse
+import com.example.detectiveapplication.dto.notification.NotificationResponse
 import com.example.detectiveapplication.dto.pendingCases.PendingCasesResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.recognition.RecognitionResponse
@@ -38,9 +40,22 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
 
     suspend fun searchQuery(
         token: String,
-        name:String
+        name:String,
+        city:String,
+        age:String,
+        from:String,
+        to:String
     ): Response<SearchResponse> {
-        return authApi.searchQuery(token, name)
+        return authApi.searchQuery(token, name, city, age, from,to)
+    }
+
+
+    suspend fun notification(token: String): Response<NotificationResponse> {
+        return authApi.notification(token)
+    }
+
+    suspend fun notificationRead(token: String,id: String): Response<NotificationReadResponse> {
+        return authApi.notificationRead(token,id)
     }
 
     suspend fun getFollowedCases(token: String): Response<List<FollowedCasesItem>> {

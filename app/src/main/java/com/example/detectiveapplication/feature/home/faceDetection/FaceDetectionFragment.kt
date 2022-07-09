@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
@@ -30,6 +31,7 @@ import com.example.detectiveapplication.databinding.FragmentFaceDetectionBinding
 import com.example.detectiveapplication.dto.recognition.RecognitionData
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
@@ -60,7 +62,10 @@ class FaceDetectionFragment : Fragment() {
         super.onCreate(savedInstanceState)
         faceDetectionModel = ViewModelProvider(this)[FaceDetectionModel::class.java]
     }
-
+    fun addSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(ContextCompat.getColor(requireContext(),R.color.green)).show()
+    }
     private val permReqLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val granted = permissions.entries.all {
@@ -88,7 +93,8 @@ class FaceDetectionFragment : Fragment() {
 
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(requireContext(), "Error: ${response.message.toString()}", Toast.LENGTH_LONG).show()
+                    toast(response.message.toString())
+//                    Toast.makeText(requireContext(), "Error: ${response.message.toString()}", Toast.LENGTH_LONG).show()
                     Log.d("NetworkResult.Error", "requestApiData: ${response.message.toString()}")
                 }
                 is NetworkResult.Loading -> {

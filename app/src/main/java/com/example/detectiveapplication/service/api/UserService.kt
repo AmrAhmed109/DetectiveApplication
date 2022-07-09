@@ -9,6 +9,8 @@ import com.example.detectiveapplication.dto.followedCases.FollowedCasesItem
 import com.example.detectiveapplication.dto.reset_password.ForgetPasswordResponse
 import com.example.detectiveapplication.dto.login.UserLoginResponse
 import com.example.detectiveapplication.dto.logout.UserLogoutResponse
+import com.example.detectiveapplication.dto.notification.NotificationReadResponse
+import com.example.detectiveapplication.dto.notification.NotificationResponse
 import com.example.detectiveapplication.dto.pendingCases.PendingCasesResponse
 import com.example.detectiveapplication.dto.profile_data.UserProfileInfo
 import com.example.detectiveapplication.dto.recognition.RecognitionResponse
@@ -103,8 +105,26 @@ interface UserService {
     suspend fun searchQuery(
         @Header("Authorization") token: String,
         @Query ("name") name :String,
+        @Query ("city") city :String,
+        @Query ("age") age :String,
+        @Query ("from") from :String,
+        @Query ("to") to :String,
         @Query("limit") limit :String = 700.toString()
     ): Response<SearchResponse>
+
+
+    @GET("user/get-notification")
+    suspend fun notification(
+        @Header("Authorization") token: String,
+    ): Response<NotificationResponse>
+
+    @POST("user/update-notification")
+    @Headers("Content-Type: application/json")
+    suspend fun notificationRead(
+        @Header("Authorization") token: String,
+        @Field("id") id: String
+    ): Response<NotificationReadResponse>
+
 
     /**
      * name*

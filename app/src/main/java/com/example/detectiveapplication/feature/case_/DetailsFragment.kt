@@ -1,7 +1,9 @@
 package com.example.detectiveapplication.feature.case_
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentDetailsBinding
 import com.example.detectiveapplication.utils.NetworkResult
+import com.google.android.material.snackbar.Snackbar
 
 
 class DetailsFragment : Fragment() {
@@ -36,6 +39,7 @@ class DetailsFragment : Fragment() {
             ViewModelProvider(requireActivity())[CaseDetailsViewModel::class.java]
     }
 
+    var number =""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +58,15 @@ class DetailsFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.cvCall.setOnClickListener {
+            if (phoneNumber != null) {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "No Phone Number", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         observeViewModel()
         return binding.root
     }
@@ -67,6 +80,15 @@ class DetailsFragment : Fragment() {
     }
     fun hideLoader(){
         dialogLoader.hide()
+    }
+    fun addSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(ContextCompat.getColor(requireContext(),R.color.red)).show()
+    }
+    fun callPhoneNumber(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$phoneNumber")
+        startActivity(intent)
     }
     private fun observeViewModel() {
         caseDetailsViewModel.caseDetailResponse.observe(viewLifecycleOwner) { response ->
@@ -82,6 +104,8 @@ class DetailsFragment : Fragment() {
                             binding.tvDateMissingChild.setText(it.data.kidnapDate)
                             binding.tvCityMissingChildd.setText(it.data.city)
                             binding.tvDescriptionMissingChild.setText(it.data.otherInfo)
+                            binding.tvParentName.setText(it.data.guardian.first().name)
+                            binding.tvParentAddress.setText(it.data.guardian.first().address)
                             binding.ivMissingChild.load(it.data.image)
                             handleButton(it.data.authFollowed, it.data.id.toString())
                             phoneNumber = it.data.guardian.first().phoneNumber
@@ -94,8 +118,8 @@ class DetailsFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     hideLoader()
-                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG)
-                        .show()
+                    addSnackbar(response.message.toString())
+//                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG).show()
                     Log.d(tage, "Error 1 : ${response.message.toString()}")
                 }
 

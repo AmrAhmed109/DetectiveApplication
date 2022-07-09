@@ -27,13 +27,11 @@ class EditProfileViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var profileResponse: MutableLiveData<NetworkResult<EditProfileResponse>> = MutableLiveData()
 
-
     fun getToken(): String {
         dataStoreRepository.readToken.let {
             return it
         }
     }
-
 
     fun editProfile(name: String, email: String, password: String, confirm: String) =
         viewModelScope.launch {

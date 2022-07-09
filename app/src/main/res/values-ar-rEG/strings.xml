@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DetectiveApplication</string>
+    <string name="app_name">Trackid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">قم بتسجيل الدخول</string>
     <string name="username">الإيميل الخاص بك</string>
@@ -37,7 +37,7 @@
     <string name="create_case">إنشاء قصية</string>
     <string name="details">تفاصيل</string>
     <string name="do_you_have_any_information_about_him">هل لديك أي معلومات عن هذا الشخص ؟</string>
-    <string name="you_can_call_his_parent_and_help_them">يمكنك الاتصال بولي امرة ومساعدتة</string>
+    <string name="you_can_call_his_parent_and_help_them">يمكنك الاتصال بي ولي امره ومساعدتة</string>
     <string name="call">اتصل</string>
     <string name="possible_details">النتائج المحتملة</string>
     <string name="wating_cases">قضايا قيد الانتظار</string>
