@@ -56,7 +56,9 @@ class SearchAdapter(private val interaction: Interaction? = null) :
                 binding.tvAge.text = item.age.toString() + " " + "سنة"
                 binding.tvCapital.text = item.city
                 binding.tvCity.text = item.subCity
-                binding.ivMissingChild.load(item.image)
+                binding.ivMissingChild.load(item.image){
+                    crossfade(1000)
+                }
                 binding.container.setOnClickListener {
                     interaction?.onItemSelected(position,item ,0)
                 }

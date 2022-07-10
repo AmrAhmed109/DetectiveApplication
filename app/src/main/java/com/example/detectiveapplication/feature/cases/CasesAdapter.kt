@@ -67,11 +67,12 @@ class CasesAdapter(
             }
             binding.tvAge.text = case.age.toString() + " " + "سنة"
             binding.tvNameMissingChild.text = case.name.toString()
-//            binding.tvStatueMissingChild.text = case.status.toString()
             binding.tvCity.text = case.subCity.toString()
             binding.tvCapital.text = case.city.toString()
             binding.tvDescriptionMissingChild.text = checkText(case.otherInfo.toString())
-            binding.ivMissingChild.load(case.image)
+            binding.ivMissingChild.load(case.image){
+                crossfade(1000)
+            }
 
             binding.cardView67.setOnClickListener {
                 interaction?.onFoundSelected(1, case, 1)

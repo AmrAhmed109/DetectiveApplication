@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,12 +28,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentFaceDetectionBinding
 import com.example.detectiveapplication.dto.recognition.RecognitionData
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
 import com.google.android.material.snackbar.Snackbar
+import com.maxkeppeler.sheets.info.InfoSheet
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
@@ -48,13 +52,20 @@ class FaceDetectionFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var faceDetectionModel: FaceDetectionModel
     val CAPTURE_REQUEST_CODE = 5
+    private lateinit var dialogLoader: Dialogloader
 
     companion object {
         var PERMISSIONS = arrayOf(
             Manifest.permission.CAMERA
         )
     }
+    fun showLoader(){
+        dialogLoader.show()
+    }
 
+    fun hideLoader(){
+        dialogLoader.hide()
+    }
     val text : MutableLiveData<String> = MutableLiveData()
     var image : Bitmap? = null
 
@@ -74,8 +85,6 @@ class FaceDetectionFragment : Fragment() {
             if (granted) {
                 dispatchTakePictureIntent()
             }
-
-
         }
 
     fun apiCall(image: Uri) {
@@ -88,34 +97,70 @@ class FaceDetectionFragment : Fragment() {
 //                        response.data?.code.toString(),
 //                        Toast.LENGTH_LONG
 //                    ).show()
+                    hideLoader()
                     val action = FaceDetectionFragmentDirections.actionFaceDetectionFragmentToResultFragment(response.data)
                     findNavController().navigate(action)
 
                 }
                 is NetworkResult.Error -> {
-                    toast(response.message.toString())
+                    hideLoader()
+                    if (response.message == "error-face-not-found-or-many-faces"){
+                        missingInputDialog("خطأ في الصورة المختارة","يرجى التأكد من الصورة الختارة للشخص")
+                    }else if (response.message == "we can not found any kid in database"){
+                        missingInputDialog("لم يتم التعرف علية","لا يوجد هذا الشخص في قاعدة بياناتنا, يمكنك إنشاء قضية")
+                    }
+                    else{
+                        missingInputDialog("حدث خطأ",response.message.toString())
+                    }
+//                    toast(response.message.toString())
 //                    Toast.makeText(requireContext(), "Error: ${response.message.toString()}", Toast.LENGTH_LONG).show()
                     Log.d("NetworkResult.Error", "requestApiData: ${response.message.toString()}")
                 }
                 is NetworkResult.Loading -> {
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
+                    showLoader()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
+    fun missingInputDialog(title: String, message: String) {
+        InfoSheet().show(requireActivity()) {
+            title(title)
+            content(message)
+            onPositive("") {
+                // Handle event
+            }
+            onNegative("حسنا") {
+                // Handle event
+            }
+        }
+    }
+    fun GOInputDialog(title: String, message: String) {
+        InfoSheet().show(requireActivity()) {
+            title(title)
+            content(message)
+            onPositive("لا") {
+                // Handle event
+            }
+            onNegative("حسنا") {
 
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFaceDetectionBinding.inflate(inflater, container, false)
+        dialogLoader = Dialogloader(requireContext())
+        dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         text.value = ""
         binding.btnTakePicture.setOnClickListener {
             permReqLauncher.launch(PERMISSIONS)
         }
         text.observe(viewLifecycleOwner) {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             image?.let {
                 apiCall(getImageUri(it))
             }

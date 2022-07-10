@@ -1,6 +1,9 @@
 package com.example.detectiveapplication.feature.notification
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,6 +13,8 @@ import coil.load
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.NotificationItemBinding
 import com.example.detectiveapplication.dto.notification.NotificationFeed
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
@@ -40,25 +45,54 @@ class NotificationAdapter(private val interaction: Interaction? = null) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NotificationFeed, position: Int) = with(binding.root) {
-            binding.apply {
-                if (item.readable == 1){
-                    tvTitle.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
-                    tvDescription.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
-                }
-                tvTitle.text = item.tittle
-                tvDescription.text = item.body
-                if (item.image == null){
-                    ivPhoto.load(R.drawable.ic_logo)
-                }else{
-                    ivPhoto.load(item.image.toString()){
-                        error(R.drawable.ic_launcher_background)
-                    }
+
+            binding.tvTitle.text = item.tittle
+            binding.tvDescription.text = item.body
+            binding.tvDate.text = date(item.createdAt)
+            if (item.image == null) {
+                binding.ivPhoto.load(R.drawable.ic_logo)
+            } else {
+                binding.ivPhoto.load(item.image.toString()) {
+                    crossfade(1000)
+                    error(R.drawable.ic_launcher_background)
                 }
             }
-            
-            binding.notificationLayout.setOnClickListener { 
-                interaction?.onItemSelected(position, item,5)
+
+            binding.notificationLayout.setOnClickListener {
+                interaction?.onItemSelected(position, item, 5)
             }
+
+            Log.d("checkSomthing", "id:${item.id}  bind: ${item.readable}")
+            if (item.readable == 0) {
+                binding.materialCardView4.strokeWidth = 4
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.purple_200))
+                binding.tvDescription.setTextColor(ContextCompat.getColor(context, R.color.black))
+                binding.tvDate.setTextColor(ContextCompat.getColor(context, R.color.black))
+            } else if(item.readable == 1) {
+                binding.materialCardView4.strokeWidth = 0
+                binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+                binding.tvDescription.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+                binding.tvDate.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+            }
+        }
+
+        fun convertStringToDate(string: String): String {
+            val date = string.split("T")[0]
+            val time = string.split("T")[1]
+            val dateTime = "$date $time"
+            return dateTime
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun date(string: String): String {
+            val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'").parse(string)
+            return convertMilliToDayMonthYear(date.time)
+        }
+
+        fun convertMilliToDayMonthYear(milli: Long): String {
+            val date = Date(milli)
+            val format = SimpleDateFormat("dd MMM yyyy")
+            return format.format(date)
         }
     }
 
@@ -75,8 +109,7 @@ class NotificationAdapter(private val interaction: Interaction? = null) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(differ.currentList.get(position),position)
-
+        holder.bind(differ.currentList[position], position)
     }
 
     override fun getItemCount(): Int {

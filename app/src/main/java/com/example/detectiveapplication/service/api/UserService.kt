@@ -1,6 +1,7 @@
 package com.example.detectiveapplication.service.api
 
 import com.example.detectiveapplication.dto.caseDetails.CaseDetailsResponse
+import com.example.detectiveapplication.dto.cases.CloseCaseResponse
 import com.example.detectiveapplication.dto.createKid.CreateKidnappedResponse
 import com.example.detectiveapplication.dto.createKid.CreateFoundKidResponse
 import com.example.detectiveapplication.dto.edit_profile.EditProfileResponse
@@ -122,9 +123,16 @@ interface UserService {
     @Headers("Content-Type: application/json")
     suspend fun notificationRead(
         @Header("Authorization") token: String,
-        @Field("id") id: String
+        @Body body: Map<String, String>
     ): Response<NotificationReadResponse>
 
+    @POST("user/kids/update/{id}")
+    @Headers("Content-Type: application/json")
+    suspend fun closeCase(
+        @Header("Authorization") token:String,
+        @Body body: Map<String, String>,
+        @Path("id") id:String
+    ): Response<CloseCaseResponse>
 
     /**
      * name*

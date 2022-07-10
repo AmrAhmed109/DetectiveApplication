@@ -128,7 +128,7 @@
         android:ems="2"
         android:fontFamily="@font/din_next_arabic_regular"
         android:maxLines="2"
-        android:text="@string/creat_case"
+        android:text="قم بإنشاء قضية في حال اذا فقدت شخص او وجدتة و سيتم مراجعة القضية وتفعليها في اقرب وقت ممكن"
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView2"

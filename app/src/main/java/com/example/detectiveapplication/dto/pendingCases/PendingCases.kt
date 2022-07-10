@@ -41,7 +41,7 @@ data class PendingCasesData(
 
 data class DataList(
     @SerializedName("age")
-    val age: Any,
+    val age: Int,
     @SerializedName("city")
     val city: String,
     @SerializedName("id")

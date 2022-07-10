@@ -43,6 +43,24 @@ class NotificationViewModel @Inject constructor(
         }
     }
 
+    fun notificationRead(id:String)=viewModelScope.launch {
+        try {
+            if (hasInternetConnection()) {
+                try {
+                   authRepository.notificationRead(getToken(),id)
+//                    Log.d(tag, "GenericApiResponse: response: ${response.body()}")
+//                    Log.d(tag, "GenericApiResponse: raw: ${response.raw()}")
+//                    Log.d(tag, "GenericApiResponse: headers: ${response.headers()}")
+//                    Log.d(tag, "GenericApiResponse: message: ${response.message()}")
+                } catch (e: Exception) {
+                    Log.d(tag, "getNotificationSafeCall: ${e.message}")
+                }
+            }
+        }catch (e:Exception){
+            Log.e(tag,e.toString())
+        }
+    }
+
     private suspend fun getNotificationSafeCall(token: String) {
         notificationResponse.value = NetworkResult.Loading()
 
