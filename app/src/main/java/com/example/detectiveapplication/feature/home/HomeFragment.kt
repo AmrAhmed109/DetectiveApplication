@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
     private fun setupCapitalsUI() {
         capitalAdapter = CapitalAdapter(
             capitalList,
-            homeViewModel.selectedCapital.value!!,
+            0,
         ) {
             homeViewModel.setSelectedCapital(it)
         }
