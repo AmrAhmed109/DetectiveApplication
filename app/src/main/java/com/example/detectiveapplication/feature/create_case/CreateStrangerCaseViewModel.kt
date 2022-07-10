@@ -94,9 +94,11 @@ class CreateStrangerCaseViewModel @Inject constructor(
                         return NetworkResult.Error(response.body()!!.error.parentNationalId.first())
                     } else if (response.body()?.error?.parentOtherInfo!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.parentOtherInfo.first())
-                    } else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
-                        return NetworkResult.Error(response.body()!!.message)
                     }
+                    return NetworkResult.Error(response.body()!!.message)
+                }else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
+                    return NetworkResult.Error(response.body()!!.message)
+                }else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
                     return NetworkResult.Error(response.body()!!.message)
                 }
                 val foundKidResponse = response.body()

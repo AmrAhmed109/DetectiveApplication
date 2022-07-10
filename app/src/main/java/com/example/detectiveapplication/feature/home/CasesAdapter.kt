@@ -67,7 +67,9 @@ class CasesAdapter(
 
 //            Picasso.get().load(case.image).into(binding.ivMissingChild);
 
-            binding.ivMissingChild.load(case.image)
+            binding.ivMissingChild.load(case.image){
+                crossfade(1000)
+            }
         }
         fun String?.fixHttpsRequest(): String? {
             return this?.replace("http", "https")

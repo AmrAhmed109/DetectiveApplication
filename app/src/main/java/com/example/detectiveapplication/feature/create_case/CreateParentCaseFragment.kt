@@ -22,6 +22,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
@@ -45,10 +46,12 @@ import com.example.detectiveapplication.feature.settings.SettingViewModel
 import com.example.detectiveapplication.utils.City
 import com.example.detectiveapplication.utils.Constants.Companion.anotherImageBody
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
+import com.example.detectiveapplication.utils.Constants.Companion.listOfCites
 import com.example.detectiveapplication.utils.FileUtil
 import com.example.detectiveapplication.utils.NetworkResult
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.nguyenhoanglam.imagepicker.model.GridCount
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.model.RootDirectory
@@ -63,6 +66,7 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.collections.ArrayList
 import kotlin.math.log
 
@@ -121,37 +125,11 @@ class CreateParentCaseFragment : Fragment() {
         dialogLoader = Dialogloader(requireContext())
         dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.etKidnappedTimeInputLayout.setOnClickListener {
-//            addDatePicker()
             addAnotherDatePicker()
         }
 
-
         val name = arrayListOf<String>()
-        val city = arrayListOf<City>()
-        city.add(
-            City(
-                "بنى سويف", listOf(
-                    "مدينة بني سويف",
-                    "الواسطى",
-                    "ناصر",
-                    "إهناسيا",
-                    "ببا",
-                    "سمسطا"
-                )
-            )
-        )
-        city.add(
-            City(
-                "الجيزة",
-                listOf("البدرشين", "الصف", "أطفيح", "العياط" ,"الباويطي")
-            )
-        )
-        city.add(
-            City(
-                "الفيوم",
-                listOf("الفيوم", "طامية", " سنورس", "إطسا", "إطسا")
-            )
-        )
+        val city = listOfCites()
         city.forEach {
             name.add(it.name)
         }
@@ -191,6 +169,13 @@ class CreateParentCaseFragment : Fragment() {
             }
         }
 
+        binding.etCityAutoCompleteTextView.setOnClickListener {
+            hideCityKeyboard()
+        }
+        binding.etSubCityAutoCompleteTextView.setOnClickListener {
+            hideSubCityKeyboard()
+        }
+
         return binding.root
     }
 
@@ -204,7 +189,14 @@ class CreateParentCaseFragment : Fragment() {
             )
         }"
     }
-
+    private fun hideCityKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etCityAutoCompleteTextView.windowToken, 0)
+    }
+    private fun hideSubCityKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etSubCityAutoCompleteTextView.windowToken, 0)
+    }
     private fun addAnotherDatePicker() {
         CalendarSheet().show(requireActivity()) {
             title("ما هو تاريخ الاختفاء؟") // Set the title of the sheet
@@ -226,28 +218,6 @@ class CreateParentCaseFragment : Fragment() {
         }
     }
 
-    private fun addDatePicker() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(
-            requireContext(),
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                binding.etKidnappedDate.setText("$dayOfMonth-$month-$year")
-                binding.etKidnappedDate.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.black
-                    )
-                )
-            },
-            year,
-            month,
-            day
-        )
-        dpd.show()
-    }
 
     private fun toast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -255,66 +225,125 @@ class CreateParentCaseFragment : Fragment() {
 
     private fun validateFormData(): Boolean {
         var isValid = true
+        var message = "الرجاء إدخال جميع الحقول"
         if (binding.etName.text.toString().isEmpty()) {
             binding.etNameInputLayout.error = "الرجاء إدخال اسم الشخص"
             isValid = false
         }
         if (mainImage == null) {
-            toast("يرجى اضافة صورة للشخص المفقود")
+//            toast("يرجى اضافة صورة للشخص المفقود")
+            message= "يرجى اضافة صورة للشخص المفقود"
             isValid = false
         }
         if (birthImage == null) {
-            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+//            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+            message= "يرجى اضافة صورة لشهادة ميلاد الشخص المفقود"
             isValid = false
         }
         if (parentImage == null) {
-            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+//            toast("يرجى اضافة صورة لشهادة ميلاد الشخص المفود")
+            message= "يرجى اضافة صورة لشهادة ميلاد الشخص المفقود"
             isValid = false
         }
         if (binding.etKidNationalId.text.toString().isEmpty()) {
             binding.etKidNationalIdLayout.error = "الرجاء إدخال الرقم القومي الخاص بالشخص"
+            message= "الرجاء إدخال الرقم القومي الخاص بالشخص"
             isValid = false
         }
+        if (!validateNationalId(binding.etKidNationalId.text.toString())) {
+            binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي صحيح"
+            message = "الرجاء إدخال الرقم القومي صحيح"
+            isValid =  false
+        }
         if (binding.etKidnappedDate.text.toString().isEmpty()) {
-            toast("يرجى إدخال تاريخ الاختفاء")
+//            toast("يرجى إدخال تاريخ الاختفاء")
+            message= "يرجى إدخال تاريخ الاختفاء"
             isValid = false
+        }
+        if (binding.etDescription.text.toString().length < 50) {
+            binding.etDesriptionLayout.error = "الرجاء إدخال تفاصيل اكثر عن الحالة"
+            message = "الرجاء إدخال اكثر تفاصيل الحالة"
+            isValid =  false
         }
         if (binding.etDescription.text.toString().isEmpty()) {
             binding.etDesriptionLayout.error = "الرجاء إدخل تفاصيل الحالة"
+            message= "الرجاء إدخل تفاصيل الحالة"
             isValid = false
         }
         if (binding.etAge.text.toString().isEmpty()) {
             binding.etAgeInputLayout.error = "الرجاء إدخل عمر الشخص"
+            message= "الرجاء إدخل عمر الشخص"
             isValid = false
         }
         if (binding.etSubCityAutoCompleteTextView.text.isEmpty()) {
             binding.etSubCityInputLayout.error = "الرجاء إدخال المدينة"
+            message= "الرجاء إدخال المدينة"
             isValid = false
         }
         if (binding.etCityAutoCompleteTextView.text.isEmpty()) {
             binding.etCityInputLayout.error = "الرجاء إدخال المحافظة"
+            message= "الرجاء إدخال المحافظة"
             isValid = false
         }
         if (binding.etParentAddress.text.toString().isEmpty()) {
             binding.etParentAddressLayout.error = "الرجاء إدخال عنوان ولي الامر"
+            message= "الرجاء إدخال عنوان ولي الامر"
             isValid = false
         }
         if (binding.etParentName.text.toString().isEmpty()) {
             binding.etParentNameLayout.error = "الرجاء إدخال اسم ولي الامر"
+            message= "الرجاء إدخال اسم ولي الامر"
             isValid = false
         }
         if (binding.etParentID.text.toString().isEmpty()) {
             binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي"
+            message= "الرجاء إدخال الرقم القومي"
             isValid = false
         }
         if (binding.etParentPhone.text.toString().isEmpty()) {
             binding.etParentPhoneLayout.error = "الرجاء إدخال رقم هاتف ولي الامر"
+            message= "الرجاء إدخال رقم هاتف ولي الامر"
             isValid = false
         }
+        if (!validateNationalId(binding.etParentID.text.toString())) {
+            binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي صحيح"
+            message = "الرجاء إدخال الرقم القومي صحيح"
+            isValid =  false
+        }
+        if (!validatePhoneNumber(binding.etParentPhone.text.toString())) {
+            binding.etParentPhoneLayout.error = "الرجاء إدخال رقم هاتف صحيح"
+            message = "الرجاء إدخال رقم هاتف صحيح"
+            isValid =  false
+        }
         if (!isValid) {
+            missingInputDialog(title = "تأكد من ملئ البيانات بشكل صحيح", message = message)
             return false
         }
         return true
+    }
+    fun missingInputDialog(title: String, message: String) {
+        InfoSheet().show(requireActivity()) {
+            title(title)
+            content(message)
+            onPositive("") {
+                // Handle event
+            }
+            onNegative("حسنا") {
+                // Handle event
+            }
+        }
+    }
+    private fun validatePhoneNumber(phoneNumber: String): Boolean {
+        val PHONE_PATTERN = "^01[0-2,5]\\d{1,8}$"
+        val pattern = Pattern.compile(PHONE_PATTERN)
+        val matcher = pattern.matcher(phoneNumber)
+        return matcher.matches()
+    }
+    private fun validateNationalId(nationalId: String): Boolean {
+        val NATIONAL_ID_PATTERN = "^[0-9]{14}$"
+        val pattern = Pattern.compile(NATIONAL_ID_PATTERN)
+        val matcher = pattern.matcher(nationalId)
+        return matcher.matches()
     }
     fun showLoader(){
         dialogLoader.show()
@@ -359,22 +388,17 @@ class CreateParentCaseFragment : Fragment() {
                         response.data?.let {
                             hideLoader()
                             findNavController().navigate(R.id.action_createParentCaseFragment_to_watingCasesFragment)
-                            Toast.makeText(
-                                requireContext(),
-                                response.data.message,
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
+                            missingInputDialog("تم إنشاء القضية بنجاح" , "انتظر حتى يتم مراجعة قضيتك والموافقة عليها")
+                            Toast.makeText(requireContext(), response.data.message, Toast.LENGTH_LONG).show()
                         }
                     }
                     is NetworkResult.Error -> {
                         hideLoader()
-                        Toast.makeText(
-                            requireContext(),
-                            response.message.toString(),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                        if (response.message == "يرجى التأكد من الصورة الختارة للشخص"){
+                            missingInputDialog("خطأ في الصورة المختارة","يرجى التأكد من الصورة الختارة للشخص")
+                        }else{
+                            missingInputDialog("حدث خطأ",response.message.toString())
+                        }
                         Log.d(
                             "NetworkResult.Error",
                             "requestApiData: ${response.message.toString()}"
@@ -399,19 +423,19 @@ class CreateParentCaseFragment : Fragment() {
 
 
     val config = ImagePickerConfig(
-        statusBarColor = "#FF6F00",
+        statusBarColor = "#1877F2",
         isLightStatusBar = false,
         isFolderMode = true,
         maxSize = 1,
         isMultipleMode = true,
         backgroundColor = "#FFFFFFFF",
-        isShowCamera = true,
-        toolbarColor = "#FF6F00",
+        isShowCamera = false,
+        toolbarColor = "#1877F2",
         doneTitle = "تم",
-        limitMessage = "كفايا كدة هما 5 حلوين مش هنطمع",
-        folderTitle = "نقي براحتك",
+        limitMessage = "الحد الاقصى للتحميل هو صورة واحدة فقط",
+        folderTitle = "اختر الصورة الذي تريدها",
         rootDirectory = RootDirectory.DCIM,
-        selectedIndicatorColor = "#FF6F00",
+        selectedIndicatorColor = "#1877F2",
         subDirectory = "Photos",
         folderGridCount = GridCount(2, 4),
         imageGridCount = GridCount(3, 5),

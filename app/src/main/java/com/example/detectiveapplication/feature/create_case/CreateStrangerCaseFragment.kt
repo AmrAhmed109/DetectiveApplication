@@ -1,12 +1,16 @@
 package com.example.detectiveapplication.feature.create_case
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -16,18 +20,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentCreateStrangerCaseBinding
 import com.example.detectiveapplication.utils.City
+import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.NetworkResult
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
+import com.maxkeppeler.sheets.info.InfoSheet
 import com.nguyenhoanglam.imagepicker.model.GridCount
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.model.RootDirectory
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
 import java.util.*
+import java.util.regex.Pattern
 
 
 class CreateStrangerCaseFragment : Fragment() {
@@ -37,6 +45,7 @@ class CreateStrangerCaseFragment : Fragment() {
     var subCity: List<String> = listOf()
    lateinit var createStrangerCaseViewModel: CreateStrangerCaseViewModel
     val TAG = "CreateStranger"
+    private lateinit var dialogLoader: Dialogloader
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +66,8 @@ class CreateStrangerCaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCreateStrangerCaseBinding.inflate(inflater, container, false)
-
+        dialogLoader = Dialogloader(requireContext())
+        dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -76,10 +86,28 @@ class CreateStrangerCaseFragment : Fragment() {
             }
         }
         handleSpinner()
-
+        binding.etCityAutoCompleteTextView.setOnClickListener {
+            hideCityKeyboard()
+        }
+        binding.etSubCityAutoCompleteTextView.setOnClickListener {
+            hideSubCityKeyboard()
+        }
         return binding.root
     }
-
+    private fun hideCityKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etCityAutoCompleteTextView.windowToken, 0)
+    }
+    private fun hideSubCityKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etSubCityAutoCompleteTextView.windowToken, 0)
+    }
+    fun showLoader(){
+        dialogLoader.show()
+    }
+    fun hideLoader(){
+        dialogLoader.hide()
+    }
     private fun requestApiCall() {
         if (mainImage != null){
             createStrangerCaseViewModel.createFoundKid(
@@ -100,17 +128,26 @@ class CreateStrangerCaseFragment : Fragment() {
 
                 when (response) {
                     is NetworkResult.Success -> {
-                        log("Success")
+                        hideLoader()
+//                        log("Success")
                         response.data?.let {
                             toast(it.message)
                         }
-                        findNavController().navigate(R.id.action_createStrangerCaseFragment_to_casesFragment)
+                        missingInputDialog("تم إنشاء القضية بنجاح" , "انتظر حتى يتم مراجعة قضيتك والموافقة عليها")
+                        findNavController().navigate(R.id.action_createParentCaseFragment_to_watingCasesFragment)
                     }
                     is NetworkResult.Loading -> {
-                        toast("Loading")
+                        showLoader()
+//                        toast("Loading")
                     }
                     is NetworkResult.Error -> {
-                        toast("Error : ${response.message.toString()}")
+                        hideLoader()
+                        if (response.message == "error-face-not-found-or-many-faces"){
+                            missingInputDialog("خطأ في الصورة المختارة","يرجى التأكد من الصورة الختارة للشخص")
+                        }else{
+                            missingInputDialog("حدث خطأ",response.message.toString())
+                        }
+//                        toast("Error : ${response.message.toString()}")
                     }
                 }
 
@@ -127,80 +164,112 @@ class CreateStrangerCaseFragment : Fragment() {
 
     private fun validateFormData(): Boolean {
         var isValid = true
+        var message = "الرجاء إدخال جميع الحقول"
         if (binding.etName.text.toString().isEmpty()) {
             binding.etNameInputLayout.error = "الرجاء إدخال اسم الشخص"
+            message = "الرجاء إدخال اسم الشخص"
             isValid =  false
         }
         if (mainImage == null) {
-            toast("يرجى اضافة صورة للشخص المعثور علية")
+//            toast("يرجى اضافة صورة للشخص المعثور علية")
+            message = "يرجى اضافة صورة للشخص المعثور علية"
             isValid =  false
         }
         if (binding.etKidnappedDate.text.toString().isEmpty()) {
-            toast("يرجى إدخال تاريخ الاختفاء")
+//            toast("يرجى إدخال تاريخ الاختفاء")
+            message = "يرجى إدخال تاريخ الذي وجدت فية الشخص"
             isValid =  false
         }
+
+        if (binding.etDescription.text.toString().length < 50) {
+            binding.etDesriptionLayout.error = "الرجاء إدخال تفاصيل اكثر عن الحالة"
+            message = "الرجاء إدخال اكثر تفاصيل الحالة"
+            isValid =  false
+        }
+
         if (binding.etDescription.text.toString().isEmpty()) {
             binding.etDesriptionLayout.error = "الرجاء إدخل تفاصيل الحالة"
+            message = "الرجاء إدخل تفاصيل الحالة"
             isValid =  false
         }
 
         if (binding.etSubCityAutoCompleteTextView.text.isEmpty()) {
             binding.etSubCityInputLayout.error = "الرجاء إدخال المدينة"
+            message = "الرجاء إدخال المدينة"
             isValid =  false
         }
         if (binding.etCityAutoCompleteTextView.text.isEmpty()) {
             binding.etCityInputLayout.error = "الرجاء إدخال المحافظة"
+            message = "الرجاء إدخال المحافظة"
             isValid =  false
         }
         if (binding.etParentAddress.text.toString().isEmpty()) {
             binding.etParentAddressLayout.error = "الرجاء إدخال عنوان ولي الامر"
+            message = "الرجاء إدخال عنوان ولي الامر"
             isValid =  false
         }
         if (binding.etParentName.text.toString().isEmpty()) {
             binding.etParentNameLayout.error = "الرجاء إدخال اسم ولي الامر"
+            message = "الرجاء إدخال اسم ولي الامر"
             isValid =  false
         }
         if (binding.etParentID.text.toString().isEmpty()) {
             binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي"
+            message = "الرجاء إدخال الرقم القومي"
+            isValid =  false
+        }
+        if (!validateNationalId(binding.etParentID.text.toString())) {
+            binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي صحيح"
+            message = "الرجاء إدخال الرقم القومي صحيح"
             isValid =  false
         }
         if (binding.etParentPhone.text.toString().isEmpty()) {
             binding.etParentPhoneLayout.error = "الرجاء إدخال رقم هاتف ولي الامر"
+            message = "الرجاء إدخال رقم هاتف ولي الامر"
+            isValid =  false
+        }
+        if (!validatePhoneNumber(binding.etParentPhone.text.toString())) {
+            binding.etParentPhoneLayout.error = "الرجاء إدخال رقم هاتف صحيح"
+            message = "الرجاء إدخال رقم هاتف صحيح"
             isValid =  false
         }
         if (!isValid){
+            missingInputDialog(title = "تأكد من ملئ البيانات بشكل صحيح", message = message)
             return false
         }
         return true
     }
 
+    private fun validatePhoneNumber(phoneNumber: String): Boolean {
+        val PHONE_PATTERN = "^01[0-2,5]\\d{1,8}$"
+        val pattern = Pattern.compile(PHONE_PATTERN)
+        val matcher = pattern.matcher(phoneNumber)
+        return matcher.matches()
+    }
+    private fun validateNationalId(nationalId: String): Boolean {
+        val NATIONAL_ID_PATTERN = "^[0-9]{14}$"
+        val pattern = Pattern.compile(NATIONAL_ID_PATTERN)
+        val matcher = pattern.matcher(nationalId)
+        return matcher.matches()
+    }
+
+
+    fun missingInputDialog(title: String, message: String) {
+        InfoSheet().show(requireActivity()) {
+            title(title)
+            content(message)
+            onPositive("") {
+                // Handle event
+            }
+            onNegative("حسنا") {
+                // Handle event
+            }
+        }
+    }
     private fun handleSpinner(){
         val name = arrayListOf<String>()
-        val city = arrayListOf<City>()
-        city.add(
-            City(
-                "بنى سويف", listOf(
-                    "مدينة بني سويف",
-                    "مدينة الواسطى",
-                    "مدينة ناصر",
-                    "مدينة إهناسيا",
-                    "مدينة ببا",
-                    "مدينة سمسطا"
-                )
-            )
-        )
-        city.add(
-            City(
-                "الجيزة",
-                listOf("مدينة البدرشين", "مدينة الصف", "مدينة أطفيح", "مدينة العياط,مدينة الباويطي")
-            )
-        )
-        city.add(
-            City(
-                "الفيوم",
-                listOf("مدينة الفيوم", "مدينة طامية", "مدينة سنورس", "مدينة إطسا", "مدينة إطسا")
-            )
-        )
+        val city = Constants.listOfCites()
+
         city.forEach {
             name.add(it.name)
         }
@@ -281,19 +350,19 @@ class CreateStrangerCaseFragment : Fragment() {
     }
 
     val config = ImagePickerConfig(
-        statusBarColor = "#FF6F00",
+        statusBarColor = "#1877F2",
         isLightStatusBar = false,
         isFolderMode = true,
         maxSize = 1,
         isMultipleMode = true,
         backgroundColor = "#FFFFFFFF",
-        isShowCamera = true,
-        toolbarColor = "#FF6F00",
+        isShowCamera = false,
+        toolbarColor = "#1877F2",
         doneTitle = "تم",
-        limitMessage = "كفايا كدة هما 5 حلوين مش هنطمع",
-        folderTitle = "نقي براحتك",
+        limitMessage = "الحد الاقصى للتحميل هو صورة واحدة فقط",
+        folderTitle = "اختر الصورة الذي تريدها",
         rootDirectory = RootDirectory.DCIM,
-        selectedIndicatorColor = "#FF6F00",
+        selectedIndicatorColor = "#1877F2",
         subDirectory = "Photos",
         folderGridCount = GridCount(2, 4),
         imageGridCount = GridCount(3, 5),

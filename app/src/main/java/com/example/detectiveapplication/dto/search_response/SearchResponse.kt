@@ -41,7 +41,7 @@ data class SearchData(
 
 data class SearchDataX(
     @SerializedName("age")
-    val age: Any,
+    val age: Int,
     @SerializedName("city")
     val city: String,
     @SerializedName("id")

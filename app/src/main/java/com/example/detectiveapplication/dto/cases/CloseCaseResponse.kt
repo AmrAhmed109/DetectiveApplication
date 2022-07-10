@@ -1,10 +1,20 @@
-package com.example.detectiveapplication.dto.followedCases
+package com.example.detectiveapplication.dto.cases
 
 
 import com.google.gson.annotations.SerializedName
 
-class FollowedCasesResponse : ArrayList<FollowedCasesItem>()
-data class FollowedCasesItem(
+data class CloseCaseResponse(
+    @SerializedName("code")
+    val code: Int,
+    @SerializedName("data")
+    val `data`: ClosedCaseData,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("status")
+    val status: Boolean
+)
+
+data class ClosedCaseData(
     @SerializedName("age")
     val age: Int,
     @SerializedName("birth_image")
@@ -14,9 +24,11 @@ data class FollowedCasesItem(
     @SerializedName("id")
     val id: Int,
     @SerializedName("id_number")
-    val idNumber: Any,
+    val idNumber: Int,
     @SerializedName("image")
     val image: String,
+    @SerializedName("item")
+    val item: Int,
     @SerializedName("kidnap_date")
     val kidnapDate: String,
     @SerializedName("kidnap_status")

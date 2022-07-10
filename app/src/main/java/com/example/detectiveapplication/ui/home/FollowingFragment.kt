@@ -67,7 +67,6 @@ class FollowingFragment : Fragment(),FollowingAdapter.Interaction {
     }
     fun showLoader(){
         dialogLoader.show()
-        dialogLoader
     }
 
     fun hideLoader(){

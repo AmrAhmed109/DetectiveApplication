@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.detectiveapplication.databinding.FragmentFilterBinding
 import com.example.detectiveapplication.utils.City
+import com.example.detectiveapplication.utils.Constants
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
@@ -61,31 +62,8 @@ class FilterFragment : BottomSheetDialogFragment() {
 
     private fun handleSpinner(){
         val name = arrayListOf<String>()
-        val city = arrayListOf<City>()
-        city.add(
-            City(
-                "بنى سويف", listOf(
-                    "مدينة بني سويف",
-                    "مدينة الواسطى",
-                    "مدينة ناصر",
-                    "مدينة إهناسيا",
-                    "مدينة ببا",
-                    "مدينة سمسطا"
-                )
-            )
-        )
-        city.add(
-            City(
-                "الجيزة",
-                listOf("مدينة البدرشين", "مدينة الصف", "مدينة أطفيح", "مدينة العياط,مدينة الباويطي")
-            )
-        )
-        city.add(
-            City(
-                "الفيوم",
-                listOf("مدينة الفيوم", "مدينة طامية", "مدينة سنورس", "مدينة إطسا", "مدينة إطسا")
-            )
-        )
+        val city = Constants.listOfCites()
+
         city.forEach {
             name.add(it.name)
         }

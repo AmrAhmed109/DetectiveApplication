@@ -75,7 +75,6 @@ class SettingFragment : Fragment() {
     }
     fun showLoader(){
         dialogLoader.show()
-        dialogLoader
     }
     fun hideLoader(){
         dialogLoader.hide()

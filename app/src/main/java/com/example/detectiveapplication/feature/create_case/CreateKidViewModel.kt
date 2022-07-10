@@ -147,7 +147,6 @@ class CreateKidViewModel @Inject constructor(
                 if (response.body()?.code == 404) {
                     return NetworkResult.Error(response.body()!!.message)
                 } else if (response.body()?.code == 422) {
-
                     if (response.body()?.error?.name!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.name.first())
                     } else if (response.body()?.error?.image!!.isNotEmpty()) {
@@ -170,10 +169,10 @@ class CreateKidViewModel @Inject constructor(
                         return NetworkResult.Error(response.body()!!.error.parentOtherInfo.first())
                     } else if (response.body()?.error?.birth_image!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.birth_image.first())
-                    }else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
-                        return NetworkResult.Error(response.body()!!.message)
                     }
                     return NetworkResult.Error(response.body()!!.message)
+                }else if (response.body()?.message!! == "error-face-not-found-or-many-faces") {
+                    return NetworkResult.Error("يرجى التأكد من الصورة الختارة للشخص")
                 }
                 val createKidnappedResponse = response.body()
                 return NetworkResult.Success(createKidnappedResponse!!)

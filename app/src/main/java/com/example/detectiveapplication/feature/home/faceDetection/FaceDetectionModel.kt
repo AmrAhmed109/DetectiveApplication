@@ -79,9 +79,12 @@ class FaceDetectionModel @Inject constructor(
 
                     return NetworkResult.Error(response.body()!!.message)
                 }
-
                 if (response.body()!!.data.isNullOrEmpty()) {
                     return NetworkResult.Error(response.body()!!.message)
+                }else if (response.body()?.message!!.contains("error-face-not-found-or-many-faces")) {
+                    return NetworkResult.Error("يرجى التأكد من الصورة الختارة للشخص")
+                }else if (response.body()?.message!!.contains("we can not found any kid in database")) {
+                    return NetworkResult.Error("لا يوجد هذا الشخص في قاعدة بياناتنا, يمكنك اضافة في قاعدة للبيانات")
                 }
                 val recognitionResponse = response.body()
                 return NetworkResult.Success(recognitionResponse!!)

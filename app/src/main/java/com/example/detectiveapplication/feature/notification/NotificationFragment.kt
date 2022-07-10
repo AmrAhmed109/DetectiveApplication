@@ -17,6 +17,7 @@ import com.example.detectiveapplication.databinding.FragmentNotificationBinding
 import com.example.detectiveapplication.dto.notification.NotificationFeed
 import com.example.detectiveapplication.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class NotificationFragment : Fragment(), NotificationAdapter.Interaction {
@@ -33,6 +34,7 @@ class NotificationFragment : Fragment(), NotificationAdapter.Interaction {
         super.onCreate(savedInstanceState)
         notificationViewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,8 +98,10 @@ class NotificationFragment : Fragment(), NotificationAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: NotificationFeed, state: Int) {
+        notificationViewModel.notificationRead(item.id.toString())
         val action = NotificationFragmentDirections.actionNotificationFragmentToDetailsFragment(item.refreanceId.toString())
         findNavController().navigate(action)
+
     }
 
 }

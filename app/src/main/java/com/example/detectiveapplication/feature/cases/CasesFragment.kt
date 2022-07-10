@@ -3,6 +3,7 @@ package com.example.detectiveapplication.feature.cases
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import com.example.detectiveapplication.dto.cases.Case
 import com.example.detectiveapplication.feature.home.HomeFragmentDirections
 import com.example.detectiveapplication.response.ActiveCasesResponse
 import com.example.detectiveapplication.ui.home.FollowingFragmentDirections
+import com.example.detectiveapplication.utils.NetworkResult
+import com.maxkeppeler.sheets.info.InfoSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -55,10 +58,7 @@ class CasesFragment : BaseFragment(), CasesAdapter.Interaction {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            setupObservers()
-            lifecycleScope.launchWhenCreated {
-                casesViewModel.getCases()
-            }
+            refreshData()
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
@@ -66,6 +66,12 @@ class CasesFragment : BaseFragment(), CasesAdapter.Interaction {
         return binding.root
     }
 
+    fun refreshData(){
+        setupObservers()
+        lifecycleScope.launchWhenCreated {
+            casesViewModel.getCases()
+        }
+    }
     fun showLoader(){
         dialogLoader.show()
         dialogLoader
@@ -94,12 +100,44 @@ class CasesFragment : BaseFragment(), CasesAdapter.Interaction {
     binding.cases.adapter = adapter
     }
 
+    fun apiCall(caseId:String) {
+        casesViewModel.closeCase(caseId)
+        casesViewModel.closedCaseResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    refreshData()
+                    Toast.makeText(requireContext(), response.data?.message, Toast.LENGTH_LONG).show()
+                }
+                is NetworkResult.Error -> {
+                    Toast.makeText(requireContext(), "Error ${response.message.toString()}", Toast.LENGTH_LONG).show()
+                }
+                is NetworkResult.Loading -> {
+//                    Toast.makeText(requireContext(),"Loading", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    fun closeCaseDialog(title: String, message: String,id:String){
+        InfoSheet().show(requireActivity()) {
+            title(title)
+            content(message)
+            onPositive("لا") {
+                // Handle event
+            }
+            onNegative("اجل") {
+                apiCall(id)
+            }
+        }
+    }
     override fun onFoundSelected(position: Int, case: Case, state: Int) {
-        Toast.makeText(requireContext(), "Found Selected For ${case.name}", Toast.LENGTH_SHORT).show()
+        closeCaseDialog("هل تريد اغلاق القضية ؟","سيتم إغلاق القضية بنائا على طلبك",case.id.toString())
+//        apiCall(case.id.toString())
+//        Toast.makeText(requireContext(), "Found Selected For ${case.name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDeleteSelected(position: Int, case: Case, state: Int) {
-        Toast.makeText(requireContext(), "Delete Selected For ${case.name}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "Delete Selected For ${case.name}", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupListeners() {

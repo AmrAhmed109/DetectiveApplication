@@ -15,6 +15,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="100dp"
+        app:strokeColor="@color/purple_200"
+        app:strokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -47,8 +49,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/din_next_arabic_regular"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -64,8 +66,8 @@
         android:layout_marginStart="16dp"
         android:textAlignment="viewEnd"
         android:textColor="@color/black"
-        android:textSize="12sp"
         android:textDirection="ltr"
+        android:fontFamily="@font/din_next_arabic_regular"
         app:layout_constraintEnd_toEndOf="@+id/tv_description"
         app:layout_constraintStart_toEndOf="@+id/materialCardView4"
         app:layout_constraintTop_toBottomOf="@+id/tv_description"

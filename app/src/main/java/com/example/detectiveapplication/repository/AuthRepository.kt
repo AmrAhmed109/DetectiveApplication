@@ -1,6 +1,7 @@
 package com.example.detectiveapplication.repository
 
 import com.example.detectiveapplication.dto.caseDetails.CaseDetailsResponse
+import com.example.detectiveapplication.dto.cases.CloseCaseResponse
 import com.example.detectiveapplication.dto.createKid.CreateFoundKidResponse
 import com.example.detectiveapplication.dto.createKid.CreateKidnappedResponse
 import com.example.detectiveapplication.dto.edit_profile.EditProfileResponse
@@ -55,7 +56,15 @@ class AuthRepository @Inject constructor(private val authApi: UserService) {
     }
 
     suspend fun notificationRead(token: String,id: String): Response<NotificationReadResponse> {
-        return authApi.notificationRead(token,id)
+        val map = HashMap<String, String>()
+        map["id"] = id
+        return authApi.notificationRead(token,map)
+    }
+
+    suspend fun closeCase(token:String,id:String): Response<CloseCaseResponse> {
+        val map = HashMap<String, String>()
+        map["kidnap_status"] = "closed"
+        return authApi.closeCase(token,map,id)
     }
 
     suspend fun getFollowedCases(token: String): Response<List<FollowedCasesItem>> {

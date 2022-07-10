@@ -49,7 +49,9 @@ class WatingCasesAdapter(private val interaction: Interaction? = null) :
             binding.tvCapital.text = item.city
             binding.tvCity.text = item.subCity
 //            binding.textView7 =
-            binding.ivMissingChild.load(item.image)
+            binding.ivMissingChild.load(item.image){
+                crossfade(1000)
+            }
             binding.container.setOnClickListener {
                 interaction?.onItemSelected(position,item ,0)
             }
