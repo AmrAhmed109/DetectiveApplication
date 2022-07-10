@@ -106,7 +106,6 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.selectedCapital.observe(viewLifecycleOwner) {
-            setupCapitalsUI()
         }
     }
 
