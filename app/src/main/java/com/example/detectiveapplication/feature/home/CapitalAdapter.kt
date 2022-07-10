@@ -1,6 +1,8 @@
 package com.example.detectiveapplication.feature.home
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.detectiveapplication.databinding.CardViewCapitalBinding
@@ -9,9 +11,15 @@ import com.example.detectiveapplication.feature.home.utils.Capital
 
 class CapitalAdapter(
     private val capitalList: List<Capital>,
-    val checkedCapital: Capital,
+    private var selectedCapitalPosition: Int,
     private val onItemClicked: (Capital) -> Unit,
 ) : RecyclerView.Adapter<CapitalAdapter.CapitalViewHolder>() {
+
+    val viewHolders = hashMapOf<Int, CapitalViewHolder>()
+
+    companion object {
+        private const val TAG = "CapitalAdapter"
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,6 +34,7 @@ class CapitalAdapter(
     }
 
     override fun onBindViewHolder(holder: CapitalViewHolder, position: Int) {
+        viewHolders[position] = holder
         holder.updateUI(capitalList[position])
     }
 
@@ -33,17 +42,28 @@ class CapitalAdapter(
         return capitalList.size
     }
 
+    fun setSelectedCapital(capital: Capital) {
+        selectedCapitalPosition = capitalList.indexOf(capital)
+    }
+
     inner class CapitalViewHolder(
-        private val binding: CardViewCapitalBinding
+        val binding: CardViewCapitalBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun updateUI(capital: Capital) {
-            binding.chipCapital.isChecked = capital.capitalName == checkedCapital.capitalName
-            binding.chipCapital.text = capital.capitalName
-
-            binding.chipCapital.setOnCheckedChangeListener { compoundButton, b ->
-                onItemClicked(capital)
+        init {
+            binding.chipCapital.setOnClickListener {
+                Log.d(TAG, "onBindViewHolder: ")
+                selectedCapitalPosition = layoutPosition
+                viewHolders.forEach {
+                    it.value.updateUI(capitalList[it.key])
+                }
+                onItemClicked(capitalList[layoutPosition])
             }
+        }
+
+        fun updateUI(capital: Capital) {
+            binding.chipCapital.isChecked = layoutPosition == selectedCapitalPosition
+            binding.chipCapital.text = capital.capitalName
         }
     }
 }
