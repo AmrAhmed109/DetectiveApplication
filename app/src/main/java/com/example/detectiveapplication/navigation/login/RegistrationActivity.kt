@@ -34,7 +34,11 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
+        settingViewModel.saveLanguage()
+        settingViewModel.language.observe(this) {
+            setLocate(it)
+        }
         val sharedPref = this.getSharedPreferences("shared", Context.MODE_PRIVATE)
         val editor =sharedPref?.edit()
         editor?.apply {
@@ -48,7 +52,6 @@ class RegistrationActivity : AppCompatActivity() {
         supportActionBar?.hide()
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
-        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
         Log.v("tokenCheck",settingViewModel.getToken())
         if (settingViewModel.getToken().length > 5){
 //            Splashy.hide()

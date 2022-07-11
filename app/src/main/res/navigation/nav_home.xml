@@ -121,6 +121,9 @@
             app:destination="@id/casesFragment"
             app:popUpTo="@id/createStrangerCaseFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_createStrangerCaseFragment_to_watingCasesFragment"
+            app:destination="@id/watingCasesFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

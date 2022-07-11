@@ -3,35 +3,54 @@ package com.example.detectiveapplication.feature.home.utils
 sealed class Capital(val capitalName: String) {
     object All : Capital("الكل")
     object Cairo : Capital("القاهرة")
-    object BeniSuef : Capital("بنى سويف")
-    object Alexandria : Capital("اسكندرية")
-    object Giza : Capital("جيزة")
-    object Qalyubia : Capital("قليوبية")
-    object Gharbia : Capital("غربية")
-    object Dakahlia : Capital("دقهلية")
-    object Asyut : Capital("اسيوط")
-    object Fayoum : Capital("فيوم")
-    object Sharqia : Capital("شرقية")
-    object Ismailia : Capital("اسماعلية")
-    object Aswan : Capital("اسوان")
+    object BeniSuef : Capital("بني سويف")
+    object Giza : Capital("الجيزة")
+    object Qalyubia : Capital("القليوبية")
+    object Alexandria : Capital("الإسكندرية")
     object Beheira : Capital("البحيرة")
+    object Matruh : Capital("مطروح")
+    object Damietta : Capital("دمياط")
+    object Dakahlia : Capital("الدقهلية")
+    object KafrEl_Sheikh : Capital("كفر الشيخ")
+    object Gharbia : Capital("الغربية")
+    object Sharqia : Capital("الشرقية")
+    object PortSaid : Capital("بورسعيد")
+    object Ismailia : Capital("الإسماعيلية")
+    object Suez : Capital("السويس")
+    object Fayoum : Capital("الفيوم")
+    object Minya : Capital("المنيا")
+    object Asyut : Capital("أسيوط")
+    object New_Valley : Capital("الوادي الجديد")
+    object Sohag : Capital("سوهاج")
+    object Qena : Capital("قنا")
+    object Luxor : Capital("الأقصر")
+    object Aswan : Capital("أسوان")
 }
 
 val capitalList = listOf(
     Capital.All,
     Capital.Cairo,
     Capital.BeniSuef,
-    Capital.Alexandria,
     Capital.Giza,
     Capital.Qalyubia,
-    Capital.Gharbia,
+    Capital.Alexandria,
+    Capital.Beheira,
+    Capital.Matruh,
+    Capital.Damietta,
     Capital.Dakahlia,
-    Capital.Asyut,
-    Capital.Fayoum,
+    Capital.KafrEl_Sheikh,
+    Capital.Gharbia,
     Capital.Sharqia,
+    Capital.PortSaid,
     Capital.Ismailia,
-    Capital.Aswan,
-    Capital.Beheira
+    Capital.Suez,
+    Capital.Fayoum,
+    Capital.Minya,
+    Capital.Asyut,
+    Capital.New_Valley,
+    Capital.Sohag,
+    Capital.Luxor,
+    Capital.Aswan
 )
 
 object CapitalUtils {

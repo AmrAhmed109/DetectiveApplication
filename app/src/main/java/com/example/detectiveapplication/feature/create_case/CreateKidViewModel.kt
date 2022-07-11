@@ -169,8 +169,11 @@ class CreateKidViewModel @Inject constructor(
                         return NetworkResult.Error(response.body()!!.error.parentOtherInfo.first())
                     } else if (response.body()?.error?.birth_image!!.isNotEmpty()) {
                         return NetworkResult.Error(response.body()!!.error.birth_image.first())
+                    }else if (response.body()?.error?.parent_image != null) {
+                        return NetworkResult.Error(response.body()!!.error.parent_image.first())
+                    }else if (response.body()?.error?.id_number != null) {
+                        return NetworkResult.Error(response.body()!!.error.id_number.first())
                     }
-                    return NetworkResult.Error(response.body()!!.message)
                 }else if (response.body()?.message!! == "error-face-not-found-or-many-faces") {
                     return NetworkResult.Error("يرجى التأكد من الصورة الختارة للشخص")
                 }

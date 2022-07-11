@@ -27,9 +27,13 @@ class SettingViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     var userInfoResponse: MutableLiveData<NetworkResult<UserProfileInfo>> = MutableLiveData()
     var logoutResponse: MutableLiveData<NetworkResult<UserLogoutResponse>> = MutableLiveData()
+    var language: MutableLiveData<String> = MutableLiveData()
+    fun saveLanguage(){
+        language.value = "ar"
+    }
     private val tag = "RegistrationViewModel"
-
     fun saveToken(token: String) = viewModelScope.launch(Dispatchers.IO) {
+
         dataStoreRepository.saveToken(token)
     }
     fun getToken():String{

@@ -2,10 +2,16 @@ package com.example.detectiveapplication.feature.create_case
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +32,8 @@ import com.example.detectiveapplication.databinding.FragmentCreateStrangerCaseBi
 import com.example.detectiveapplication.utils.City
 import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
+import com.example.detectiveapplication.utils.Constants.Companion.tryBody
+import com.example.detectiveapplication.utils.FileUtil
 import com.example.detectiveapplication.utils.NetworkResult
 import com.maxkeppeler.sheets.calendar.CalendarSheet
 import com.maxkeppeler.sheets.calendar.SelectionMode
@@ -34,6 +42,9 @@ import com.nguyenhoanglam.imagepicker.model.GridCount
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.model.RootDirectory
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 import java.util.regex.Pattern
 
@@ -59,6 +70,51 @@ class CreateStrangerCaseFragment : Fragment() {
             mainImage = images.first().uri
             binding.ivMain.load(mainImage)
         }
+    }
+    fun getImageFromUri(imageUri: Uri?, context: Context): Bitmap? {
+        imageUri?.let {
+            return if (Build.VERSION.SDK_INT < 28) {
+                MediaStore
+                    .Images
+                    .Media
+                    .getBitmap(context.contentResolver, imageUri)
+            } else {
+                val source = ImageDecoder
+                    .createSource(context.contentResolver, imageUri)
+                ImageDecoder.decodeBitmap(source)
+            }
+        }
+        return null
+    }
+    fun prepareBitmap(uri: Uri):File{
+        val fullSizeBitmap = getImageFromUri(uri,requireContext())
+        val reduceBitmap = FileUtil.reduceBitmapSize(fullSizeBitmap,307200)
+        val file = getBitmapFile(reduceBitmap)
+        return file
+    }    fun convertBitmapToFile(bitmap: Bitmap): java.io.File {
+        val file = java.io.File.createTempFile("image", ".jpg")
+        val outputStream: java.io.OutputStream =
+            java.io.BufferedOutputStream(java.io.FileOutputStream(file))
+        bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 30, outputStream)
+        outputStream.close()
+        return file
+    }
+    fun getBitmapFile(bitmap: Bitmap):File{
+        val file = java.io.File.createTempFile("image", ".jpg")
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos)
+        val bitmapData = bos.toByteArray()
+        try {
+            file.createNewFile()
+            val fos = file.outputStream()
+            fos.write(bitmapData)
+            fos.flush()
+            fos.close()
+            return file
+        }catch (e:Exception){
+            Log.d("CreateParentCaseFragment", "getBitmapFile: $e")
+        }
+        return file
     }
 
     override fun onCreateView(
@@ -112,7 +168,7 @@ class CreateStrangerCaseFragment : Fragment() {
         if (mainImage != null){
             createStrangerCaseViewModel.createFoundKid(
                 name = binding.etName.text.toString(),
-                image = imageBody(requireContext(),mainImage!!,"image"),
+                image = tryBody(prepareBitmap(mainImage!!), "image"),
                 other_info = binding.etDescription.text.toString(),
                 city = binding.etCityAutoCompleteTextView.text.toString(),
                 sub_city = binding.etSubCityAutoCompleteTextView.text.toString(),
@@ -130,11 +186,9 @@ class CreateStrangerCaseFragment : Fragment() {
                     is NetworkResult.Success -> {
                         hideLoader()
 //                        log("Success")
-                        response.data?.let {
-                            toast(it.message)
-                        }
+
+                        findNavController().navigate(R.id.action_createStrangerCaseFragment_to_watingCasesFragment)
                         missingInputDialog("تم إنشاء القضية بنجاح" , "انتظر حتى يتم مراجعة قضيتك والموافقة عليها")
-                        findNavController().navigate(R.id.action_createParentCaseFragment_to_watingCasesFragment)
                     }
                     is NetworkResult.Loading -> {
                         showLoader()

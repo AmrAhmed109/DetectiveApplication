@@ -15,6 +15,7 @@ data class CreateKidnappedResponse(
     @SerializedName("error")
     val error: Error,
 )
+
 data class KidsData(
     @SerializedName("age")
     val age: String,
@@ -66,6 +67,10 @@ data class Error(
     @SerializedName("sub_city")
     val subCity: List<String>,
     @SerializedName("birth_image")
-    val birth_image: List<String>
+    val birth_image: List<String>,
+    @SerializedName("parent_image")
+    val parent_image: List<String>,
+    @SerializedName("id_number")
+    val id_number: List<String>
 
 )

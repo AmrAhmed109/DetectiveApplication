@@ -9,8 +9,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -32,7 +34,9 @@ import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentFaceDetectionBinding
 import com.example.detectiveapplication.dto.recognition.RecognitionData
+import com.example.detectiveapplication.utils.Constants
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
+import com.example.detectiveapplication.utils.FileUtil
 import com.example.detectiveapplication.utils.NetworkResult
 import com.google.android.material.snackbar.Snackbar
 import com.maxkeppeler.sheets.info.InfoSheet
@@ -56,7 +60,7 @@ class FaceDetectionFragment : Fragment() {
 
     companion object {
         var PERMISSIONS = arrayOf(
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
         )
     }
     fun showLoader(){
@@ -88,7 +92,8 @@ class FaceDetectionFragment : Fragment() {
         }
 
     fun apiCall(image: Uri) {
-        faceDetectionModel.recognize(image = imageBody(requireContext(), image!!, "image"))
+//        faceDetectionModel.recognize(image = imageBody(requireContext(), image!!, "image"))
+        faceDetectionModel.recognize(image = Constants.tryBody(prepareBitmap(image), "image"))
         faceDetectionModel.recognitionResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
@@ -209,16 +214,7 @@ class FaceDetectionFragment : Fragment() {
         }
     }
 
-    private suspend fun compressedImageFile(uri: Uri): Uri {
-        val compressedImageFile = Compressor.compress(requireContext(), File(uri.toString())) {
-            resolution(1280, 1280)
-            quality(80)
-            format(Bitmap.CompressFormat.PNG)
-            size(2_097_152/2) // 2 MB
-        }
 
-        return compressedImageFile.toUri()
-    }
 
 
     fun getImageUri(inImage: Bitmap): Uri {
@@ -244,6 +240,51 @@ class FaceDetectionFragment : Fragment() {
         log("onDestroy")
         _binding = null
 
+    }
+    fun getImageFromUri(imageUri: Uri?, context: Context): Bitmap? {
+        imageUri?.let {
+            return if (Build.VERSION.SDK_INT < 28) {
+                MediaStore
+                    .Images
+                    .Media
+                    .getBitmap(context.contentResolver, imageUri)
+            } else {
+                val source = ImageDecoder
+                    .createSource(context.contentResolver, imageUri)
+                ImageDecoder.decodeBitmap(source)
+            }
+        }
+        return null
+    }
+    fun prepareBitmap(uri: Uri):File{
+        val fullSizeBitmap = getImageFromUri(uri,requireContext())
+        val reduceBitmap = FileUtil.reduceBitmapSize(fullSizeBitmap,307200)
+        val file = getBitmapFile(reduceBitmap)
+        return file
+    }    fun convertBitmapToFile(bitmap: Bitmap): java.io.File {
+        val file = java.io.File.createTempFile("image", ".jpg")
+        val outputStream: java.io.OutputStream =
+            java.io.BufferedOutputStream(java.io.FileOutputStream(file))
+        bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 30, outputStream)
+        outputStream.close()
+        return file
+    }
+    fun getBitmapFile(bitmap: Bitmap):File{
+        val file = java.io.File.createTempFile("image", ".jpg")
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos)
+        val bitmapData = bos.toByteArray()
+        try {
+            file.createNewFile()
+            val fos = file.outputStream()
+            fos.write(bitmapData)
+            fos.flush()
+            fos.close()
+            return file
+        }catch (e:Exception){
+            Log.d("CreateParentCaseFragment", "getBitmapFile: $e")
+        }
+        return file
     }
 
 }

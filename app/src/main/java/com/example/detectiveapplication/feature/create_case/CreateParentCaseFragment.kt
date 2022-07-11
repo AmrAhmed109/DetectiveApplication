@@ -11,10 +11,13 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
 import android.media.Image
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64.DEFAULT
 import android.util.Base64.encodeToString
@@ -44,9 +47,12 @@ import com.example.detectiveapplication.databinding.FragmentCreateParentCaseBind
 import com.example.detectiveapplication.feature.home.faceDetection.FaceDetectionFragment
 import com.example.detectiveapplication.feature.settings.SettingViewModel
 import com.example.detectiveapplication.utils.City
+import com.example.detectiveapplication.utils.Constants.Companion.aanotherImageBody
 import com.example.detectiveapplication.utils.Constants.Companion.anotherImageBody
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.Constants.Companion.listOfCites
+import com.example.detectiveapplication.utils.Constants.Companion.secondTryBody
+import com.example.detectiveapplication.utils.Constants.Companion.tryBody
 import com.example.detectiveapplication.utils.FileUtil
 import com.example.detectiveapplication.utils.NetworkResult
 import com.maxkeppeler.sheets.calendar.CalendarSheet
@@ -78,6 +84,7 @@ class CreateParentCaseFragment : Fragment() {
     var subCity: List<String> = listOf()
     lateinit var createKidViewModel: CreateKidViewModel
     private var mainImage: Uri? = null
+    private var mainImageFile: File? = null
     private var birthImage: Uri? = null
     private var parentImage: Uri? = null
     private lateinit var dialogLoader: Dialogloader
@@ -89,23 +96,32 @@ class CreateParentCaseFragment : Fragment() {
                 setImageURI(mainImage)
                 scaleType = ImageView.ScaleType.FIT_CENTER
             }
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                mainImage = compressedImageFile(images.first().uri)
-//            }
         }
+    }
+    fun prepareBitmap(uri: Uri):File{
+        val fullSizeBitmap = getImageFromUri(uri,requireContext())
+        val reduceBitmap = FileUtil.reduceBitmapSize(fullSizeBitmap,307200)
+        val file = getBitmapFile(reduceBitmap)
+        return file
     }
     private val birthDateLauncher = registerImagePicker { images ->
         // Selected images are ready to use
         if (images.isNotEmpty()) {
             birthImage = images.first().uri
-            binding.ivBirthDate.load(birthImage)
+            binding.ivBirthDate.apply {
+                load(birthImage)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+            }
         }
     }
     private val parentLauncher = registerImagePicker { images ->
         // Selected images are ready to use
         if (images.isNotEmpty()) {
             parentImage = images.first().uri
-            binding.ivParentImage.load(parentImage)
+            binding.ivParentImage.apply {
+                load(parentImage)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+            }
         }
     }
 
@@ -113,7 +129,52 @@ class CreateParentCaseFragment : Fragment() {
         super.onCreate(savedInstanceState)
         createKidViewModel = ViewModelProvider(requireActivity())[CreateKidViewModel::class.java]
     }
+    fun getImageFromUri(imageUri: Uri?, context: Context): Bitmap? {
+        imageUri?.let {
+            return if (Build.VERSION.SDK_INT < 28) {
+                MediaStore
+                    .Images
+                    .Media
+                    .getBitmap(context.contentResolver, imageUri)
+            } else {
+                val source = ImageDecoder
+                    .createSource(context.contentResolver, imageUri)
+                ImageDecoder.decodeBitmap(source)
+            }
+        }
+        return null
+    }
+    fun convertImagePathToBitmap(uri: Uri?): Bitmap? = BitmapFactory.decodeFile(uri?.path)
+    fun convertBitmapToFile(bitmap: Bitmap): java.io.File {
+        val file = java.io.File.createTempFile("image", ".jpg")
+        val outputStream: java.io.OutputStream =
+            java.io.BufferedOutputStream(java.io.FileOutputStream(file))
+        bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 30, outputStream)
+        outputStream.close()
+        return file
+    }
 
+    fun getBitmapFile(bitmap: Bitmap):File{
+        val file = java.io.File.createTempFile("image", ".jpg")
+
+//        val file = File("${Environment.DIRECTORY_DCIM}${File.separator}", "reduced_file")
+
+        val bos = ByteArrayOutputStream()
+//        file.createNewFile()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos)
+        val bitmapData = bos.toByteArray()
+        try {
+            file.createNewFile()
+            val fos = file.outputStream()
+            fos.write(bitmapData)
+            fos.flush()
+            fos.close()
+            return file
+        }catch (e:Exception){
+            Log.d("CreateParentCaseFragment", "getBitmapFile: $e")
+        }
+        return file
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -360,17 +421,18 @@ class CreateParentCaseFragment : Fragment() {
             birthImage != null ||
             parentImage != null
         ) {
+//            imageBody(requireContext(), mainImage!!, "image")
             val TAG = "imagePicker"
             Log.e(TAG, "mainImage : ${mainImage.toString()}")
             Log.e(TAG, "birthImage: ${birthImage.toString()}")
             createKidViewModel.createKidnappedKid(
                 name = binding.etName.text.toString(),
-                image = imageBody(requireContext(), mainImage!!, "image"),
+                image = tryBody(prepareBitmap(mainImage!!),"image"),
                 other_info = binding.etDescription.text.toString(),
-                birth_image = anotherImageBody(requireContext(), birthImage!!, "birth_image"),
+                birth_image = secondTryBody(prepareBitmap(birthImage!!), "birth_image"),
                 status = "not_found",
                 kid_national_id = binding.etKidNationalId.text.toString(),
-                city = binding.etName.text.toString(),
+                city = binding.etCityAutoCompleteTextView.text.toString(),
                 sub_city = binding.etSubCityAutoCompleteTextView.text.toString(),
                 parent_name = binding.etParentName.text.toString(),
                 parent_address = binding.etParentAddress.text.toString(),
@@ -379,7 +441,7 @@ class CreateParentCaseFragment : Fragment() {
                 parent_other_info = "هذة الحقل لا يتم الاستخدامة في المشروع التخرج",
                 kidnap_date = binding.etKidnappedDate.text.toString(),
                 age = binding.etAge.text.toString(),
-                parent_image = anotherImageBody(requireContext(), parentImage!!, "parent_image")
+                parent_image = aanotherImageBody(requireContext(), parentImage!!, "parent_image")
             )
             createKidViewModel.createKidnappedKidResponse.observe(viewLifecycleOwner) { response ->
 
@@ -442,21 +504,21 @@ class CreateParentCaseFragment : Fragment() {
     )
 
 
-    private suspend fun compressedImageFile(uri: Uri): Uri {
-        val compressedImageFile =
-            Compressor.compress(
-                requireContext(),
-                FileUtil.getFileFromUri(requireContext(), uri),
-                Dispatchers.IO
-            ) {
-                resolution(1280, 1280)
-                quality(80)
-                format(Bitmap.CompressFormat.PNG)
-                size(2_097_152 / 2) // 2 MB
-            }
-
-        return compressedImageFile.toUri()
-    }
+//    private suspend fun compressedImageFile(uri: Uri): Uri {
+//        val compressedImageFile =
+//            Compressor.compress(
+//                requireContext(),
+//                FileUtil.getFileFromUri(requireContext(), uri),
+//                Dispatchers.IO
+//            ) {
+//                resolution(1280, 1280)
+//                quality(80)
+//                format(Bitmap.CompressFormat.PNG)
+//                size(2_097_152 / 2) // 2 MB
+//            }
+//
+//        return compressedImageFile.toUri()
+//    }
     companion object {
         var PERMISSIONS = arrayOf(
             Manifest.permission.CAMERA
@@ -497,7 +559,7 @@ class CreateParentCaseFragment : Fragment() {
             val image = data?.data
             if (image != null) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    mainImage = compressedImageFile(image)
+//                    mainImage = compressedImageFile(image)
                     binding.ivMain.load(mainImage)
                 }
             }

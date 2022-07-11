@@ -2,9 +2,11 @@ package com.example.detectiveapplication.navigation.home
 
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.ActivityMainBinding
+import com.example.detectiveapplication.feature.settings.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -22,6 +25,7 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var settingViewModel: SettingViewModel
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setLocate("ar")
@@ -31,6 +35,11 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
+        settingViewModel.saveLanguage()
+        settingViewModel.language.observe(this) {
+            setLocate(it)
+        }
 
         val sharedPref = this.getSharedPreferences("shared", Context.MODE_PRIVATE)
         val editor =sharedPref?.edit()
@@ -73,6 +82,18 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         config.locale = locale
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
     }
+    
+//    private fun updateLanguage() {
+//        val locale = Locale.Builder().setLanguage(settingsViewModel.selected Language.value!!.key).build()
+//        Locale.setDefault(locale)
+//        val resources: Resources = this.resources
+//        val config: Configuration = resources.configuration
+//        config.setLocale(locale)
+//        config.setLayoutDirection(locale)
+//        resources.updateConfiguration(config, resources.displayMetrics)
+//        this.createConfigurationContext(config)
+//    }
+
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,

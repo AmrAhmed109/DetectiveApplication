@@ -49,7 +49,33 @@ class Constants {
                 requestFile
             )
         }
+        @SuppressLint("Recycle")
+        fun tryBody(file: File, key: String? = null): MultipartBody.Part {
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            return MultipartBody.Part.createFormData(
+                key!!,
+                file.absolutePath,
+                requestFile
+            )
+        }
 
+        fun secondTryBody(file: File, key: String? = null): MultipartBody.Part {
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            return MultipartBody.Part.createFormData(
+                key!!,
+                file.absolutePath,
+                requestFile
+            )
+        }
+
+        fun therdTryBody(file: File, key: String? = null): MultipartBody.Part {
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            return MultipartBody.Part.createFormData(
+                key!!,
+                file.absolutePath,
+                requestFile
+            )
+        }
         private fun compressImage(file: File) {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
@@ -81,6 +107,27 @@ class Constants {
 
         @SuppressLint("Recycle")
         fun anotherImageBody(mContext: Context, uri: Uri, key: String? = null): MultipartBody.Part {
+            val p: String
+            val cursor = mContext.contentResolver.query(uri, null, null, null, null)
+
+            p = if (cursor == null) {
+                uri.path.toString()
+            } else {
+                cursor.moveToFirst()
+                val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+                cursor.getString(idx)
+            }
+            val file = File(p)
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+            return MultipartBody.Part.createFormData(
+                key!!,
+                file.absolutePath,
+                requestFile
+            )
+        }
+
+        @SuppressLint("Recycle")
+        fun aanotherImageBody(mContext: Context, uri: Uri, key: String? = null): MultipartBody.Part {
             val p: String
             val cursor = mContext.contentResolver.query(uri, null, null, null, null)
 
