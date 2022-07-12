@@ -207,7 +207,7 @@ interface UserService {
      * code verify Parameter
      * code*
      * */
-    @POST("user/reset-password")
+    @POST("user/code-verifiy")
     @Headers("Content-Type: application/json")
     suspend fun userCodeCheck(
         @Body body: Map<String, String>

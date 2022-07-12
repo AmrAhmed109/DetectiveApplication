@@ -146,35 +146,44 @@ class CreateKidViewModel @Inject constructor(
             response.isSuccessful -> {
                 if (response.body()?.code == 404) {
                     return NetworkResult.Error(response.body()!!.message)
-                } else if (response.body()?.code == 422) {
-                    if (response.body()?.error?.name!!.isNotEmpty()) {
+                }
+                if (response.body()?.status == false) {
+                    Log.v(tag, "handleCreateKidnappedKidResponse: ${response.body()?.error?.id_number?.first()}")
+                    if (response.body()?.error?.id_number?.first()!!.isNotBlank()) {
+                        return NetworkResult.Error("الرقم القومي الخاص بالشخص مسجل بالفعل")
+                    }
+                    if (response.body()?.error?.parent_image?.first()!!.isNotBlank()) {
+                        return NetworkResult.Error("حدث خطأ في صورة البطاقة")
+                    }
+                    if (response.body()?.error?.name!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.name.first())
-                    } else if (response.body()?.error?.image!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.image!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.image.first())
-                    } else if (response.body()?.error?.otherInfo!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.otherInfo!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.otherInfo.first())
-                    } else if (response.body()?.error?.status!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.status!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.status.first())
-                    } else if (response.body()?.error?.city!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.city!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.city.first())
-                    } else if (response.body()?.error?.parentName!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.parentName!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parentName.first())
-                    } else if (response.body()?.error?.parentAddress!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.parentAddress!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parentAddress.first())
-                    } else if (response.body()?.error?.parentNationalId!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.parentNationalId!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parentNationalId.first())
-                    } else if (response.body()?.error?.parentPhoneNumber!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.parentPhoneNumber!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parentNationalId.first())
-                    } else if (response.body()?.error?.parentOtherInfo!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.parentOtherInfo!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parentOtherInfo.first())
-                    } else if (response.body()?.error?.birth_image!!.isNotEmpty()) {
+                    } else if (response.body()?.error?.birth_image!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.birth_image.first())
-                    }else if (response.body()?.error?.parent_image != null) {
+                    }else if (response.body()?.error?.parent_image!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.parent_image.first())
-                    }else if (response.body()?.error?.id_number != null) {
+                    }else if (response.body()?.error?.id_number!!.first().isNotBlank()) {
                         return NetworkResult.Error(response.body()!!.error.id_number.first())
                     }
-                }else if (response.body()?.message!! == "error-face-not-found-or-many-faces") {
+                }
+                if (response.body()?.message!! == "error-face-not-found-or-many-faces") {
                     return NetworkResult.Error("يرجى التأكد من الصورة الختارة للشخص")
                 }
                 val createKidnappedResponse = response.body()

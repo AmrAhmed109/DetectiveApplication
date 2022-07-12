@@ -103,6 +103,7 @@ class DetailsFragment : Fragment() {
                             binding.tvAgeMissingChild.setText(" ${it.data.age} " + "سنة ")
                             binding.tvDateMissingChild.setText(it.data.kidnapDate)
                             binding.tvCityMissingChildd.setText(it.data.city)
+                            binding.tvCityMissingChild.setText(it.data.subCity)
                             binding.tvDescriptionMissingChild.setText(it.data.otherInfo)
                             binding.tvParentName.setText(it.data.guardian.first().name)
                             binding.tvParentAddress.setText(it.data.guardian.first().address)
@@ -125,8 +126,7 @@ class DetailsFragment : Fragment() {
 
                 is NetworkResult.Loading -> {
                     showLoader()
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG)
-                        .show()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_LONG).show()
                 }
                 else -> {
                     Log.d(tage, "observeViewModel 5: ")
@@ -145,7 +145,7 @@ class DetailsFragment : Fragment() {
         when (status) {
             true -> {
                 binding.button.apply {
-                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
+                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_grey))
                     text = "إلغاء المتابعة"
                     setOnClickListener {
                         removeRequestApi(id)
@@ -157,7 +157,7 @@ class DetailsFragment : Fragment() {
             false -> {
                 binding.button.apply {
                     // kid is deleted state
-                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_grey))
+                    setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
                     text = "متابعة"
                     setOnClickListener {
                         addRequestApi(id)

@@ -7,16 +7,6 @@
     android:backgroundTint="@color/screen_background"
     tools:context=".feature.case_.DetailsFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView5"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:backgroundTint="@color/lighter_grey"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView3" />
-
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
@@ -25,7 +15,20 @@
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/dark_grey"
+            android:layout_gravity="left|center"
+            app:cornerRadius="100dp"
+            android:fontFamily="@font/din_next_arabic_black"
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/back"
@@ -61,6 +64,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/back"
         app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="@+id/back" />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -109,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/lighter_grey"
                 android:elevation="1dp"
                 app:cardCornerRadius="100dp"
@@ -137,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/lighter_grey"
                 android:elevation="1dp"
                 app:cardCornerRadius="100dp"
@@ -160,17 +166,36 @@
                     tools:text="اشمنت" />
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
-                android:id="@+id/button"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="1dp"
-                android:backgroundTint="@color/dark_grey"
-                android:fontFamily="@font/din_next_arabic_black"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_name_missing_child"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_name_missing_child" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/lighter_grey"
+                android:elevation="1dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_missing_child"
+                app:strokeColor="#E4E4EA">
+
+                <TextView
+                    android:id="@+id/tv_city_missing_child"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/din_next_arabic_medium"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:text="اشمنت" />
+            </com.google.android.material.card.MaterialCardView>
+
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView4"

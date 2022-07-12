@@ -2,6 +2,7 @@ package com.example.detectiveapplication.navigation.login
 
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -29,7 +30,14 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setLocate("ar")
+        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
+        settingViewModel.saveLanguage()
+        settingViewModel.language.observe(this) {
+            setLocate(it)
+        }
+        updateLanguage()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -40,28 +48,29 @@ class RegistrationActivity : AppCompatActivity() {
             setLocate(it)
         }
         val sharedPref = this.getSharedPreferences("shared", Context.MODE_PRIVATE)
-        val editor =sharedPref?.edit()
+        val editor = sharedPref?.edit()
         editor?.apply {
             val language = "ar"
-            putString("language",language)
+            putString("language", language)
             apply()
         }
-        val languageReturned = sharedPref?.getString("language","ar")
+        val languageReturned = sharedPref?.getString("language", "ar")
         setLocate(languageReturned!!)
-
+        updateLanguage()
         supportActionBar?.hide()
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_registration) as NavHostFragment
         val navController = navHostFragment.navController
-        Log.v("tokenCheck",settingViewModel.getToken())
-        if (settingViewModel.getToken().length > 5){
+        Log.v("tokenCheck", settingViewModel.getToken())
+        if (settingViewModel.getToken().length > 5) {
 //            Splashy.hide()
             navController.navigate(R.id.action_loginFragment_to_homeActivity)
             this.finish()
         }
     }
 
-    fun setSplashy(){
-        Splashy(this) 		 // For JAVA : new Splashy(this)
+    fun setSplashy() {
+        Splashy(this)         // For JAVA : new Splashy(this)
             .setLogo(R.drawable.splashy)
             .setTitle("Splashy")
             .setTitleColor("#FFFFFF")
@@ -79,5 +88,16 @@ class RegistrationActivity : AppCompatActivity() {
         val config = Configuration()
         config.locale = locale
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+    }
+
+    private fun updateLanguage() {
+        val locale = Locale.Builder().setLanguage(settingViewModel.language.value).build()
+        Locale.setDefault(locale)
+        val resources: Resources = this.resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        this.createConfigurationContext(config)
     }
 }

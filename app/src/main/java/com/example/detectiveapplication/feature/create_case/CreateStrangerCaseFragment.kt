@@ -240,7 +240,6 @@ class CreateStrangerCaseFragment : Fragment() {
             message = "الرجاء إدخال اكثر تفاصيل الحالة"
             isValid =  false
         }
-
         if (binding.etDescription.text.toString().isEmpty()) {
             binding.etDesriptionLayout.error = "الرجاء إدخل تفاصيل الحالة"
             message = "الرجاء إدخل تفاصيل الحالة"

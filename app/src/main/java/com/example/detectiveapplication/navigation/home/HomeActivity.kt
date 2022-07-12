@@ -29,6 +29,12 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setLocate("ar")
+        settingViewModel = ViewModelProvider(this)[SettingViewModel::class.java]
+        settingViewModel.saveLanguage()
+        settingViewModel.language.observe(this) {
+            setLocate(it)
+        }
+        updateLanguage()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +56,7 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
         val languageReturned = sharedPref?.getString("language","ar")
         setLocate(languageReturned!!)
-
+        updateLanguage()
 
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment
         val navController = navHostFragment.navController
@@ -83,16 +89,16 @@ class HomeActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
     }
     
-//    private fun updateLanguage() {
-//        val locale = Locale.Builder().setLanguage(settingsViewModel.selected Language.value!!.key).build()
-//        Locale.setDefault(locale)
-//        val resources: Resources = this.resources
-//        val config: Configuration = resources.configuration
-//        config.setLocale(locale)
-//        config.setLayoutDirection(locale)
-//        resources.updateConfiguration(config, resources.displayMetrics)
-//        this.createConfigurationContext(config)
-//    }
+    private fun updateLanguage() {
+        val locale = Locale.Builder().setLanguage(settingViewModel.language.value).build()
+        Locale.setDefault(locale)
+        val resources: Resources = this.resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        this.createConfigurationContext(config)
+    }
 
     override fun onDestinationChanged(
         controller: NavController,

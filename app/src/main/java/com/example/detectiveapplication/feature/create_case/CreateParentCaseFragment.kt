@@ -52,6 +52,7 @@ import com.example.detectiveapplication.utils.Constants.Companion.anotherImageBo
 import com.example.detectiveapplication.utils.Constants.Companion.imageBody
 import com.example.detectiveapplication.utils.Constants.Companion.listOfCites
 import com.example.detectiveapplication.utils.Constants.Companion.secondTryBody
+import com.example.detectiveapplication.utils.Constants.Companion.therdTryBody
 import com.example.detectiveapplication.utils.Constants.Companion.tryBody
 import com.example.detectiveapplication.utils.FileUtil
 import com.example.detectiveapplication.utils.NetworkResult
@@ -311,7 +312,7 @@ class CreateParentCaseFragment : Fragment() {
             message= "الرجاء إدخال الرقم القومي الخاص بالشخص"
             isValid = false
         }
-        if (!validateNationalId(binding.etKidNationalId.text.toString())) {
+        if (binding.etKidNationalId.text.toString().length != 14) {
             binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي صحيح"
             message = "الرجاء إدخال الرقم القومي صحيح"
             isValid =  false
@@ -336,11 +337,17 @@ class CreateParentCaseFragment : Fragment() {
             message= "الرجاء إدخل عمر الشخص"
             isValid = false
         }
+        if (binding.etAge.text.toString().length > 2) {
+            binding.etAgeInputLayout.error = "الرجاء إدخل عمر صحيح"
+            message= "الرجاء إدخل عمر صحيح"
+            isValid = false
+        }
         if (binding.etSubCityAutoCompleteTextView.text.isEmpty()) {
             binding.etSubCityInputLayout.error = "الرجاء إدخال المدينة"
             message= "الرجاء إدخال المدينة"
             isValid = false
         }
+
         if (binding.etCityAutoCompleteTextView.text.isEmpty()) {
             binding.etCityInputLayout.error = "الرجاء إدخال المحافظة"
             message= "الرجاء إدخال المحافظة"
@@ -366,7 +373,7 @@ class CreateParentCaseFragment : Fragment() {
             message= "الرجاء إدخال رقم هاتف ولي الامر"
             isValid = false
         }
-        if (!validateNationalId(binding.etParentID.text.toString())) {
+        if (binding.etParentID.text.toString().length != 14) {
             binding.etParentIDLayout.error = "الرجاء إدخال الرقم القومي صحيح"
             message = "الرجاء إدخال الرقم القومي صحيح"
             isValid =  false
@@ -441,8 +448,10 @@ class CreateParentCaseFragment : Fragment() {
                 parent_other_info = "هذة الحقل لا يتم الاستخدامة في المشروع التخرج",
                 kidnap_date = binding.etKidnappedDate.text.toString(),
                 age = binding.etAge.text.toString(),
-                parent_image = aanotherImageBody(requireContext(), parentImage!!, "parent_image")
+                parent_image = therdTryBody(prepareBitmap(parentImage!!), "parent_image")
             )
+//            parent_image = aanotherImageBody(requireContext(), parentImage!!, "parent_image")
+
             createKidViewModel.createKidnappedKidResponse.observe(viewLifecycleOwner) { response ->
 
                 when (response) {

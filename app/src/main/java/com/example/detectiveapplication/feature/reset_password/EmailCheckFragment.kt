@@ -1,5 +1,7 @@
 package com.example.detectiveapplication.feature.reset_password
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.detectiveapplication.Dialogloader
 import com.example.detectiveapplication.R
 import com.example.detectiveapplication.databinding.FragmentEmailCheckBinding
 import com.example.detectiveapplication.utils.NetworkResult
@@ -19,6 +22,7 @@ class EmailCheckFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var resetPasswordViewModel: ResetPasswordViewModel
     val tage = "EmailCheckFragment"
+    private lateinit var dialogLoader: Dialogloader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,8 @@ class EmailCheckFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentEmailCheckBinding.inflate(inflater, container, false)
+        dialogLoader = Dialogloader(requireContext())
+        dialogLoader.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
     }
 
@@ -47,7 +53,12 @@ class EmailCheckFragment : Fragment() {
         }
 
     }
-
+    fun showLoader(){
+        dialogLoader.show()
+    }
+    fun hideLoader(){
+        dialogLoader.hide()
+    }
     private fun checkCodeRequest(code: String): Map<String, String> {
         val map: HashMap<String, String> = HashMap()
         map["code"] = code
@@ -58,38 +69,30 @@ class EmailCheckFragment : Fragment() {
         Log.v(tage, "requestApiData called!")
 
         resetPasswordViewModel.codeCheck(checkCodeRequest(binding.etCheckCode.text.toString()))
-        resetPasswordViewModel.checkCodeResponse.observe(viewLifecycleOwner, { response ->
+        resetPasswordViewModel.checkCodeResponse.observe(viewLifecycleOwner) { response ->
 
             when (response) {
                 is NetworkResult.Success -> {
                     Log.v(tage, "findNavController")
+                    hideLoader()
                     response.data?.let {
                         val action = EmailCheckFragmentDirections.actionEmailCheckFragmentToCreateNewPasswordFragment(binding.etCheckCode.text.toString())
                         findNavController().navigate(action)
-                        Toast.makeText(
-                            requireContext(),
-                            response.data.message,
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
+                        Toast.makeText(requireContext(), response.data.message, Toast.LENGTH_LONG).show() }
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val action = EmailCheckFragmentDirections.actionEmailCheckFragmentToCreateNewPasswordFragment(binding.etCheckCode.text.toString())
-                    findNavController().navigate(action)
+                    hideLoader()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+//                    val action = EmailCheckFragmentDirections.actionEmailCheckFragmentToCreateNewPasswordFragment(binding.etCheckCode.text.toString())
+//                    findNavController().navigate(action)
                     Log.d(tage, "requestApiData: ${response.message.toString()}")
                 }
                 is NetworkResult.Loading -> {
-                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT)
-                        .show()
+                    showLoader()
+//                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     override fun onDestroy() {

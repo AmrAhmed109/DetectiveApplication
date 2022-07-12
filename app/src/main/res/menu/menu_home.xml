@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/homeFragment"
-        android:title="@string/home"
+        android:title="رئيسية"
+        android:fontFamily="@font/din_next_arabic_regular"
         android:icon="@drawable/ic_custom_home"/>
 
     <item
         android:id="@+id/followingFragment"
-        android:title="@string/following"
+        android:title="متابعون"
+        android:fontFamily="@font/din_next_arabic_regular"
         android:icon="@drawable/ic_custom_following"
         />
 
     <item
         android:id="@+id/faceDetectionFragment"
-        android:title="@string/search"
+        android:title="بحث"
         android:icon="@drawable/ic_face_id"/>
 
 
     <item
         android:id="@+id/casesFragment"
-        android:title="@string/cases"
+        android:title="قضايا"
         android:icon="@drawable/ic_custom_cases"/>
 
 
     <item
         android:id="@+id/settingFragment"
-        android:title="@string/setting"
+        android:title="إعدادات"
         android:icon="@drawable/ic_custom_profile"/>
 
 

@@ -9,5 +9,8 @@ data class CodeVerificationResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("status")
-    val status: Boolean
+    val status: Boolean,
+    @SerializedName("error")
+    val error: List<String>
 )
+
