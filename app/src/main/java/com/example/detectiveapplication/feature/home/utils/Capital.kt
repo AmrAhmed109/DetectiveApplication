@@ -49,6 +49,7 @@ val capitalList = listOf(
     Capital.Asyut,
     Capital.New_Valley,
     Capital.Sohag,
+    Capital.Qena,
     Capital.Luxor,
     Capital.Aswan
 )
