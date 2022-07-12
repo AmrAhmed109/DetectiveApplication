@@ -2,7 +2,6 @@ package com.example.detectiveapplication.feature.home
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.detectiveapplication.databinding.CardViewCapitalBinding
@@ -35,7 +34,8 @@ class CapitalAdapter(
 
     override fun onBindViewHolder(holder: CapitalViewHolder, position: Int) {
         viewHolders[position] = holder
-        holder.updateUI(capitalList[position])
+        holder.bind(position)
+        holder.updateUI()
     }
 
     override fun getItemCount(): Int {
@@ -50,20 +50,23 @@ class CapitalAdapter(
         val binding: CardViewCapitalBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        fun bind(postion: Int) {
+            binding.chipCapital.text = capitalList[postion].capitalName
+        }
         init {
             binding.chipCapital.setOnClickListener {
                 Log.d(TAG, "onBindViewHolder: ")
                 selectedCapitalPosition = layoutPosition
                 viewHolders.forEach {
-                    it.value.updateUI(capitalList[it.key])
+                    it.value.updateUI()
                 }
                 onItemClicked(capitalList[layoutPosition])
             }
         }
 
-        fun updateUI(capital: Capital) {
+        fun updateUI() {
             binding.chipCapital.isChecked = layoutPosition == selectedCapitalPosition
-            binding.chipCapital.text = capital.capitalName
+//            binding.chipCapital.text = capital.capitalName
         }
     }
 }

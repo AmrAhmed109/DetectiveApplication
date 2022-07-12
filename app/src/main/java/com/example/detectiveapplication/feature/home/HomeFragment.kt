@@ -49,11 +49,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
+            setupListeners()
+            setupObservers()
+            setupCapitalsUI()
+
             lifecycleScope.launch {
                 homeViewModel.getFeedCases()
-            }
-            homeViewModel.cases.observe(viewLifecycleOwner) {
-                updateUI(it)
             }
             binding.swipeRefreshLayout.isRefreshing = false
         }
